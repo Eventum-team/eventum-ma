@@ -16,26 +16,27 @@
                 android:layout_height="match_parent"
 
                 android:orientation="vertical">
+
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="191dp">
+
                     <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="200sp"
-                        android:src="@drawable/signup_block2"
-                        android:scaleType="centerCrop"/>
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/signup_block3" />
 
                     <TextView
                         android:id="@+id/tvItemScheduleTituloConferencia"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Crea una cuenta!"
-                        android:textSize="25sp"
-                        android:textColor="#FFFFFF"
-                        android:textStyle="bold"
+                        android:layout_centerInParent="true"
                         android:layout_margin="20dp"
                         android:gravity="center_horizontal"
-                        android:layout_centerInParent="true"/>
+                        android:text="Crea una cuenta!"
+                        android:textColor="#FFFFFF"
+                        android:textSize="25sp"
+                        android:textStyle="bold" />
                 </RelativeLayout>
                 <LinearLayout
                     android:orientation="vertical"
