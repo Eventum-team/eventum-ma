@@ -1,0 +1,2 @@
+rootProject.name='Eventum'
+include ':app'
