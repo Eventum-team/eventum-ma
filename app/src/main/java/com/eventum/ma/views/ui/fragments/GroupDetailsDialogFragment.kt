@@ -1,4 +1,4 @@
-package com.eventum.ma.views.fragments
+package com.eventum.ma.views.ui.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

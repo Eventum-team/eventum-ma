@@ -1,123 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout android:layout_width="match_parent"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".views.ui.fragments.EventListFragment"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <com.google.android.material.appbar.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <Toolbar
-            android:id="@+id/toolbarConference"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-    </com.google.android.material.appbar.AppBarLayout>
-    <FrameLayout
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
-        <ScrollView
+        tools:context=".view.ui.fragments.SpeakersFragment">
+
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:fitsSystemWindows="true"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <LinearLayout
+
+            <com.google.android.material.appbar.AppBarLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp">
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/detail_block"
-                        android:scaleType="centerCrop"/>
-                    <View
+                android:layout_height="200dp"
+                android:fitsSystemWindows="true"
+                app:liftOnScroll="true">
+
+                <com.google.android.material.appbar.CollapsingToolbarLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@color/colorPrimaryDark"
-                    android:alpha="0.4"/>
-                    <LinearLayout
+                    app:expandedTitleMarginStart="72dp"
+                    app:expandedTitleMarginBottom="28dp"
+                    app:expandedTitleTextAppearance="@style/TextAppearance.App.CollapsingToolbar.Expanded"
+                    app:collapsedTitleTextAppearance="@style/TextAppearance.App.CollapsingToolbar.Collapsed"
+                    android:fitsSystemWindows="true"
+                    app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
+                    app:contentScrim="?attr/colorPrimary"
+                    app:statusBarScrim="?attr/colorPrimaryVariant">
+
+                    <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="vertical">
-                        <TextView
-                            android:id="@+id/tvItemScheduleTituloConferencia"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Nombre Evento de Prueba "
-                            android:textSize="25sp"
-                            android:textColor="#FFFFFF"
-                            android:textStyle="bold"
-                            android:layout_marginTop="50dp"
-                            android:gravity="center"
-                            android:layout_centerInParent="true"/>
-                        <TextView
-                            android:id="@+id/tvDetailEvent"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Detalle de la conferencia"
-                            android:textSize="15sp"
-                            android:textColor="@color/white"
-                            android:gravity="center_horizontal"
-/>
-                    </LinearLayout>
-                </RelativeLayout>
+                        android:src="@drawable/event_block"
+                        android:scaleType="centerCrop"
+                        android:fitsSystemWindows="true"
+                        android:contentDescription="description image"                    />
 
-                <androidx.cardview.widget.CardView
+                    <com.google.android.material.appbar.MaterialToolbar
+                        android:id="@+id/topAppBar"
+                        app:layout_collapseMode="pin"
+                        android:background="@android:color/transparent"
+                        app:layout_scrollFlags="scroll|enterAlways|snap"
+                        android:layout_width="match_parent"
+                        android:layout_height="?attr/actionBarSize"
+                        app:title="Eventos"
+                        app:menu="@menu/top_app_bar"
+                        app:navigationIcon="@drawable/ic_search"
+                        android:elevation="0dp"
+                        style="@style/AppBar"                    />
+                </com.google.android.material.appbar.CollapsingToolbarLayout>
+            </com.google.android.material.appbar.AppBarLayout>
+
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+                <ScrollView
+                    android:scrollbars="none"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:cardCornerRadius="4dp"
-                    app:cardElevation="1dp"
-                    android:layout_margin="15dp">
+                    android:layout_height="wrap_content">
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:padding="10dp"
-                        android:background="@drawable/shape_parrafo">
-                        <TextViewshape_parrafo.xml
-                            android:id="@+id/tvDetailConferenceHour"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="00:00"
-                            android:textSize="15sp"
-                            android:textColor="@color/colorPrimary"
-                            android:gravity="center_horizontal"
-                            android:layout_margin="5dp"/>
-                        <TextView
-                            android:id="@+id/tvDetailConferenceSpeaker"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Nombre Expositor"
-                            android:textSize="25sp"
-                            android:textStyle="bold"
-                            android:textColor="@color/colorPrimary"
-                            android:gravity="center_horizontal"
-                            android:layout_margin="5dp"/>
-                        <TextView
-                            android:id="@+id/tvDetailConferenceTag"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Tag"
-                            android:layout_gravity="center_horizontal"
-                            android:textSize="12sp"
-                            android:textColor="#FFF"
-                            android:gravity="center_horizontal"
-                            android:layout_margin="5dp"
-                            android:background="@drawable/shape_topico"/>
+                        android:orientation="vertical">
 
-                        <TextView
-                            android:id="@+id/tvDetailConferenceDescription"
+
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rvEvents"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Detalle de la conferencia"
-                            android:textSize="15sp"
-                            android:textColor="@color/colorPrimary"
-                            android:gravity="center_horizontal"
-                            android:layout_margin="5dp"/>
+                            android:layout_height="match_parent"/>
+
+                        <RelativeLayout
+                            android:id="@+id/rlBase"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@color/colorPrimary"
+                                android:alpha="0.4"/>
+                            <ProgressBar
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"/>
+                        </RelativeLayout>
+
                     </LinearLayout>
-                </androidx.cardview.widget.CardView>
+                </ScrollView>
 
-            </LinearLayout>
-        </ScrollView>
+            </androidx.core.widget.NestedScrollView>
+
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+
     </FrameLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

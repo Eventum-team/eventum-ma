@@ -4,19 +4,19 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_eventum"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".views.activities.SignUpActivity" >
+        <activity android:name="com.eventum.ma.views.ui.activities.SignUpActivity" >
 
         </activity>
-        <activity android:name=".views.activities.SignInActivity" >
+        <activity android:name="com.eventum.ma.views.ui.activities.SignInActivity" >
 
         </activity>
-        <activity android:name=".views.activities.StartActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name="com.eventum.ma.views.ui.activities.StartActivity" />
+        <activity android:name="com.eventum.ma.views.ui.activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
