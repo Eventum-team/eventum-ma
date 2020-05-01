@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navHomeFragment"
+        android:title="Inicio"
+        android:icon="@drawable/ic_home"/>
+    <item
+        android:id="@+id/navGroupsFragment"
+        android:title="Grupos"
+        android:icon="@drawable/groups"/>
+    <item
+        android:id="@+id/navEventsFragment"
+        android:title="Eventos"
+        android:icon="@drawable/events"/>
+    <item
+        android:id="@+id/navProfileFragment"
+        android:title="Perfil"
+        android:icon="@drawable/profile"/>
+</menu>

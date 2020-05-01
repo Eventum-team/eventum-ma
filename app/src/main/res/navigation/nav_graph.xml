@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@+id/navHomeFragment"
+    android:id="@+id/nav_graph">
+
+    <fragment
+        android:id="@+id/navHomeFragment"
+        android:name="com.eventum.ma.views.ui.fragments.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_eventListFragment"
+            app:destination="@id/navGroupsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/navGroupsFragment"
+        android:name="com.eventum.ma.views.ui.fragments.GroupListFragment"
+        android:label="fragment_group_list"
+        tools:layout="@layout/fragment_group_list" >
+        <action
+            android:id="@+id/action_groupListFragment_to_groupListFragment"
+            app:destination="@id/navEventsFragment" />
+        <action
+            android:id="@+id/action_navGroupsFragment_to_groupDetailsDialogFragment"
+            app:destination="@id/groupDetailsDialogFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/navEventsFragment"
+        android:name="com.eventum.ma.views.ui.fragments.EventListFragment"
+        android:label="fragment_event_list"
+        tools:layout="@layout/fragment_event_list" >
+        <action
+            android:id="@+id/action_eventListFragment_to_userProfileFragment"
+            app:destination="@id/navProfileFragment" />
+        <action
+            android:id="@+id/action_navEventsFragment_to_eventDetailsDialogFragment"
+            app:destination="@id/eventDetailsDialogFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/navProfileFragment"
+        android:name="com.eventum.ma.views.ui.fragments.UserProfileFragment"
+        android:label="fragment_user_profile"
+        tools:layout="@layout/fragment_user_profile" />
+    <dialog
+        android:id="@+id/eventDetailsDialogFragment"
+        android:name="com.eventum.ma.views.ui.fragments.EventDetailsDialogFragment"
+        android:label="fragment_event_details_dialog"
+        tools:layout="@layout/fragment_event_details_dialog" />
+    <dialog
+        android:id="@+id/groupDetailsDialogFragment"
+        android:name="com.eventum.ma.views.ui.fragments.GroupDetailsDialogFragment"
+        android:label="fragment_group_details_dialog"
+        tools:layout="@layout/fragment_group_details_dialog" />
+</navigation>
+
