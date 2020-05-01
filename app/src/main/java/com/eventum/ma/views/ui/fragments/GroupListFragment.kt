@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.eventum.ma.R
 import com.eventum.ma.models.models.GroupModel
 import com.eventum.ma.presenters.GroupsPresenter
-import com.eventum.ma.views.adapters.GroupAdapter
+import com.eventum.ma.views.adapters.GroupItemAdapter
 import com.eventum.ma.views.listeners.GroupListener
 import com.eventum.ma.views.views.GroupsViewInt
 import kotlinx.android.synthetic.main.fragment_group_list.*
@@ -22,7 +22,7 @@ class GroupListFragment : Fragment(),
     GroupListener, GroupsViewInt {
 
     private var groupsPresenter: GroupsPresenter? = null
-    private lateinit var groupAdapter: GroupAdapter
+    private lateinit var groupAdapter: GroupItemAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,7 +34,7 @@ class GroupListFragment : Fragment(),
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        groupAdapter = GroupAdapter(this)
+        groupAdapter = GroupItemAdapter(this)
         groupsPresenter = GroupsPresenter(this)
 
         rvGroups.apply {

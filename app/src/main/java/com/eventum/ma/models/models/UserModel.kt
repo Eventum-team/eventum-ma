@@ -9,6 +9,6 @@ class UserModel: Serializable {
     lateinit var email: String
     lateinit var password: String
     lateinit var age: String
-    lateinit var career: Date
+    lateinit var career: String
     lateinit var status: String
 }

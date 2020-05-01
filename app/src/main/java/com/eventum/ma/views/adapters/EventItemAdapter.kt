@@ -8,24 +8,24 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.eventum.ma.R
-import com.eventum.ma.models.models.GroupModel
-import com.eventum.ma.views.listeners.GroupListener
+import com.eventum.ma.models.models.EventModel
+import com.eventum.ma.views.listeners.EventListener
 
-class EventAdapter(private val eventListener: GroupListener) : RecyclerView.Adapter<EventAdapter.ViewHolder>() {
+class EventItemAdapter(private val eventListener: EventListener) : RecyclerView.Adapter<EventItemAdapter.ViewHolder>() {
 
-    private var groupList = ArrayList<GroupModel>()
+    private var eventList = ArrayList<EventModel>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(
         LayoutInflater.from(parent.context).inflate(
-            R.layout.group_item, parent, false))
+            R.layout.item_group, parent, false))
 
-    override fun getItemCount() = groupList.size
+    override fun getItemCount() = eventList.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val event = groupList[position]
+        val event = eventList[position]
 
         holder.groupItemName.text = event.name
-        holder.groupItemOwner.text = event.type
+        holder.groupItemOwner.text = event.id_owner
         holder.groupItemDescription.text = event.description
 
         Glide.with(holder.itemView.context)
@@ -33,15 +33,17 @@ class EventAdapter(private val eventListener: GroupListener) : RecyclerView.Adap
             .into(holder.groupItemImage)
 
         holder.itemView.setOnClickListener {
-            eventListener.onConferenceClicked(event, position)
+            eventListener.onEventClicked(event, position)
         }
 
     }
 
     //el adaptador recibe los datos
-    fun updateData(data: List<GroupModel>) {
-        groupList.clear()
-        groupList.addAll(data)
+    fun updateData(data: ArrayList<EventModel>) {
+        eventList.clear()
+        if (data != null) {
+            eventList.addAll(data)
+        }
         notifyDataSetChanged()
     }
 

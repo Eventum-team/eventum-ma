@@ -2,12 +2,13 @@ package com.eventum.ma.models.repositories
 
 import com.eventum.ma.models.models.GroupModel
 import com.eventum.ma.presenters.GroupsPresenter
+import com.eventum.ma.presenters.presenters.GroupsPresenterInt
 
 
-class GroupsRepository(var groupsPresenter: GroupsPresenter ){
+class GroupsRepository(var groupsPresenter: GroupsPresenterInt){
 
     //Logica de graphql para consumir la API
-    fun getGroupsGraphQL(){
+    fun getGroups(){
         val g1 = GroupModel()
         g1.name = "grupazo 1"
         g1.description = "Gran descripcio 111111"
@@ -24,7 +25,7 @@ class GroupsRepository(var groupsPresenter: GroupsPresenter ){
         groupsPresenter.showGroups(groups)
     }
 
-    fun getGroupsByNameGraphQL(){
+    fun getGroupsByName(){
 
     }
 

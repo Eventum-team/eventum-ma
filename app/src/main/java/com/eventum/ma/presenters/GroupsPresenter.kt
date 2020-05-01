@@ -1,13 +1,13 @@
 package com.eventum.ma.presenters
 
-import com.eventum.ma.models.interactors.GroupsInteractor
 import com.eventum.ma.models.models.GroupModel
-import com.eventum.ma.presenters.presenters.GroupPresenterInt
+import com.eventum.ma.models.repositories.GroupsRepository
+import com.eventum.ma.presenters.presenters.GroupsPresenterInt
 import com.eventum.ma.views.views.GroupsViewInt
 
-class GroupsPresenter(var groupsView: GroupsViewInt): GroupPresenterInt{
+class GroupsPresenter(var groupsView: GroupsViewInt): GroupsPresenterInt{
 
-    private var groupsInteractor: GroupsInteractor = GroupsInteractor(this)
+    private var groupsRepository: GroupsRepository = GroupsRepository(this)
 
     override fun showGroups(groups: ArrayList<GroupModel>?) {
         groupsView.showGroups(groups)
@@ -18,11 +18,11 @@ class GroupsPresenter(var groupsView: GroupsViewInt): GroupPresenterInt{
     }
 
     override fun getGroups() {
-        groupsInteractor.getGroups()
+        groupsRepository.getGroups()
     }
 
     override fun getGroupsByName() {
-        groupsInteractor.getGroupsByName()
+        groupsRepository.getGroupsByName()
     }
 
 }

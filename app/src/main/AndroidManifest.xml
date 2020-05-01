@@ -13,15 +13,15 @@
 
         </activity>
         <activity android:name="com.eventum.ma.views.ui.activities.SignInActivity" >
-
-        </activity>
-        <activity android:name="com.eventum.ma.views.ui.activities.StartActivity" />
-        <activity android:name="com.eventum.ma.views.ui.activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name="com.eventum.ma.views.ui.activities.StartActivity" />
+        <activity android:name="com.eventum.ma.views.ui.activities.MainActivity">
+
         </activity>
     </application>
 

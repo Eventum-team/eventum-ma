@@ -12,12 +12,12 @@ import kotlin.collections.ArrayList
 import com.eventum.ma.models.models.GroupModel
 import com.eventum.ma.views.listeners.GroupListener
 
-class GroupAdapter(private val groupListener: GroupListener) : RecyclerView.Adapter<GroupAdapter.ViewHolder>() {
+class GroupItemAdapter(private val groupListener: GroupListener) : RecyclerView.Adapter<GroupItemAdapter.ViewHolder>() {
 
     private var groupList = ArrayList<GroupModel>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(LayoutInflater.from(parent.context).inflate(
-        R.layout.group_item, parent, false))
+        R.layout.item_group, parent, false))
 
     override fun getItemCount() = groupList.size
 
