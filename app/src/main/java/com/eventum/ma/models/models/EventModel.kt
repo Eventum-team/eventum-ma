@@ -10,8 +10,8 @@ class EventModel: Serializable {
     lateinit var name: String
     lateinit var description: String
     lateinit var event_type: String
-    lateinit var initial_date: Date
-    lateinit var end_date: Date
+    lateinit var eventStartDate: Date
+    lateinit var eventFinishDate: Date
     lateinit var status: String
     lateinit var url: String
     lateinit var latitude: String

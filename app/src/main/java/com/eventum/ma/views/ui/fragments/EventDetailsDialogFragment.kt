@@ -19,7 +19,11 @@ class EventDetailsDialogFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
+<<<<<<< HEAD
         return inflater.inflate(R.layout.fragment_event_details_dialog, container, false)
+=======
+        return inflater.inflate(R.layout.fragment_event_details_dialog, container, false)// Inflate the layout for this fragment
+>>>>>>> 5d86c8135726f5d1b3167bbfa868ba8592a9f7e4
     }
 
 }
