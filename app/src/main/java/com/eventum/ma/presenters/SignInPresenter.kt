@@ -13,8 +13,8 @@ class SignInPresenter (var signInView: SignInInt): SignInPresenterInt {
         signInRepository.verifyAccount(email,password)
     }
 
-    override fun allowAccess() {
-        signInView.allowAccess()
+    override fun allowAccess(accessToken:String,refreshToken:String) {
+        signInView.allowAccess(accessToken,refreshToken)
 
     }
 

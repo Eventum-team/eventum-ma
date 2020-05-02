@@ -1,7 +1,6 @@
 package com.eventum.ma.models.repositories
 
 import com.eventum.ma.models.models.GroupModel
-import com.eventum.ma.presenters.GroupsPresenter
 import com.eventum.ma.presenters.presenters.GroupsPresenterInt
 import okhttp3.*
 import okio.IOException
@@ -75,7 +74,7 @@ class GroupsRepository(var groupsPresenter: GroupsPresenterInt){
                 println(elem.image)
             }*/
             groupsPresenter.showGroups(group.toCollection(ArrayList()))
-            println("-----------Todo Goood-----------------")
+            println("-----------Todo Goood all groups-----------------")
 
             // use colors as returned by API
         }

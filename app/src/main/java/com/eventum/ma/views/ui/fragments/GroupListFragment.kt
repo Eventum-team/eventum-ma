@@ -52,6 +52,7 @@ class GroupListFragment : Fragment(),
         }
 
         getGroups()
+        dataLoaded()
 //        showGroups(groups)
     }
 
@@ -64,11 +65,10 @@ class GroupListFragment : Fragment(),
     }
 
     override fun showGroups(groups: ArrayList<GroupModel>?) {
-
         groupAdapter.updateData(groups)
         try {
             rvGroups!!.adapter = groupAdapter
-            dataLoaded()
+
         } catch (e: Exception) {
             e.printStackTrace()
         }

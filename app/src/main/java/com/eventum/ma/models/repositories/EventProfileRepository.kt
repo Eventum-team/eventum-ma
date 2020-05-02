@@ -2,7 +2,6 @@ package com.eventum.ma.models.repositories
 
 import com.eventum.ma.models.models.CommentModel
 import com.eventum.ma.models.models.EventModel
-import com.eventum.ma.models.models.GroupModel
 import com.eventum.ma.models.models.UserModel
 import com.eventum.ma.presenters.presenters.EventProfilePresenterInt
 import okhttp3.*

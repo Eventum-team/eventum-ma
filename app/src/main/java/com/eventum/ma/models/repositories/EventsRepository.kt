@@ -1,7 +1,6 @@
 package com.eventum.ma.models.repositories
 
 import com.eventum.ma.models.models.EventModel
-import com.eventum.ma.presenters.EventsPresenter
 import com.eventum.ma.presenters.presenters.EventsPresenterInt
 import okhttp3.*
 import okio.IOException
@@ -28,7 +27,7 @@ class EventsRepository(var groupsPresenter: EventsPresenterInt ){
                 "    photo\n" +
                 "  }\n" +
                 "}";
-        var request = Request.Builder()
+        val request = Request.Builder()
             .url(url)
             //.post(FormBody.Builder().build())         ONLY FOR POST
             .build()
@@ -99,7 +98,7 @@ class EventsRepository(var groupsPresenter: EventsPresenterInt ){
             }*/
 
             groupsPresenter.showEvents(event.toCollection(ArrayList()))
-            println("-----------Todo Goood-----------------")
+            println("-----------Todo Goood all events-----------------")
 
             // use colors as returned by API
         }
