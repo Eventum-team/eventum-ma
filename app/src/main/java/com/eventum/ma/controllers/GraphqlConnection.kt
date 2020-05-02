@@ -57,7 +57,6 @@ class GraphqlConnection {
         })
 
     }
-
     fun register(username: String, password: String, name: String, phoneNumber: String, age: Int, career: String, status: String, callback: (Boolean) -> Unit){
 
         var url = "http://190.24.19.228:3000/graphql?query="
@@ -92,7 +91,6 @@ class GraphqlConnection {
         })
 
     }
-
     fun todayEvent(callback: (Array<EventModel>?) -> Unit){
 
         var url = "http://190.24.19.228:3000/graphql?query="
@@ -141,8 +139,6 @@ class GraphqlConnection {
         })
 
     }
-
-
     fun allGroups(callback: (Array<GroupModel>?) -> Unit){
 
         var url = "http://190.24.19.228:3000/graphql?query="

@@ -50,39 +50,9 @@ class SignInActivity : AppCompatActivity(),SignInInt {
         finish()
     }
 
-    fun registerCallback(salida: Boolean?){
-        if(salida==false){
-            println("-----------SOMETHING WRONG-----------------")
-        }else{
-
-            println("-----------Todo Goood-----------------")
-
-            // use colors as returned by API
-        }
-    }
 
 
-    fun apiCallback(salida: Array<String>?){
-        if(salida == null){
-            println("-----------SOMETHING WRONG-----------------")
-        }else{
 
-            println("-----------Todo Goood-----------------")
-            println(salida[0])
-            println(salida[1])
-            // use colors as returned by API
-        }
-    }
-    fun todayEventCallback(event: Array<EventModel>?){
-        if(event == null){
-            println("-----------SOMETHING WRONG-----------------")
-        }else{
-
-            println("-----------Todo Goood-----------------")
-
-            // use colors as returned by API
-        }
-    }
     fun allGroupsCallback(group: Array<GroupModel>?){
         if(group == null){
             println("-----------SOMETHING WRONG-----------------")
@@ -101,11 +71,11 @@ class SignInActivity : AppCompatActivity(),SignInInt {
         }
     }
 
-    fun allEventsCallback(group: Array<EventModel>?){
-        if(group == null){
+    fun allEventsCallback(event: Array<EventModel>?){
+        if(event == null){
             println("-----------SOMETHING WRONG-----------------")
         }else{
-            for (elem in group){
+            for (elem in event){
                 println("Event: ")
                 println(elem.id_event)
                 println(elem.owner_type)
@@ -135,11 +105,10 @@ class SignInActivity : AppCompatActivity(),SignInInt {
     }
 
     override fun denyAccess() {
-        Toast.makeText(this, "denied", Toast.LENGTH_SHORT).show()
+        //Toast.makeText(this, "denied", Toast.LENGTH_SHORT).show()
 
-        var connect = GraphqlConnection();
 
-        connect.getGroupProfile(7,this::ProfileCallback)
+        //getGroupProfile(7,this::ProfileCallback)
 
 
     }

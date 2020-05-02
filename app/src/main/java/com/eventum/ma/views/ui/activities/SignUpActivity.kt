@@ -25,7 +25,7 @@ class SignUpActivity : AppCompatActivity(),SignUpInt {
         user.email = findViewById<EditText>(R.id.signUpEmail).text.toString()
         user.password = findViewById<EditText>(R.id.signUpPassword).text.toString()
         user.status = findViewById<EditText>(R.id.signUpPhone).text.toString()
-        user.age = findViewById<EditText>(R.id.signUpAge).text.toString()
+        user.age = findViewById<EditText>(R.id.signUpAge).text.toString().toInt()
         user.career = findViewById<EditText>(R.id.signUpCareer).text.toString()
 
         //validar campos
