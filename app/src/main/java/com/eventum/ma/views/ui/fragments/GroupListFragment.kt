@@ -90,7 +90,8 @@ class GroupListFragment : Fragment(),
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.top_app_bar_group, menu)
         super.onCreateOptionsMenu(menu, inflater)
-        val searchView = SearchView((context as MainActivity).supportActionBar?.themedContext ?: context)
+        val searchView =
+            SearchView((context as MainActivity).supportActionBar?.themedContext ?: context)
         menu.findItem(R.id.navbar_search_group).apply {
             setShowAsAction(MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW or MenuItem.SHOW_AS_ACTION_IF_ROOM)
             actionView = searchView
@@ -98,15 +99,16 @@ class GroupListFragment : Fragment(),
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
                 Toast.makeText(view!!.context, query, Toast.LENGTH_LONG).show()
+                getGroupsByName()
                 return false
             }
+
             override fun onQueryTextChange(newText: String): Boolean {
                 return false
             }
         })
-        searchView.setOnClickListener {view ->  }
-    }
 
+    }
 
 
 }

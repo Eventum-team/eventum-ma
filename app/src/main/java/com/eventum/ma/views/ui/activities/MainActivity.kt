@@ -26,5 +26,9 @@ class MainActivity : AppCompatActivity() {
         NavigationUI.setupWithNavController(bnvMenu, Navigation.findNavController(this, R.id.fragContent))
     }
 
+    override fun onStart() {
+        super.onStart()
+    }
+
 
 }
