@@ -1,7 +1,6 @@
 package com.eventum.ma.models.repositories
 
 import com.eventum.ma.models.models.EventModel
-import com.eventum.ma.presenters.EventsPresenter
 import com.eventum.ma.presenters.presenters.EventsPresenterInt
 import okhttp3.*
 import okio.IOException
@@ -12,7 +11,7 @@ import org.json.JSONObject
 class EventsRepository(var groupsPresenter: EventsPresenterInt ){
 
     var client = OkHttpClient()
-    fun allEvents(callback: (Array<EventModel>?) -> Unit){
+    fun allEvents(callback: CustomCallback<List<EventModel>>){
 
         var url = "http://190.24.19.228:3000/graphql?query="
         url=url+"query {\n" +
@@ -28,26 +27,26 @@ class EventsRepository(var groupsPresenter: EventsPresenterInt ){
                 "    photo\n" +
                 "  }\n" +
                 "}";
-        var request = Request.Builder()
+        val request = Request.Builder()
             .url(url)
             //.post(FormBody.Builder().build())         ONLY FOR POST
             .build()
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
                 e.printStackTrace()
-                callback(null);
+                callback.onFailed(e);
             }
             override fun onResponse(call: Call, response: Response) {
                 response.use {
                     if (!response.isSuccessful){
-                        callback(null);
+                        //callback(null);
                         throw IOException("Unexpected code $response")
                     }
                     else{
                         var output = JSONObject(response.body!!.string())
                         println(output)
                         if(output.has("errors")){
-                            callback(null);
+                            //callback(null);
                         }else {
                             output = output.get("data") as JSONObject;
                             var arr = output.get("allEvents") as JSONArray;
@@ -68,7 +67,7 @@ class EventsRepository(var groupsPresenter: EventsPresenterInt ){
                                 em.status = obj.get("status").toString()
                                 list.add(em);
                             }
-                            callback(list.toTypedArray());
+                            callback.onSuccess(list);
                             // NECESITO DATOS PARA PROBAR
 
                         }
@@ -80,7 +79,7 @@ class EventsRepository(var groupsPresenter: EventsPresenterInt ){
     }
 
 
-
+/*
     fun allEventsCallback(event: Array<EventModel>?){
         if(event == null){
             println("-----------SOMETHING WRONG-----------------")
@@ -99,7 +98,7 @@ class EventsRepository(var groupsPresenter: EventsPresenterInt ){
             }*/
 
             groupsPresenter.showEvents(event.toCollection(ArrayList()))
-            println("-----------Todo Goood-----------------")
+            println("-----------Todo Goood all events-----------------")
 
             // use colors as returned by API
         }
@@ -114,7 +113,7 @@ class EventsRepository(var groupsPresenter: EventsPresenterInt ){
 
     }
 
-
+*/
 
 
 }

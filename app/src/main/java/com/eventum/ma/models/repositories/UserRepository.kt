@@ -11,10 +11,10 @@ import org.json.JSONArray
 import org.json.JSONObject
 
 
-class UserRepository(private val userProfilePresenter: UserProfilePresenterInt){
+class UserRepository(private val userProfilePresenter: UserProfilePresenterInt) {
     var client = OkHttpClient()
 
-    fun getUserProfile(idUser: Int, callback: (UserModel?) -> Unit) {
+    fun getUserProfile(idUser: Int, callback: CustomCallback<UserModel>) {
 
         var url = "http://190.24.19.228:3000/graphql?query="
         url = url + "query {\n" +
@@ -54,19 +54,19 @@ class UserRepository(private val userProfilePresenter: UserProfilePresenterInt){
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
                 e.printStackTrace()
-                callback(null);
+                callback.onFailed(e);
             }
 
             override fun onResponse(call: Call, response: Response) {
                 response.use {
                     if (!response.isSuccessful) {
-                        callback(null);
+                        //callback(null);
                         throw IOException("Unexpected code $response")
                     } else {
                         var output = JSONObject(response.body!!.string())
                         println(output)
                         if (output.has("errors")) {
-                            callback(null);
+                            //callback(null);
                         } else {
                             output = output.get("data") as JSONObject;
                             output = output.get("userProfile") as JSONObject;
@@ -84,7 +84,7 @@ class UserRepository(private val userProfilePresenter: UserProfilePresenterInt){
                             user.age = output.get("age").toString().toInt();
                             var arr = output.get("groupsFollowing") as JSONArray;
                             var obj: JSONObject
-                            for (i in 0..arr.length()-1){
+                            for (i in 0..arr.length() - 1) {
                                 obj = arr[i] as JSONObject;
                                 var gm: GroupModel = GroupModel();
                                 gm.id_group = obj.get("id_group").toString()
@@ -95,7 +95,7 @@ class UserRepository(private val userProfilePresenter: UserProfilePresenterInt){
                                 listGroupFollowing.add(gm);
                             }
                             arr = output.get("eventsCreated") as JSONArray;
-                            for (i in 0..arr.length()-1){
+                            for (i in 0..arr.length() - 1) {
                                 obj = arr[i] as JSONObject;
                                 var em: EventModel = EventModel();
                                 em.id_event = obj.get("id").toString()
@@ -112,14 +112,16 @@ class UserRepository(private val userProfilePresenter: UserProfilePresenterInt){
                             //arr = output.get("eventsAssistance") as JSONArray;
                             user.groupsFollowing = ArrayList(listGroupFollowing)
                             user.eventsCreated = ArrayList(listEventCreated)
-                            callback(user);
+                            callback.onSuccess(user);
                         }
                     }
                 }
             }
         })
     }
+}
 
+/*
     fun ProfileCallback(userProfile: UserModel?){
         if(userProfile == null){
             println("-----------SOMETHING WRONG-----------------")
@@ -136,6 +138,8 @@ class UserRepository(private val userProfilePresenter: UserProfilePresenterInt){
             // use colors as returned by API
         }
     }
+
+
     //Logica de graphql para consumir la API
     fun getGroupsGraphQL() {
 
@@ -196,5 +200,4 @@ class UserRepository(private val userProfilePresenter: UserProfilePresenterInt){
         events.add(g1)
         events.add(g2)
         //userProfilePresenter.showEventsAttendedBuUser(events)
-    }
-}
+    }*/

@@ -1,7 +1,7 @@
 package com.eventum.ma.models.repositories
 
+import android.annotation.SuppressLint
 import com.eventum.ma.models.models.EventModel
-import com.eventum.ma.presenters.HomePresenter
 import com.eventum.ma.presenters.presenters.HomePresenterInt
 import okhttp3.*
 import okio.IOException
@@ -13,14 +13,15 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
-class HomeRepository(var homePresenter: HomePresenterInt){
+class HomeRepository(private var homePresenter: HomePresenterInt){
 
-    var client = OkHttpClient()
+    private var client = OkHttpClient()
 
+    @SuppressLint("SimpleDateFormat")
     fun fromISO8601UTC(dateStr: String?): Date {
         val tz: TimeZone = TimeZone.getTimeZone("UTC")
         val df: DateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'")
-        df.setTimeZone(tz)
+        df.timeZone = tz
         try {
             return df.parse(dateStr)
         } catch (e: ParseException) {
@@ -29,8 +30,7 @@ class HomeRepository(var homePresenter: HomePresenterInt){
         return Date()
     }
 
-    fun todayEvent(callback: (Array<EventModel>?) -> Unit){
-
+     fun todayEvent(callback: CustomCallback<List<EventModel>>){
         var url = "http://190.24.19.228:3000/graphql?query="
         url=url+"query {\n" +
                 "  todayEvents{\n" +
@@ -47,35 +47,34 @@ class HomeRepository(var homePresenter: HomePresenterInt){
                 "\t  photo\n" +
                 "  }\n" +
                 "}";
-        var request = Request.Builder()
+        val request = Request.Builder()
             .url(url)
-            //.post(FormBody.Builder().build())         ONLY FOR POST
             .build()
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
                 e.printStackTrace()
-                callback(null);
+                callback.onFailed(e);
             }
             override fun onResponse(call: Call, response: Response) {
                 response.use {
                     if (!response.isSuccessful){
-                        callback(null);
-                        throw IOException("Unexpected code $response")
+//                        callback(null);
+                         throw IOException("Unexpected code $response")
                     }
                     else{
                         var output = JSONObject(response.body!!.string())
                         println(output)
                         if(output.has("errors")){
-                            callback(null);
+//                            callback(null);
                         }else {
                             output = output.get("data") as JSONObject;
-                            var arr = output.get("todayEvents") as JSONArray;
+                            val arr = output.get("todayEvents") as JSONArray;
                             println(arr);
-                            val list: MutableList<EventModel> = ArrayList()
+                            val list: ArrayList<EventModel> = ArrayList()
                             var obj: JSONObject
-                            for (i in 0..arr.length()-1){
+                            for (i in 0 until arr.length()){
                                 obj = arr[i] as JSONObject;
-                                var em: EventModel = EventModel();
+                                val em = EventModel();
                                 em.id_event = obj.get("id").toString()
                                 em.owner_type = obj.get("ownerType").toString()
                                 em.event_type = obj.get("eventType").toString()
@@ -84,12 +83,13 @@ class HomeRepository(var homePresenter: HomePresenterInt){
                                 em.name = obj.get("name").toString()
                                 em.image = obj.get("url").toString()
                                 em.status = obj.get("status").toString()
-                                em.eventStartDate = fromISO8601UTC(obj.get("eventStartDate").toString())
-                                em.eventFinishDate = fromISO8601UTC(obj.get("eventFinishDate").toString())
+//                                em.eventStartDate = fromISO8601UTC(obj.get("eventStartDate").toString())
+//                                em.eventFinishDate = fromISO8601UTC(obj.get("eventFinishDate").toString())
                                 list.add(em);
+//                                homePresenter.showTodayEvents(list)
                             }
-                            callback(list.toTypedArray());
-                            
+
+                            callback.onSuccess(list.toList());
                         }
                     }
                 }
@@ -99,23 +99,18 @@ class HomeRepository(var homePresenter: HomePresenterInt){
     }
 
 
-    fun todayEventCallback(event: Array<EventModel>?){
+    private fun todayEventCallback(event: List<EventModel>?){
         if(event == null){
             println("-----------SOMETHING WRONG-----------------")
         }else{
-
-            homePresenter.showTodayEvents(event.toCollection(ArrayList()))
-
-            println("-----------Todo Goood-----------------")
-
-            // use colors as returned by API
+//            homePresenter.showTodayEvents(event.toCollection(ArrayList()))
+            println("-----------Todo Good today events-----------------")
         }
     }
 
 
     fun getTodayEvents(){
-
-        todayEvent(this::todayEventCallback)
+//        todayEvent(this::todayEventCallback)
     }
 
     fun getOfficialEvents(){
@@ -129,7 +124,7 @@ class HomeRepository(var homePresenter: HomePresenterInt){
         g2.description = "Gran descripcio 2222222"
         g2.id_owner = "typazo 2"
         g2.image = "https://homepages.cae.wisc.edu/~ece533/images/barbara.png"
-        val events: ArrayList<EventModel> = ArrayList<EventModel>()
+        val events: ArrayList<EventModel> = ArrayList()
         events.add(g1)
         events.add(g2)
         homePresenter.showOfficialEvents(events)

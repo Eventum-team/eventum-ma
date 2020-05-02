@@ -8,11 +8,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.eventum.ma.R
 import com.eventum.ma.models.models.GroupModel
 import com.eventum.ma.presenters.GroupsPresenter
+import com.eventum.ma.presenters.HomePresenter
 import com.eventum.ma.views.adapters.CardItemAdapter
 import com.eventum.ma.views.listeners.GroupListener
 import com.eventum.ma.views.ui.activities.GroupDetails
@@ -23,7 +25,7 @@ import kotlinx.android.synthetic.main.fragment_group_list.*
 
 class GroupListFragment : Fragment(),
     GroupListener, GroupsViewInt {
-
+    private lateinit var groupPresenter: HomePresenter
     private var groupsPresenter: GroupsPresenter? = null
     private lateinit var groupAdapter: CardItemAdapter
 
@@ -47,11 +49,16 @@ class GroupListFragment : Fragment(),
         groupAdapter = CardItemAdapter(this)
         groupsPresenter = GroupsPresenter(this)
 
+        groupPresenter = ViewModelProviders.of(this).get(HomePresenter::class.java)
+        groupPresenter.refresh()
+
         rvGroups.apply {
             layoutManager = LinearLayoutManager(view.context, LinearLayoutManager.VERTICAL, false)
         }
 
+
         getGroups()
+        dataLoaded()
 //        showGroups(groups)
     }
 
@@ -64,11 +71,10 @@ class GroupListFragment : Fragment(),
     }
 
     override fun showGroups(groups: ArrayList<GroupModel>?) {
-
         groupAdapter.updateData(groups)
         try {
             rvGroups!!.adapter = groupAdapter
-            dataLoaded()
+
         } catch (e: Exception) {
             e.printStackTrace()
         }

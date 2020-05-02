@@ -18,109 +18,59 @@ import org.json.JSONObject
 
 class SignInActivity : AppCompatActivity(), SignInInt {
 
-  private var signInPresenter: SignInPresenter? = null
+    private var signInPresenter: SignInPresenter? = null
 
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        verifySession()
+        setContentView(R.layout.activity_sign_in)
+        val et_email = findViewById<EditText>(R.id.signInEmail)
+        val et_password = findViewById<EditText>(R.id.signInPassword)
+        val signInButton = findViewById<Button>(R.id.signInButton)
+        val signUpButton = findViewById<Button>(R.id.signUpButton)
 
-//  verifySession()
+        signInPresenter = SignInPresenter(this)
 
-    setContentView(R.layout.activity_sign_in)
-    val et_email = findViewById<EditText>(R.id.signInEmail)
-    val et_password = findViewById<EditText>(R.id.signInPassword)
-    val signInButton = findViewById<Button>(R.id.signInButton)
-    val signUpButton = findViewById<Button>(R.id.signUpButton)
-    signInPresenter = SignInPresenter(this)
+        signUpButton.setOnClickListener {
+            val intent = Intent(this, SignUpActivity::class.java)
+            startActivity(intent)
+        }
 
-    signUpButton.setOnClickListener {
-      val intent = Intent(this, SignUpActivity::class.java)
-      startActivity(intent)
+        signInButton.setOnClickListener {
+            val email = et_email.text.toString()
+            val password = et_password.text.toString()
+            verifyAccount(email, password)
+        }
+
     }
-    signInButton.setOnClickListener {
-      val email = et_email.text.toString()
-      val password = et_password.text.toString()
-      verifyAccount(email, password)
+
+    override fun verifyAccount(email: String, password: String) {
+        signInPresenter?.verifyAccount(email, password)
     }
-  }
 
-  override fun verifyAccount(email: String, password: String) {
-    signInPresenter?.verifyAccount(email, password)
-  }
+    override fun allowAccess(accessToken:String,refreshToken:String) {
+        val preferences = getSharedPreferences("com.eventum.ma", Context.MODE_PRIVATE)
+        preferences.edit().putString("refreshToken", refreshToken).apply();
+        preferences.edit().putString("accessToken", accessToken).apply();
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
 
-  override fun allowAccess() {
-    val preferences =
-      getSharedPreferences("com.eventum.ma", Context.MODE_PRIVATE)
-    //Save it
-    preferences.edit().putString("session", "prueba Token").apply();
+    override fun denyAccess() {
+        //Toast.makeText(this, "denied", Toast.LENGTH_SHORT).show()
+    }
 
-    val intent = Intent(this, MainActivity::class.java)
-    startActivity(intent)
-    finish()
-  }
-
-  override fun denyAccess() {
-    //Toast.makeText(this, "denied", Toast.LENGTH_SHORT).show()
-  }
-
-  private fun verifySession() {
-      val preferences = getSharedPreferences("com.eventum.ma", Context.MODE_PRIVATE)
-      val s = preferences!!.getString("session", "")
-      if (s != "") {
-          allowAccess()
-      }
-  }
-
-
-    fun allGroupsCallback(group: Array<GroupModel>?){
-        if(group == null){
-            println("-----------SOMETHING WRONG-----------------")
-        }else{
-            for (elem in group){
-                println("Grupo: ")
-                println(elem.id_group)
-                println(elem.name)
-                println(elem.description)
-                println(elem.type)
-                println(elem.image)
-            }
-            println("-----------Todo Goood-----------------")
-
-            // use colors as returned by API
+    private fun verifySession() {
+        val preferences = getSharedPreferences("com.eventum.ma", Context.MODE_PRIVATE)
+        val access = preferences!!.getString("accessToken", "")
+        if (access != "") {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
         }
     }
 
-    fun allEventsCallback(event: Array<EventModel>?){
-        if(event == null){
-            println("-----------SOMETHING WRONG-----------------")
-        }else{
-            for (elem in event){
-                println("Event: ")
-                println(elem.id_event)
-                println(elem.owner_type)
-                println(elem.status)
-                println(elem.event_type)
-                println(elem.id_owner)
-                println(elem.name)
-                println(elem.description)
-                println(elem.url)
-                println(elem.image)
-            }
-            println("-----------Todo Goood-----------------")
-
-            // use colors as returned by API
-        }
-    }
-    fun ProfileCallback(userProfile: JSONObject?){
-        if(userProfile == null){
-            println("-----------SOMETHING WRONG-----------------")
-        }else{
-            println(userProfile)
-
-            println("-----------Todo Goood-----------------")
-
-            // use colors as returned by API
-        }
-    }
 }
 
 

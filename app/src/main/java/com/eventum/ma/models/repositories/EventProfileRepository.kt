@@ -2,7 +2,6 @@ package com.eventum.ma.models.repositories
 
 import com.eventum.ma.models.models.CommentModel
 import com.eventum.ma.models.models.EventModel
-import com.eventum.ma.models.models.GroupModel
 import com.eventum.ma.models.models.UserModel
 import com.eventum.ma.presenters.presenters.EventProfilePresenterInt
 import okhttp3.*
@@ -14,7 +13,7 @@ class EventProfileRepository(var eventProfilePresenter: EventProfilePresenterInt
 
     var client = OkHttpClient()
 
-    fun getEventProf(idEvent: Int, idUser: Int, callback: (EventModel?) -> Unit){
+    fun getEventProf(idEvent: Int, idUser: Int, callback: CustomCallback<EventModel>){
 
         var url = "http://190.24.19.228:3000/graphql?query="
         url=url+"query{\n" +
@@ -64,19 +63,19 @@ class EventProfileRepository(var eventProfilePresenter: EventProfilePresenterInt
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
                 e.printStackTrace()
-                callback(null);
+                callback.onFailed(e);
             }
             override fun onResponse(call: Call, response: Response) {
                 response.use {
                     if (!response.isSuccessful){
-                        callback(null);
+                        //callback(null);
                         throw IOException("Unexpected code $response")
                     }
                     else{
                         var output = JSONObject(response.body!!.string())
                         println(output)
                         if(output.has("errors")){
-                            callback(null);
+                          //  callback(null);
                         }else {
 
                             output = output.get("data") as JSONObject;
@@ -154,14 +153,14 @@ class EventProfileRepository(var eventProfilePresenter: EventProfilePresenterInt
                             //eventModel.comments = ArrayList(listComments)
                             //eventModel.followers = ArrayList(listUserFollowers)
 
-                            callback(eventModel);
+                            callback.onSuccess(eventModel);
                         }
                     }
                 }
             }
         })
     }
-
+/*
     fun ProfileCallback(eventModel: EventModel?){
         if(eventModel == null){
             println("-----------SOMETHING WRONG-----------------")
@@ -178,6 +177,6 @@ class EventProfileRepository(var eventProfilePresenter: EventProfilePresenterInt
     fun getEventProfile(id: String){
        // getEventProf(idEvent.toInt(),idUser.toInt(), this::ProfileCallback); cambiar argumentos
     }
-
+*/
 
 }

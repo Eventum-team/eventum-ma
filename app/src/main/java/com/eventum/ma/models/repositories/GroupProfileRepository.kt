@@ -13,7 +13,7 @@ class GroupProfileRepository(var groupProfilePresenter: GroupProfilePresenterInt
     var client = OkHttpClient()
 
     //Logica de graphql para consumir la API
-    fun getGroupProf(idGroup: Int, callback: (GroupModel?) -> Unit) {
+    fun getGroupProf(idGroup: Int, callback: CustomCallback<GroupModel>){
 
         var url = "http://190.24.19.228:3000/graphql?query="
         url = url + "query {\n" +
@@ -54,19 +54,19 @@ class GroupProfileRepository(var groupProfilePresenter: GroupProfilePresenterInt
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
                 e.printStackTrace()
-                callback(null);
+                callback.onFailed(e);
             }
 
             override fun onResponse(call: Call, response: Response) {
                 response.use {
                     if (!response.isSuccessful) {
-                        callback(null);
+                        //callback(null);
                         throw IOException("Unexpected code $response")
                     } else {
                         var output = JSONObject(response.body!!.string())
                         println(output)
                         if (output.has("errors")) {
-                            callback(null);
+                            //callback(null);
                         } else {
                             output = output.get("data") as JSONObject;
                             output = output.get("groupProfile") as JSONObject;
@@ -113,14 +113,14 @@ class GroupProfileRepository(var groupProfilePresenter: GroupProfilePresenterInt
                             }
                             groupModel.admins = ArrayList(listAdmins)
                             groupModel.events = ArrayList(listEvents)
-                            callback(groupModel);
+                            callback.onSuccess(groupModel);
                         }
                     }
                 }
             }
         })
     }
-
+/*
 
     fun ProfileCallback(groupModel: GroupModel?){
         if(groupModel == null){
@@ -143,7 +143,7 @@ class GroupProfileRepository(var groupProfilePresenter: GroupProfilePresenterInt
         group.add(g1)*/
         //groupProfilePresenter.showGroupProfile(group)//(group[0])
         getGroupProf(id.toInt(), this::ProfileCallback)
-    }
+    }*/
 
     fun getEventsByGroup(id: String){
         val g1 = EventModel()

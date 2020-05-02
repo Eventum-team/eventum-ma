@@ -41,10 +41,13 @@ class EventsHorizontalItemsAdapter(private val eventListener: EventListener) :
     }
 
     //el adaptador recibe los datos
-    fun updateEvents(data: ArrayList<EventModel>?) {
+    fun updateEvents(data: List<EventModel>?) {
         todayEventList.clear()
         if (data != null) {
             todayEventList.addAll(data)
+            println("......................................................")
+            println(todayEventList[0].name)
+            println()
         }
         notifyDataSetChanged()
     }

@@ -9,6 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.os.bundleOf
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 
@@ -25,7 +27,7 @@ import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment : Fragment(),EventListener, HomeViewInt {
 
-    private var homePresenter: HomePresenter? = null
+    private lateinit var homePresenter: HomePresenter
     private lateinit var todayEventsAdapter: EventsHorizontalItemsAdapter
     private lateinit var officialEventsAdapter: EventsHorizontalItemsAdapter
 
@@ -42,11 +44,22 @@ class HomeFragment : Fragment(),EventListener, HomeViewInt {
         val s = preferences!!.getString("session","")
         todayEventsAdapter = EventsHorizontalItemsAdapter(this)
         officialEventsAdapter = EventsHorizontalItemsAdapter(this)
-        homePresenter = HomePresenter(this)
+//        homePresenter = HomePresenter(this)
+
+
+
+            homePresenter = ViewModelProviders.of(this).get(HomePresenter::class.java)
+            homePresenter.refresh()
+
 
         rvTodayEvents.apply {
             layoutManager = LinearLayoutManager(view.context, LinearLayoutManager.HORIZONTAL, false)
         }
+        observeViewModel()
+
+
+
+
         rvOfficialEvents.apply {
             layoutManager = LinearLayoutManager(view.context, LinearLayoutManager.HORIZONTAL, false)
         }
@@ -54,6 +67,25 @@ class HomeFragment : Fragment(),EventListener, HomeViewInt {
         getTodayEvents()
         getOfficialEvents()
     }
+
+    fun observeViewModel() {
+
+        homePresenter.listTodayEvents.observe(this, Observer<List<EventModel>> { events ->
+            println("***********************")
+            println(events[0].name)
+            println("***********************")
+            events.let {
+                todayEventsAdapter.updateEvents(events)
+            }
+            rvTodayEvents!!.adapter = todayEventsAdapter
+        })
+
+//        homePresenter.isLoading.observe(this, Observer<Boolean> {
+//            if(it != null)
+//                rlBase.visibility = View.INVISIBLE
+//        })
+    }
+
 
     override fun onEventClicked(event: EventModel, position: Int) {
         val intent = Intent(view!!.context  , EventDetails::class.java)
@@ -63,6 +95,7 @@ class HomeFragment : Fragment(),EventListener, HomeViewInt {
     }
 
     override fun showTodayEvents(events: ArrayList<EventModel>?) {
+        println("llega a la vista")
         todayEventsAdapter.updateEvents(events)
         try {
             rvTodayEvents!!.adapter = todayEventsAdapter
@@ -84,7 +117,6 @@ class HomeFragment : Fragment(),EventListener, HomeViewInt {
 
     override fun getTodayEvents() {
         homePresenter?.getTodayEvents()
-
     }
 
     override fun getOfficialEvents() {
