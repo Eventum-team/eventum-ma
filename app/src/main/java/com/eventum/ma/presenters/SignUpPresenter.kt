@@ -10,7 +10,7 @@ class SignUpPresenter(private var signUpView: SignUpInt  ): SignUpPresenterInt{
     private var signUpRepository: SignUpRepository = SignUpRepository(this)
 
     override fun createAccount(user: UserModel) {
-       signUpRepository.createAccount(user)
+//       signUpRepository.createAccount(user)
     }
 
     override fun onUserCreated() {

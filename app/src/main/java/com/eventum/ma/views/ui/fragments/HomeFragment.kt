@@ -71,9 +71,7 @@ class HomeFragment : Fragment(),EventListener, HomeViewInt {
     fun observeViewModel() {
 
         homePresenter.listTodayEvents.observe(this, Observer<List<EventModel>> { events ->
-            println("***********************")
-            println(events[0].name)
-            println("***********************")
+
             events.let {
                 todayEventsAdapter.updateEvents(events)
             }

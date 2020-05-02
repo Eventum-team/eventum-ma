@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -25,7 +26,7 @@ import kotlinx.android.synthetic.main.fragment_group_list.*
 
 class GroupListFragment : Fragment(),
     GroupListener, GroupsViewInt {
-    private lateinit var groupPresenter: HomePresenter
+    private lateinit var groupPresenter: GroupsPresenter
     private var groupsPresenter: GroupsPresenter? = null
     private lateinit var groupAdapter: CardItemAdapter
 
@@ -47,19 +48,35 @@ class GroupListFragment : Fragment(),
         super.onViewCreated(view, savedInstanceState)
         (activity as AppCompatActivity?)!!.setSupportActionBar(topAppBarGroup)
         groupAdapter = CardItemAdapter(this)
-        groupsPresenter = GroupsPresenter(this)
+//        groupsPresenter = GroupsPresenter(this)
 
-        groupPresenter = ViewModelProviders.of(this).get(HomePresenter::class.java)
+        groupPresenter = ViewModelProviders.of(this).get(GroupsPresenter::class.java)
         groupPresenter.refresh()
 
         rvGroups.apply {
             layoutManager = LinearLayoutManager(view.context, LinearLayoutManager.VERTICAL, false)
         }
 
-
+        observeViewModel()
         getGroups()
         dataLoaded()
 //        showGroups(groups)
+    }
+
+    fun observeViewModel() {
+
+        groupPresenter.listAllGroups.observe(this, Observer<List<GroupModel>> { groups ->
+
+            groups.let {
+                groupAdapter.updateData(groups)
+            }
+            rvGroups!!.adapter = groupAdapter
+        })
+
+        groupPresenter.isLoading.observe(this, Observer<Boolean> {
+            if(it != null)
+                dataLoaded()
+        })
     }
 
 

@@ -18,11 +18,11 @@ class EventsPresenter(var eventsView: EventsViewInt): EventsPresenterInt{
     }
 
     override fun getEvents() {
-        eventsRepository.getEvents()
+//        eventsRepository.getEvents()
     }
 
     override fun getEventsByName() {
-        eventsRepository.getEventsByName()
+//        eventsRepository.getEventsByName()
     }
 
 }

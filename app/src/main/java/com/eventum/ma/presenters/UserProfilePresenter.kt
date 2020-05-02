@@ -14,19 +14,19 @@ class UserProfilePresenter(private val userProfileViewInt: UserProfileEventInt):
     private val userProfileRepository: UserRepository = UserRepository(this)
 
     override fun getUserInfo(id: String) {
-        userProfileRepository.getUserInfo(id)
+//        userProfileRepository.getUserInfo(id)
     }
 
     override fun getEventsCreatedByUser(id: String) {
-        userProfileRepository.getEventsCreatedByUser(id)
+//        userProfileRepository.getEventsCreatedByUser(id)
     }
 
     override fun getGroupsFollowedByUser(id: String) {
-        userProfileRepository.getGroupsFollowedByUser(id)
+//        userProfileRepository.getGroupsFollowedByUser(id)
     }
 
     override fun getEventsAttendedBuUser(id: String) {
-        userProfileRepository.getEventsAttendedBuUser(id)
+//        userProfileRepository.getEventsAttendedBuUser(id)
     }
 
     override fun showUserInfo(user: UserModel){

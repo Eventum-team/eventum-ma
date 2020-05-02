@@ -45,9 +45,7 @@ class EventsHorizontalItemsAdapter(private val eventListener: EventListener) :
         todayEventList.clear()
         if (data != null) {
             todayEventList.addAll(data)
-            println("......................................................")
-            println(todayEventList[0].name)
-            println()
+
         }
         notifyDataSetChanged()
     }

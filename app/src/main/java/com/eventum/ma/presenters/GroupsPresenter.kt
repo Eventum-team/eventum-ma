@@ -1,6 +1,7 @@
 package com.eventum.ma.presenters
 
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.eventum.ma.models.models.EventModel
 import com.eventum.ma.models.models.GroupModel
 import com.eventum.ma.models.repositories.CustomCallback
@@ -9,16 +10,16 @@ import com.eventum.ma.models.repositories.HomeRepository
 import com.eventum.ma.presenters.presenters.GroupsPresenterInt
 import com.eventum.ma.views.views.GroupsViewInt
 
-class GroupsPresenter(var groupsView: GroupsViewInt): GroupsPresenterInt{
+class GroupsPresenter(): ViewModel(), GroupsPresenterInt{
 
     private var groupsRepository: GroupsRepository = GroupsRepository(this)
 
     override fun showGroups(groups: ArrayList<GroupModel>?) {
-        groupsView.showGroups(groups)
+//        groupsView.showGroups(groups)
     }
 
     override fun showGroupsByGroup(groups: ArrayList<GroupModel>?) {
-        groupsView.showGroupsByName(groups)
+//        groupsView.showGroupsByName(groups)
     }
 
     override fun getGroups() {

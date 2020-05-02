@@ -39,7 +39,7 @@ class CardItemAdapter(private val groupListener: GroupListener) : RecyclerView.A
     }
 
     //el adaptador recibe los datos
-    fun updateData(data: ArrayList<GroupModel>?) {
+    fun updateData(data: List<GroupModel>?) {
         groupList.clear()
         if (data != null) {
             groupList.addAll(data)
