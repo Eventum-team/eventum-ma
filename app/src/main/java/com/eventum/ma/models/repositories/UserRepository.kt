@@ -3,19 +3,15 @@ package com.eventum.ma.models.repositories
 import com.eventum.ma.models.models.EventModel
 import com.eventum.ma.models.models.GroupModel
 import com.eventum.ma.models.models.UserModel
-<<<<<<< HEAD
+
 import com.eventum.ma.presenters.presenters.UserProfilePresenterInt
-
-
-class UserRepository(private val userProfilePresenter: UserProfilePresenterInt) {
-=======
 import okhttp3.*
 import okio.IOException
 import org.json.JSONArray
 import org.json.JSONObject
 
 
-class UserRepository( ){
+class UserRepository(private val userProfilePresenter: UserProfilePresenterInt){
     var client = OkHttpClient()
 
     fun getUserProfile(idUser: Int, callback: (UserModel?) -> Unit) {
@@ -140,16 +136,17 @@ class UserRepository( ){
         }
     }
     //Logica de graphql para consumir la API
-    fun getGroupsGraphQL(){
->>>>>>> 5d86c8135726f5d1b3167bbfa868ba8592a9f7e4
+    fun getGroupsGraphQL() {
 
+    }
     fun getUserInfo(id: String){
         val u = UserModel()
         u.name = "Juan Diego"
         u.image = "https://picsum.photos/seed/picsum/200/300"
         u.career = "Ingenieria de Sistemmas"
         u.status = "Status Activo"
-        u.age = "19"
+        u.age = 19
+
         userProfilePresenter.showUserInfo(u)
     }
 

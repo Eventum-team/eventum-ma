@@ -14,13 +14,9 @@ class UserModel: Serializable {
     lateinit var career: String
     lateinit var status: String
     lateinit var image: String
-<<<<<<< HEAD
-}
-=======
     lateinit var groupsFollowing: ArrayList<GroupModel>
     lateinit var eventsCreated: ArrayList<EventModel>
     lateinit var assistanceEvents: ArrayList<EventModel>
 
 }
 
->>>>>>> 5d86c8135726f5d1b3167bbfa868ba8592a9f7e4
