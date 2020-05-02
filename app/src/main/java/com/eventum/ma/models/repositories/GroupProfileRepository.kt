@@ -7,7 +7,7 @@ import com.eventum.ma.presenters.presenters.GroupProfilePresenterInt
 class GroupProfileRepository(var groupProfilePresenter: GroupProfilePresenterInt) {
 
     //Logica de graphql para consumir la API
-    fun getGroupProfile(){
+    fun getGroupProfile(id: String){
         val g1 = GroupModel()
         g1.name = "grupazo 1"
         g1.description = "Gran descripcio 111111"
@@ -19,7 +19,7 @@ class GroupProfileRepository(var groupProfilePresenter: GroupProfilePresenterInt
         groupProfilePresenter.showGroupProfile(group)//(group[0])
     }
 
-    fun getEventsByGroup(){
+    fun getEventsByGroup(id: String){
         val g1 = EventModel()
         g1.name = "eventazo 1"
         g1.description = "Gran descripcio 111111"

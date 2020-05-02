@@ -5,5 +5,5 @@ import com.eventum.ma.models.models.EventModel
 interface EventProfileViewInt {
     fun showEventProfile(event: EventModel?)
     //Presenter
-    fun getEventProfile()
+    fun getEventProfile(id: String)
 }

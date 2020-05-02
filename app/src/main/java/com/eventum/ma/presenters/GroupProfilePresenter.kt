@@ -18,12 +18,12 @@ class GroupProfilePresenter(var groupProfileView: GroupProfileViewInt): GroupPro
         groupProfileView.showEventsByGroup(groups)
     }
 
-    override fun getGroupProfile() {
-        groupProfileRepository.getGroupProfile()
+    override fun getGroupProfile(id: String) {
+        groupProfileRepository.getGroupProfile(id)
     }
 
-    override fun getEventsByGroup() {
-        groupProfileRepository.getEventsByGroup()
+    override fun getEventsByGroup(id: String) {
+        groupProfileRepository.getEventsByGroup(id)
     }
 
 }

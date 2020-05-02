@@ -13,8 +13,8 @@ class EventProfilePresenter(var eventProfileView: EventProfileViewInt): EventPro
         eventProfileView.showEventProfile(event)
     }
 
-    override fun getEventProfile() {
-        eventProfileRepository.getEventProfile()
+    override fun getEventProfile(id: String) {
+        eventProfileRepository.getEventProfile(id)
     }
 
 }
