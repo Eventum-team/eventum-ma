@@ -89,8 +89,7 @@ class HomeRepository(var homePresenter: HomePresenterInt){
                                 list.add(em);
                             }
                             callback(list.toTypedArray());
-                            // NECESITO DATOS PARA PROBAR
-                            callback(null);
+                            
                         }
                     }
                 }
