@@ -18,4 +18,8 @@ class MainActivity : AppCompatActivity() {
     private fun configNav() {
         NavigationUI.setupWithNavController(bnvMenu, Navigation.findNavController(this, R.id.fragContent))
     }
+
+    override fun onStart() {
+        super.onStart()
+    }
 }

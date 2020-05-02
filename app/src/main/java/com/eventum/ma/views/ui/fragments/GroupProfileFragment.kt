@@ -32,17 +32,17 @@ class GroupProfileFragment : Fragment(),
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        val id = "1"
         eventAdapter = EventItemAdapter(this)
         groupProfilePresenter = GroupProfilePresenter(this)
 
         rvGroupProfileEvents.apply {
-            layoutManager = LinearLayoutManager(view.context, LinearLayoutManager.VERTICAL, false)
+            layoutManager = LinearLayoutManager(view.context, LinearLayoutManager.HORIZONTAL, false)
         }
 
-        getGroupProfile()
+        getGroupProfile(id)
         //llamar datos, no se si toca otro adapter
-        getEventsByGroup()
+        getEventsByGroup(id)
 //        showGroups(groups)
     }
 
@@ -59,14 +59,19 @@ class GroupProfileFragment : Fragment(),
     }
 
     override fun showGroupProfile(group: GroupModel?) {
+        if (group != null) {
+            group_profile_name.text = group.name
+            group_profile_type.text = group.type
+            group_profile_description.text = group.description
+        }
     }
 
-    override fun getEventsByGroup() {
-        groupProfilePresenter?.getEventsByGroup()
+    override fun getEventsByGroup(id : String) {
+        groupProfilePresenter?.getEventsByGroup(id)
     }
 
-    override fun getGroupProfile() {
-        groupProfilePresenter?.getGroupProfile()
+    override fun getGroupProfile(id: String) {
+        groupProfilePresenter?.getGroupProfile(id)
     }
 
     override fun onEventClicked(event: EventModel, position: Int) {

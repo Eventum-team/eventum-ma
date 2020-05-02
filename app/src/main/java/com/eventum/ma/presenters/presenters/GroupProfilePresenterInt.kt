@@ -7,6 +7,6 @@ interface GroupProfilePresenterInt {
     fun showGroupProfile(group: GroupModel?)
     fun showEventsByGroup(groups: ArrayList<EventModel>?)
     //Presenter
-    fun getGroupProfile()
-    fun getEventsByGroup()
+    fun getGroupProfile(id: String)
+    fun getEventsByGroup(id: String)
 }

@@ -7,7 +7,7 @@ class EventProfileRepository(var eventProfilePresenter: EventProfilePresenterInt
 
     //Logica de graphql para consumir la API
 
-    fun getEventProfile(){
+    fun getEventProfile(id: String){
         val g1 = EventModel()
         g1.name = "eventazo 1"
         g1.description = "Gran descripcio 111111"
