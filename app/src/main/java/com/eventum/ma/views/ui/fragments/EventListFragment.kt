@@ -1,5 +1,6 @@
 package com.eventum.ma.views.ui.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,6 +12,7 @@ import com.eventum.ma.models.models.EventModel
 import com.eventum.ma.presenters.EventsPresenter
 import com.eventum.ma.views.adapters.EventItemAdapter
 import com.eventum.ma.views.listeners.EventListener
+import com.eventum.ma.views.ui.activities.EventDetails
 import com.eventum.ma.views.views.EventsViewInt
 import kotlinx.android.synthetic.main.fragment_event_list.*
 import java.util.*
@@ -64,7 +66,10 @@ class EventListFragment : Fragment(),EventListener,EventsViewInt {
     }
 
     override fun onEventClicked(event: EventModel, position: Int) {
-
+        val intent = Intent(view!!.context  , EventDetails::class.java)
+        event.id_event="1"
+        intent.putExtra("EVENT", event.id_event);
+        startActivity(intent)
     }
     private fun dataLoaded() {
         rlBaseEvents.visibility = View.INVISIBLE

@@ -1,5 +1,6 @@
 package com.eventum.ma.views.ui.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
@@ -14,6 +15,7 @@ import com.eventum.ma.models.models.GroupModel
 import com.eventum.ma.presenters.GroupsPresenter
 import com.eventum.ma.views.adapters.CardItemAdapter
 import com.eventum.ma.views.listeners.GroupListener
+import com.eventum.ma.views.ui.activities.GroupDetails
 import com.eventum.ma.views.ui.activities.MainActivity
 import com.eventum.ma.views.views.GroupsViewInt
 import kotlinx.android.synthetic.main.fragment_group_list.*
@@ -55,8 +57,10 @@ class GroupListFragment : Fragment(),
 
 
     override fun onGroupClicked(group: GroupModel, position: Int) {
-        val bundle = bundleOf("group" to group)
-        findNavController().navigate(R.id.groupDetailsDialogFragment, bundle)
+        val intent = Intent(view!!.context  , GroupDetails::class.java)
+         group.id_group="1"
+        intent.putExtra("GROUP", group.id_group);
+        startActivity(intent)
     }
 
     override fun showGroups(groups: ArrayList<GroupModel>?) {
