@@ -1,7 +1,9 @@
 package com.eventum.ma.models.repositories
 
+import com.eventum.ma.controllers.GraphqlConnection
 import com.eventum.ma.models.models.UserModel
 import com.eventum.ma.presenters.presenters.SignUpPresenterInt
+
 
 class SignUpRepository(var signUpPresenter: SignUpPresenterInt){
     fun createAccount(user: UserModel){
@@ -11,6 +13,8 @@ class SignUpRepository(var signUpPresenter: SignUpPresenterInt){
             signUpPresenter.onCreationFailed()
         }
     }
+
+
 
 
 }
