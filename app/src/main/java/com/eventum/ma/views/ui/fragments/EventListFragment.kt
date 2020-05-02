@@ -26,21 +26,16 @@ class EventListFragment : Fragment(),EventListener,EventsViewInt {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_event_list, container, false)
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         eventAdapter = EventItemAdapter(this)
         eventsPresenter = EventsPresenter(this)
-
         rvEvents.apply {
             layoutManager = LinearLayoutManager(view.context, LinearLayoutManager.VERTICAL, false)
         }
-
         getEvents()
 //        showGroups(groups)
     }
@@ -54,8 +49,6 @@ class EventListFragment : Fragment(),EventListener,EventsViewInt {
         } catch (e: Exception) {
             e.printStackTrace()
         }
-
-
     }
 
     override fun showEventsByName(groups: ArrayList<EventModel>?) {
@@ -76,5 +69,4 @@ class EventListFragment : Fragment(),EventListener,EventsViewInt {
     private fun dataLoaded() {
         rlBaseEvents.visibility = View.INVISIBLE
     }
-
 }

@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginRight="10dp"
+    android:layout_marginEnd="10dp"
     android:orientation="vertical">
     <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/home_event_image"
@@ -12,16 +12,16 @@
         android:layout_height="150dp"
         android:src="@drawable/event_background"
         android:scaleType="centerCrop"
-        app:riv_corner_radius="3dip"
+        app:riv_corner_radius="15dip"
         app:riv_oval="false" />
     <TextView
         android:id="@+id/home_event_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textStyle="bold"
-        android:text="Product UX Design"
+        android:text="Title"
         android:layout_marginTop="3dp"
-        android:textColor="#585e66"
+        android:textColor="@color/colorPrimaryDark"
         android:textSize="15sp"/>
     <LinearLayout
         android:layout_width="wrap_content"
@@ -32,7 +32,7 @@
             android:id="@+id/home_event_owner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="$59.99"
+            android:text="default text"
             android:textSize="13sp"
             android:textColor="@color/colorPrimaryDark"/>
 

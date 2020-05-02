@@ -11,4 +11,5 @@ class UserModel: Serializable {
     lateinit var age: String
     lateinit var career: String
     lateinit var status: String
+    lateinit var image: String
 }

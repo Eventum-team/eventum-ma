@@ -12,13 +12,16 @@ import com.eventum.ma.models.models.EventModel
 import com.eventum.ma.views.listeners.EventListener
 import kotlin.collections.ArrayList
 
-class HomeAdapter(private val eventListener: EventListener) : RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
+class EventsHorizontalItemsAdapter(private val eventListener: EventListener) :
+    RecyclerView.Adapter<EventsHorizontalItemsAdapter.ViewHolder>() {
 
     private var todayEventList = ArrayList<EventModel>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(
         LayoutInflater.from(parent.context).inflate(
-        R.layout.item_event_home, parent, false))
+            R.layout.item_event, parent, false
+        )
+    )
 
     override fun getItemCount() = todayEventList.size
 

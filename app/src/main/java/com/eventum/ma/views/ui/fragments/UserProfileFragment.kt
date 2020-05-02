@@ -1,61 +1,137 @@
 package com.eventum.ma.views.ui.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
+import android.widget.Toast
+import androidx.core.os.bundleOf
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 
 import com.eventum.ma.R
+import com.eventum.ma.models.models.EventModel
+import com.eventum.ma.models.models.GroupModel
+import com.eventum.ma.models.models.UserModel
+import com.eventum.ma.presenters.UserProfilePresenter
+import com.eventum.ma.presenters.presenters.UserProfilePresenterInt
+import com.eventum.ma.views.adapters.EventsHorizontalItemsAdapter
+import com.eventum.ma.views.adapters.GroupsHorizontalItemsAdapter
+import com.eventum.ma.views.listeners.EventListener
+import com.eventum.ma.views.listeners.GroupListener
+import com.eventum.ma.views.ui.activities.EventDetails
+import com.eventum.ma.views.views.UserProfileEventInt
+import kotlinx.android.synthetic.main.fragment_user_profile.*
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [userProfileFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class UserProfileFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+class UserProfileFragment : Fragment(), EventListener,GroupListener, UserProfileEventInt {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
-
+    private val userProfilePresenter: UserProfilePresenterInt? = UserProfilePresenter(this)
+    private lateinit var myGroupsAdapter: GroupsHorizontalItemsAdapter
+    private lateinit var myEventsAdapter: EventsHorizontalItemsAdapter
+    private lateinit var attendanceEventsAdapter: EventsHorizontalItemsAdapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_user_profile, container, false)
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment userProfileFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            UserProfileFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        myGroupsAdapter = GroupsHorizontalItemsAdapter(this)
+        myEventsAdapter = EventsHorizontalItemsAdapter(this)
+        attendanceEventsAdapter = EventsHorizontalItemsAdapter(this)
+        val id = "1"
+
+        rvAttendanceEvents.apply {
+            layoutManager = LinearLayoutManager(view.context, LinearLayoutManager.HORIZONTAL, false)
+        }
+        rvMyEvents.apply {
+            layoutManager = LinearLayoutManager(view.context, LinearLayoutManager.HORIZONTAL, false)
+        }
+        rvMyGroups.apply {
+            layoutManager = LinearLayoutManager(view.context, LinearLayoutManager.HORIZONTAL, false)
+        }
+
+        getUserInfo(id)
+        getEventsCreatedByUser(id)
+        getEventsAttendedBuUser(id)
+        getGroupsFollowedByUser(id)
+
     }
+
+
+    override fun getUserInfo(id: String) {
+       userProfilePresenter?.getUserInfo(id)
+    }
+
+    override fun getEventsCreatedByUser(id: String) {
+        userProfilePresenter?.getEventsCreatedByUser(id)
+    }
+
+    override fun getGroupsFollowedByUser(id: String) {
+        userProfilePresenter?.getGroupsFollowedByUser(id)
+    }
+
+    override fun getEventsAttendedBuUser(id: String) {
+        userProfilePresenter?.getEventsAttendedBuUser(id)
+    }
+
+    override fun showUserInfo(user: UserModel) {
+        //Ids in fragment XML
+        profile_name.text = user.name
+        profile_career.text = user.career
+        profile_event_count.text = "5"
+        profile_group_count.text = "4"
+        Glide.with(view!!.context)
+            .load(user.image)
+            .into(profile_image)
+
+    }
+
+    override fun showEventsCreatedByUser(events: ArrayList<EventModel>) {
+//        Toast.makeText(view!!.context, "user created", Toast.LENGTH_SHORT).show()
+        myEventsAdapter.updateEvents(events)
+        try {
+            rvMyEvents!!.adapter = myEventsAdapter
+        }catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
+    override fun showGroupsFollowedByUser(groups: ArrayList<GroupModel>){
+        myGroupsAdapter.updateEvents(groups)
+        try {
+            rvMyGroups!!.adapter = myGroupsAdapter
+        }catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
+    override fun showEventsAttendedBuUser(events: ArrayList<EventModel>) {
+        attendanceEventsAdapter.updateEvents(events)
+        try {
+            rvAttendanceEvents!!.adapter = attendanceEventsAdapter
+        }catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
+    override fun onEventClicked(event: EventModel, position: Int) {
+        val intent = Intent(view!!.context  , EventDetails::class.java)
+        event.id_event="1"
+        intent.putExtra("EVENT", event.id_event);
+        startActivity(intent)
+    }
+
+    override fun onGroupClicked(group: GroupModel, position: Int) {
+
+    }
+
 }

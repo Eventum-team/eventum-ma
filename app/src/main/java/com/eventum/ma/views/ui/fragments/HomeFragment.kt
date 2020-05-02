@@ -1,10 +1,13 @@
 package com.eventum.ma.views.ui.fragments
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,19 +15,19 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.eventum.ma.R
 import com.eventum.ma.models.models.EventModel
 import com.eventum.ma.presenters.HomePresenter
-import com.eventum.ma.views.adapters.HomeAdapter
+import com.eventum.ma.views.adapters.EventsHorizontalItemsAdapter
 import com.eventum.ma.views.listeners.EventListener
+import com.eventum.ma.views.ui.activities.EventDetails
+import com.eventum.ma.views.ui.activities.SignUpActivity
 import com.eventum.ma.views.views.HomeViewInt
-import kotlinx.android.synthetic.main.fragment_event_list.*
-import kotlinx.android.synthetic.main.fragment_group_list.*
 import kotlinx.android.synthetic.main.fragment_home.*
 
 
 class HomeFragment : Fragment(),EventListener, HomeViewInt {
 
     private var homePresenter: HomePresenter? = null
-    private lateinit var homeAdapter: HomeAdapter
-    private lateinit var homeOfficialAdapter: HomeAdapter
+    private lateinit var todayEventsAdapter: EventsHorizontalItemsAdapter
+    private lateinit var officialEventsAdapter: EventsHorizontalItemsAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,9 +38,10 @@ class HomeFragment : Fragment(),EventListener, HomeViewInt {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-       homeAdapter = HomeAdapter(this)
-        homeOfficialAdapter = HomeAdapter(this)
+        val preferences = activity?.getSharedPreferences("com.eventum.ma", Context.MODE_PRIVATE)
+        val s = preferences!!.getString("session","")
+        todayEventsAdapter = EventsHorizontalItemsAdapter(this)
+        officialEventsAdapter = EventsHorizontalItemsAdapter(this)
         homePresenter = HomePresenter(this)
 
         rvTodayEvents.apply {
@@ -47,20 +51,21 @@ class HomeFragment : Fragment(),EventListener, HomeViewInt {
             layoutManager = LinearLayoutManager(view.context, LinearLayoutManager.HORIZONTAL, false)
         }
 
-
         getTodayEvents()
         getOfficialEvents()
     }
 
     override fun onEventClicked(event: EventModel, position: Int) {
-        val bundle = bundleOf("event" to event)
-        findNavController().navigate(R.id.eventDetailsDialogFragment, bundle)
+        val intent = Intent(view!!.context  , EventDetails::class.java)
+        event.id_event="1"
+        intent.putExtra("EVENT", event.id_event);
+        startActivity(intent)
     }
 
     override fun showTodayEvents(events: ArrayList<EventModel>?) {
-        homeAdapter.updateEvents(events)
+        todayEventsAdapter.updateEvents(events)
         try {
-            rvTodayEvents!!.adapter = homeAdapter
+            rvTodayEvents!!.adapter = todayEventsAdapter
             dataLoaded()
         }catch (e: Exception) {
             e.printStackTrace()
@@ -68,9 +73,9 @@ class HomeFragment : Fragment(),EventListener, HomeViewInt {
     }
 
     override fun showOfficialEvents(events: ArrayList<EventModel>?) {
-        homeOfficialAdapter.updateEvents(events)
+        officialEventsAdapter.updateEvents(events)
         try {
-            rvOfficialEvents!!.adapter = homeOfficialAdapter
+            rvOfficialEvents!!.adapter = officialEventsAdapter
             dataLoaded()
         }catch (e: Exception) {
             e.printStackTrace()

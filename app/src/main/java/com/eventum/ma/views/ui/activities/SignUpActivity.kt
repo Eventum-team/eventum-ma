@@ -15,6 +15,7 @@ class SignUpActivity : AppCompatActivity(),SignUpInt {
 
     private var signUpPresenter: SignUpPresenterInt? = null
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)

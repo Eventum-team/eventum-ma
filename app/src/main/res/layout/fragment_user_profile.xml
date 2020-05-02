@@ -3,12 +3,284 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".views.ui.fragments.UserProfileFragment">
+  <ScrollView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      tools:ignore="UselessParent">
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:focusableInTouchMode="true"
+          android:clipToPadding="false"
+          android:paddingBottom="25sp"
+          android:orientation="vertical">
+          <com.google.android.material.appbar.AppBarLayout
+              android:layout_width="match_parent"
+              android:layout_height="50dp"
+              android:fitsSystemWindows="true"
+              app:liftOnScroll="true">
+              <com.google.android.material.appbar.CollapsingToolbarLayout
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  app:expandedTitleMarginStart="72dp"
+                  app:expandedTitleMarginBottom="28dp"
+                  app:expandedTitleTextAppearance="@style/TextAppearance.App.CollapsingToolbar.Expanded"
+                  app:collapsedTitleTextAppearance="@style/TextAppearance.App.CollapsingToolbar.Collapsed"
+                  android:fitsSystemWindows="true"
+                  app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
+                  >
+                  <ImageView
+                      android:layout_width="match_parent"
+                      android:layout_height="match_parent"
+                      android:src="@drawable/user_block"
+                      android:scaleType="centerCrop"
+                      android:fitsSystemWindows="true"
+                      android:contentDescription="description image"                    />
+                  <com.google.android.material.appbar.MaterialToolbar
+                      android:id="@+id/topAppBar"
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+                      android:layout_width="match_parent"
+
+                      android:layout_height="?attr/actionBarSize"
+                      android:elevation="0dp"
+                      app:layout_collapseMode="pin"
+                      app:layout_scrollFlags="scroll|enterAlways|snap"
+                      app:menu="@menu/top_app_bar_profile"
+
+                      app:title="Eventos" />
+              </com.google.android.material.appbar.CollapsingToolbarLayout>
+          </com.google.android.material.appbar.AppBarLayout>
+          <RelativeLayout
+
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+              <ImageView
+                  android:layout_width="match_parent"
+                  android:layout_height="250sp"
+                  android:scaleType="centerCrop"
+                  android:src="@drawable/user_block"
+                  android:contentDescription="profileImage" />
+              <LinearLayout
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_centerInParent="true"
+                  android:orientation="vertical"
+                  android:layout_gravity="center"
+                  >
+
+                  <de.hdodenhof.circleimageview.CircleImageView
+                      android:id="@+id/profile_image"
+                      android:layout_width="125dp"
+                      android:layout_height="125dp"
+                      android:layout_gravity="center"
+                      android:src="@drawable/event_background" />
+                  <TextView
+                      android:id="@+id/profile_name"
+                      android:text="Nombre"
+                      android:layout_gravity="center"
+                      android:layout_marginTop="16dp"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:textColor="@color/colorPrimaryDark"
+                      android:textStyle="bold"
+                      android:textSize="23sp"/>
+                  <TextView
+                      android:text="tipo"
+                      android:id="@+id/profile_career"
+                      android:layout_gravity="center"
+                      android:layout_marginTop="2dp"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:textColor="@color/colorPrimaryDark"
+
+                      android:textSize="16sp"/>
+              </LinearLayout>
+          </RelativeLayout>
+
+
+
+
+          <LinearLayout
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:paddingTop="10dp"
+              android:paddingBottom="10dp"
+              android:elevation="5dp"
+              android:layout_gravity="center"
+
+              android:orientation="horizontal">
+              <LinearLayout
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:orientation="vertical"
+                  android:paddingBottom="13dp">
+                  <TextView
+                      android:id="@+id/profile_event_count"
+                      android:paddingTop="13dp"
+                      android:layout_gravity="center"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:textSize="13sp"
+                      android:textColor="#3b3b3b"/>
+                  <TextView
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:text="Eventos"
+                      android:textSize="13sp"
+                      android:textColor="#a9a9b0"/>
+              </LinearLayout>
+              <LinearLayout
+                  android:layout_marginStart="45dp"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:orientation="vertical"
+                  android:paddingBottom="13dp">
+                  <TextView
+                      android:id="@+id/profile_group_count"
+                      android:paddingTop="13dp"
+                      android:layout_gravity="center"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:textSize="13sp"
+                      android:textColor="#3b3b3b"/>
+                  <TextView
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:text="Grupos"
+                      android:textSize="12sp"
+                      android:textColor="#a9a9b0"/>
+              </LinearLayout>
+          </LinearLayout>
+          <View
+              android:layout_width="match_parent"
+              android:layout_height="1dp"
+              android:layout_marginTop="15dp"
+              android:layout_marginLeft="17dp"
+              android:layout_marginRight="17dp"
+              android:background="#33979797"/>
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="10dp"
+              android:layout_marginLeft="10dp"
+              android:layout_marginRight="10dp"
+              android:orientation="horizontal">
+              <TextView
+                  android:textStyle="bold"
+                  android:layout_weight="1"
+                  android:layout_width="0dp"
+                  android:layout_height="wrap_content"
+                  android:textColor="@color/colorPrimaryDark"
+                  android:text="Eventos a los que asistire"
+                  android:textSize="25sp"/>
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:textSize="16sp"
+                  android:text="View All"
+                  android:textColor="@color/colorPrimary"/>
+          </LinearLayout>
+          <HorizontalScrollView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="12dp"
+              android:scrollbars="none">
+              <LinearLayout
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:clipToPadding="false"
+                  android:paddingLeft="10dp"
+                  android:paddingRight="10dp"
+                  android:orientation="horizontal">
+                  <androidx.recyclerview.widget.RecyclerView
+                      android:id="@+id/rvAttendanceEvents"
+                      android:layout_width="match_parent"
+                      android:layout_height="match_parent"/>
+              </LinearLayout>
+          </HorizontalScrollView>
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="10dp"
+              android:layout_marginLeft="10dp"
+              android:layout_marginRight="10dp"
+              android:orientation="horizontal">
+              <TextView
+                  android:textStyle="bold"
+                  android:layout_weight="1"
+                  android:layout_width="0dp"
+                  android:layout_height="wrap_content"
+                  android:textColor="@color/colorPrimaryDark"
+                  android:text="Mis Grupos"
+                  android:textSize="25sp"/>
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:textSize="16sp"
+                  android:text="View All"
+                  android:textColor="@color/colorPrimary"/>
+          </LinearLayout>
+          <HorizontalScrollView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="12dp"
+              android:scrollbars="none">
+              <LinearLayout
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:clipToPadding="false"
+                  android:paddingLeft="10dp"
+                  android:paddingRight="10dp"
+                  android:orientation="horizontal">
+                  <androidx.recyclerview.widget.RecyclerView
+                      android:id="@+id/rvMyGroups"
+                      android:layout_width="match_parent"
+                      android:layout_height="match_parent"/>
+              </LinearLayout>
+          </HorizontalScrollView>
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="10dp"
+              android:layout_marginLeft="10dp"
+              android:layout_marginRight="10dp"
+              android:orientation="horizontal">
+              <TextView
+                  android:textStyle="bold"
+                  android:layout_weight="1"
+                  android:layout_width="0dp"
+                  android:layout_height="wrap_content"
+                  android:textColor="@color/colorPrimaryDark"
+                  android:text="Mis Eventos"
+                  android:textSize="25sp"/>
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:textSize="16sp"
+                  android:text="View All"
+                  android:textColor="@color/colorPrimary"/>
+          </LinearLayout>
+          <HorizontalScrollView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="12dp"
+              android:scrollbars="none">
+              <LinearLayout
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:clipToPadding="false"
+                  android:paddingLeft="10dp"
+                  android:paddingRight="10dp"
+                  android:orientation="horizontal">
+                  <androidx.recyclerview.widget.RecyclerView
+                      android:id="@+id/rvMyEvents"
+                      android:layout_width="match_parent"
+                      android:layout_height="match_parent"/>
+              </LinearLayout>
+          </HorizontalScrollView>
+      </LinearLayout>
+  </ScrollView>
 
 </FrameLayout>

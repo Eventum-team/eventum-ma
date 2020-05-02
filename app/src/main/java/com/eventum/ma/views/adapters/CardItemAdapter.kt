@@ -12,7 +12,7 @@ import kotlin.collections.ArrayList
 import com.eventum.ma.models.models.GroupModel
 import com.eventum.ma.views.listeners.GroupListener
 
-class GroupItemAdapter(private val groupListener: GroupListener) : RecyclerView.Adapter<GroupItemAdapter.ViewHolder>() {
+class CardItemAdapter(private val groupListener: GroupListener) : RecyclerView.Adapter<CardItemAdapter.ViewHolder>() {
 
     private var groupList = ArrayList<GroupModel>()
 
@@ -33,7 +33,7 @@ class GroupItemAdapter(private val groupListener: GroupListener) : RecyclerView.
             .into(holder.groupItemImage)
 
         holder.itemView.setOnClickListener {
-            groupListener.onConferenceClicked(group, position)
+            groupListener.onGroupClicked(group, position)
         }
 
     }
