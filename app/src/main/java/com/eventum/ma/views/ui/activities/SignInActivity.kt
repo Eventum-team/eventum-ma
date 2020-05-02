@@ -1,5 +1,6 @@
 package com.eventum.ma.views.ui.activities
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -58,17 +59,16 @@ class SignInActivity : AppCompatActivity(), SignInInt {
   }
 
   override fun denyAccess() {
-    Toast.makeText(this, "denied", Toast.LENGTH_SHORT).show()
+    //Toast.makeText(this, "denied", Toast.LENGTH_SHORT).show()
   }
 
-<<<<<<< HEAD
-  private fun verifySession(){
-    val preferences = getSharedPreferences("com.eventum.ma", Context.MODE_PRIVATE)
-    val s = preferences!!.getString("session","")
-    if (s!= ""){
-      allowAccess()
-=======
-
+  private fun verifySession() {
+      val preferences = getSharedPreferences("com.eventum.ma", Context.MODE_PRIVATE)
+      val s = preferences!!.getString("session", "")
+      if (s != "") {
+          allowAccess()
+      }
+  }
 
 
     fun allGroupsCallback(group: Array<GroupModel>?){
@@ -121,17 +121,7 @@ class SignInActivity : AppCompatActivity(), SignInInt {
             // use colors as returned by API
         }
     }
-
-    override fun denyAccess() {
-        //Toast.makeText(this, "denied", Toast.LENGTH_SHORT).show()
-
-
-        //getGroupProfile(7,this::ProfileCallback)
-
-
->>>>>>> 5d86c8135726f5d1b3167bbfa868ba8592a9f7e4
-    }
-  }
-
-
 }
+
+
+

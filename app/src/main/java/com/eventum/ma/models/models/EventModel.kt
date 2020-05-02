@@ -2,6 +2,7 @@ package com.eventum.ma.models.models
 
 import java.io.Serializable
 import java.util.*
+import kotlin.collections.ArrayList
 
 class EventModel: Serializable {
     lateinit var id_event: String
@@ -17,4 +18,7 @@ class EventModel: Serializable {
     lateinit var latitude: String
     lateinit var longitude: String
     lateinit var image: String
+    lateinit var followers: ArrayList<UserModel>
+    lateinit var assistant: ArrayList<UserModel>
+    lateinit var interested: ArrayList<UserModel>
 }

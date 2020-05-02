@@ -82,32 +82,7 @@ class GroupsRepository(var groupsPresenter: GroupsPresenterInt){
     }
     //Logica de graphql para consumir la API
     fun getGroups(){
-<<<<<<< HEAD
-        val g1 = GroupModel()
-        g1.name = "grupazo 1"
-        g1.description = "Gran descripcio 111111"
-        g1.type = "typazo 1"
-        g1.image = "https://images.unsplash.com/photo-1531297484001-80022131f5a1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2014&q=80"
-        val g2 = GroupModel()
-        g2.name = "grupazo 2"
-        g2.description = "Gran descripcio 2222222"
-        g2.type = "typazo 2"
-        g2.image = "https://images.unsplash.com/photo-1588349779545-79444e3f673d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80"
-        val groups: ArrayList<GroupModel> = ArrayList<GroupModel>()
-        groups.add(g1)
-        groups.add(g2)
-        groups.add(g1)
-        groups.add(g2)
-        groups.add(g1)
-        groups.add(g2)
-        groups.add(g1)
-        groups.add(g2)
-        groups.add(g1)
-        groups.add(g2)
-        groupsPresenter.showGroups(groups)
-=======
         allGroups(this::allGroupsCallback)
->>>>>>> 5d86c8135726f5d1b3167bbfa868ba8592a9f7e4
     }
 
     fun getGroupsByName(){

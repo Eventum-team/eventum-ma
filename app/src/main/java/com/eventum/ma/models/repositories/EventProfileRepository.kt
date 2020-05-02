@@ -1,21 +1,182 @@
 package com.eventum.ma.models.repositories
 
+import com.eventum.ma.models.models.CommentModel
 import com.eventum.ma.models.models.EventModel
+import com.eventum.ma.models.models.GroupModel
+import com.eventum.ma.models.models.UserModel
 import com.eventum.ma.presenters.presenters.EventProfilePresenterInt
+import okhttp3.*
+import okio.IOException
+import org.json.JSONArray
+import org.json.JSONObject
 
 class EventProfileRepository(var eventProfilePresenter: EventProfilePresenterInt) {
 
+    var client = OkHttpClient()
+
+    fun getEventProf(idEvent: Int, idUser: Int, callback: (EventModel?) -> Unit){
+
+        var url = "http://190.24.19.228:3000/graphql?query="
+        url=url+"query{\n" +
+                "  eventProfile(eventId:$idEvent,userId:$idUser){\n" +
+                "  \tid\n" +
+                "    ownerType\n" +
+                "    status\n" +
+                "    eventType\n" +
+                "    ownerId\n" +
+                "    name\n" +
+                "    eventStartDate\n" +
+                "    eventFinishDate\n" +
+                "    description\n" +
+                "    url\n" +
+                "    latitude\n" +
+                "    longitude\n" +
+                "    comments{\n" +
+                "      id\n" +
+                "      idEvent\n" +
+                "      idUser\n" +
+                "      name\n" +
+                "      text\n" +
+                "      updated_at\n" +
+                "      created_at\n" +
+                "      likes\n" +
+                "      dislikes\n" +
+                "      reacted\n" +
+                "    }\n" +
+                "    followers\n" +
+                "    assistant{\n" +
+                "      id\n" +
+                "      name\n" +
+                "     \tphoto\n" +
+                "    }\n" +
+                "    interested{\n" +
+                "      id\n" +
+                "      name\n" +
+                "      photo\n" +
+                "    }\n" +
+                "    photo\n" +
+                "  }\n" +
+                "}";
+        var request = Request.Builder()
+            .url(url)
+            //.post(FormBody.Builder().build())         ONLY FOR POST
+            .build()
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                e.printStackTrace()
+                callback(null);
+            }
+            override fun onResponse(call: Call, response: Response) {
+                response.use {
+                    if (!response.isSuccessful){
+                        callback(null);
+                        throw IOException("Unexpected code $response")
+                    }
+                    else{
+                        var output = JSONObject(response.body!!.string())
+                        println(output)
+                        if(output.has("errors")){
+                            callback(null);
+                        }else {
+
+                            output = output.get("data") as JSONObject;
+                            output = output.get("eventProfile") as JSONObject;
+                            println(output);
+                            var eventModel: EventModel = EventModel()
+                            eventModel.id_event = output.get("id").toString();
+                            eventModel.owner_type = output.get("ownerType").toString();
+                            eventModel.status = output.get("status").toString();
+                            eventModel.event_type = output.get("eventType").toString();
+                            eventModel.id_owner = output.get("ownerId").toString();
+                            eventModel.name = output.get("name").toString();
+                            //eventModel.eventStartDate = output.get("eventStartDate").toString();
+                            //eventModel.eventFinishDate = output.get("eventFinishDate").toString();
+                            eventModel.description = output.get("description").toString();
+                            eventModel.url = output.get("url").toString();
+                            eventModel.latitude = output.get("latitude").toString();
+                            eventModel.longitude = output.get("longitude").toString();
+                            eventModel.image = output.get("photo").toString()
+
+                            val listUserFollowers: MutableList<UserModel> = ArrayList()  //En graphql todavia nod evuelve unalista de usuarios
+                            val listUserAssistant: MutableList<UserModel> = ArrayList()
+                            val listUserInterested: MutableList<UserModel> = ArrayList()
+                            val listComments: MutableList<CommentModel> = ArrayList()
+
+                            var arr = output.get("comments") as JSONArray;
+                            var obj: JSONObject
+                            for (i in 0..arr.length()-1){
+                                obj = arr[i] as JSONObject;
+                                var commentModel: CommentModel = CommentModel();
+                                /*
+                                commentModel.id = obj.get("id").toString()
+                                commentModel.idEvent = obj.get("idEvent").toString()
+                                commentModel.idUser = obj.get("idUser").toString()
+                                commentModel.name = obj.get("name").toString()
+                                commentModel.text = obj.get("text").toString()
+                                commentModel.updated_at = obj.get("updated_at").toString()
+                                commentModel.likes = obj.get("likes").toString()
+                                commentModel.dislikes = obj.get("dislikes").toString()
+                                commentModel.reacted = obj.get("reacted").toString()
+                                listComments.add(commentModel);*/
+                            }
+                            arr = output.get("assistant") as JSONArray;
+                            for (i in 0..arr.length()-1){
+                                obj = arr[i] as JSONObject;
+                                var userModel: UserModel = UserModel();
+                                userModel.id_user = obj.get("id").toString()
+                                userModel.name = obj.get("name").toString()
+                                userModel.image = obj.get("photo").toString()
+
+                                listUserAssistant.add(userModel);
+                            }
+                            arr = output.get("interested") as JSONArray;
+                            for (i in 0..arr.length()-1){
+                                obj = arr[i] as JSONObject;
+                                var userModel: UserModel = UserModel();
+                                userModel.id_user = obj.get("id").toString()
+                                userModel.name = obj.get("name").toString()
+                                userModel.image = obj.get("photo").toString()
+
+                                listUserInterested.add(userModel);
+                            }
+                            /*arr = output.get("followers") as JSONArray;
+                            for (i in 0..arr.length()-1){
+                                obj = arr[i] as JSONObject;
+                                var userModel: UserModel = UserModel();
+                                userModel.id_user = obj.get("id").toString()
+                                userModel.name = obj.get("name").toString()
+                                userModel.image = obj.get("photo").toString()
+
+                                listUserFollowers.add(userModel);
+                            }*/
+                            eventModel.assistant = ArrayList(listUserAssistant)
+                            eventModel.interested = ArrayList(listUserInterested)
+                            //eventModel.comments = ArrayList(listComments)
+                            //eventModel.followers = ArrayList(listUserFollowers)
+
+                            callback(eventModel);
+                        }
+                    }
+                }
+            }
+        })
+    }
+
+    fun ProfileCallback(eventModel: EventModel?){
+        if(eventModel == null){
+            println("-----------SOMETHING WRONG-----------------")
+        }else{
+
+            eventProfilePresenter.showEventProfile(eventModel)
+
+            println("-----------Todo Goood-----------------")
+
+        }
+    }
     //Logica de graphql para consumir la API
 
     fun getEventProfile(id: String){
-        val g1 = EventModel()
-        g1.name = "eventazo 1"
-        g1.description = "Gran descripcio 111111"
-        g1.event_type = "type"
-        g1.id_owner = "typazo 1"
-        g1.image = "https://homepages.cae.wisc.edu/~ece533/images/airplane.png"
-        val event = g1
-        eventProfilePresenter.showEventProfile(event)
+       // getEventProf(idEvent.toInt(),idUser.toInt(), this::ProfileCallback); cambiar argumentos
     }
 
 

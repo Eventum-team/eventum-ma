@@ -113,10 +113,6 @@ class UserRepository(private val userProfilePresenter: UserProfilePresenterInt){
                             user.groupsFollowing = ArrayList(listGroupFollowing)
                             user.eventsCreated = ArrayList(listEventCreated)
                             callback(user);
-
-
-                            // NECESITO DATOS PARA PROBAR
-
                         }
                     }
                 }
@@ -128,7 +124,12 @@ class UserRepository(private val userProfilePresenter: UserProfilePresenterInt){
         if(userProfile == null){
             println("-----------SOMETHING WRONG-----------------")
         }else{
-            println(userProfile)
+            userProfilePresenter.showUserInfo(userProfile)
+
+            userProfilePresenter.showEventsCreatedByUser(userProfile.eventsCreated)
+            userProfilePresenter.showGroupsFollowedByUser(userProfile.groupsFollowing)
+            userProfilePresenter.showEventsAttendedBuUser(userProfile.assistanceEvents)
+
 
             println("-----------Todo Goood-----------------")
 
@@ -140,14 +141,9 @@ class UserRepository(private val userProfilePresenter: UserProfilePresenterInt){
 
     }
     fun getUserInfo(id: String){
-        val u = UserModel()
-        u.name = "Juan Diego"
-        u.image = "https://picsum.photos/seed/picsum/200/300"
-        u.career = "Ingenieria de Sistemmas"
-        u.status = "Status Activo"
-        u.age = 19
+        getUserProfile(id.toInt(), this::ProfileCallback)
 
-        userProfilePresenter.showUserInfo(u)
+
     }
 
     fun getEventsCreatedByUser(id: String){
@@ -164,7 +160,7 @@ class UserRepository(private val userProfilePresenter: UserProfilePresenterInt){
         val events: ArrayList<EventModel> = ArrayList<EventModel>()
         events.add(g1)
         events.add(g2)
-        userProfilePresenter.showEventsCreatedByUser(events)
+        //userProfilePresenter.showEventsCreatedByUser(events)
 
     }
 
@@ -182,7 +178,7 @@ class UserRepository(private val userProfilePresenter: UserProfilePresenterInt){
         val groups: ArrayList<GroupModel> = ArrayList<GroupModel>()
         groups.add(g1)
         groups.add(g2)
-        userProfilePresenter.showGroupsFollowedByUser(groups)
+        //userProfilePresenter.showGroupsFollowedByUser(groups)
     }
 
     fun getEventsAttendedBuUser(id: String){
@@ -199,6 +195,6 @@ class UserRepository(private val userProfilePresenter: UserProfilePresenterInt){
         val events: ArrayList<EventModel> = ArrayList<EventModel>()
         events.add(g1)
         events.add(g2)
-        userProfilePresenter.showEventsAttendedBuUser(events)
+        //userProfilePresenter.showEventsAttendedBuUser(events)
     }
 }

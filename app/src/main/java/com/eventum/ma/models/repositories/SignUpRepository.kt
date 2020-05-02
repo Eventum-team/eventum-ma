@@ -9,13 +9,7 @@ import org.json.JSONObject
 
 
 class SignUpRepository(var signUpPresenter: SignUpPresenterInt){
-<<<<<<< HEAD
-    fun createAccount(user: UserModel){
-        if(user.password == "123456"){
 
-            signUpPresenter.onUserCreated()
-        }else{
-=======
     var client = OkHttpClient()
 
     fun register(username: String, password: String, name: String, phoneNumber: String, age: Int, career: String, status: String, callback: (Boolean) -> Unit){
@@ -55,7 +49,6 @@ class SignUpRepository(var signUpPresenter: SignUpPresenterInt){
 
     fun registerCallback(salida: Boolean?){
         if(salida==false){
->>>>>>> 5d86c8135726f5d1b3167bbfa868ba8592a9f7e4
             signUpPresenter.onCreationFailed()
             println("-----------SOMETHING WRONG-----------------")
         }else{
