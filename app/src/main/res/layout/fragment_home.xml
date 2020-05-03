@@ -26,7 +26,6 @@
                    app:expandedTitleMarginBottom="28dp"
                    app:expandedTitleTextAppearance="@style/TextAppearance.App.CollapsingToolbar.Expanded"
                    app:collapsedTitleTextAppearance="@style/TextAppearance.App.CollapsingToolbar.Collapsed"
-
                    android:fitsSystemWindows="true"
                    app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
                    >

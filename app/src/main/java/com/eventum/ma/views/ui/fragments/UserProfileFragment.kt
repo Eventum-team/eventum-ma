@@ -27,9 +27,7 @@ import com.eventum.ma.views.adapters.EventsHorizontalItemsAdapter
 import com.eventum.ma.views.adapters.GroupsHorizontalItemsAdapter
 import com.eventum.ma.views.listeners.EventListener
 import com.eventum.ma.views.listeners.GroupListener
-import com.eventum.ma.views.ui.activities.EventDetails
-import com.eventum.ma.views.ui.activities.MainActivity
-import com.eventum.ma.views.ui.activities.SignInActivity
+import com.eventum.ma.views.ui.activities.*
 import com.eventum.ma.views.views.UserProfileEventInt
 import kotlinx.android.synthetic.main.fragment_user_profile.*
 
@@ -157,6 +155,14 @@ class UserProfileFragment : Fragment(), EventListener,GroupListener, UserProfile
             val intent = Intent(activity, SignInActivity::class.java)
             startActivity(intent)
             activity?.finish();
+        }
+        if (id == R.id.createEventOption) {
+            val intent = Intent(activity, CreateEventActivity::class.java)
+            startActivity(intent)
+        }
+        if (id == R.id.createGroupOption) {
+            val intent = Intent(activity, CreateGroupActivity::class.java)
+            startActivity(intent)
         }
         return super.onOptionsItemSelected(item)
     }

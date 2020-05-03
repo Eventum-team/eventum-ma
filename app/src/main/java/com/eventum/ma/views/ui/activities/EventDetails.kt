@@ -6,15 +6,20 @@ import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.eventum.ma.R
+import com.eventum.ma.models.models.EventModel
 import com.eventum.ma.presenters.EventProfilePresenter
+import com.eventum.ma.views.adapters.EventsHorizontalItemsAdapter
+import com.eventum.ma.views.listeners.EventListener
 import kotlinx.android.synthetic.main.activity_event_details.event_profile_description
 import kotlinx.android.synthetic.main.activity_event_details.event_profile_name
 import kotlinx.android.synthetic.main.activity_event_details.event_profile_type
 import kotlinx.android.synthetic.main.activity_event_details.rlBaseEventProfile
+import kotlinx.android.synthetic.main.activity_group_details.*
 
-class EventDetails : AppCompatActivity() {
+class EventDetails : AppCompatActivity(), EventListener {
 
     private lateinit var eventProfilePresenter: EventProfilePresenter
 
@@ -55,6 +60,9 @@ class EventDetails : AppCompatActivity() {
                     .into(eventImage)
                 dataLoaded()
             }
+            rvGroupEvents.apply {
+                layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
+            }
         })
 
         eventProfilePresenter.isLoading.observe(this, Observer<Boolean> {
@@ -67,6 +75,10 @@ class EventDetails : AppCompatActivity() {
 
     private fun dataLoaded() {
         rlBaseEventProfile.visibility = View.INVISIBLE
+    }
+
+    override fun onEventClicked(event: EventModel, position: Int) {
+
     }
 
 }

@@ -73,7 +73,7 @@
                       android:layout_width="125dp"
                       android:layout_height="125dp"
                       android:layout_gravity="center"
-                      android:src="@drawable/event_background" />
+                      android:src="@drawable/default_user_profile" />
                   <TextView
                       android:id="@+id/profile_name"
                       android:text="Nombre"

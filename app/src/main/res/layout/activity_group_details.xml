@@ -13,7 +13,7 @@
 
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="300dp"
             android:fitsSystemWindows="true"
             app:liftOnScroll="true">
 
@@ -55,7 +55,7 @@
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/gray2"
+
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <ScrollView
@@ -76,6 +76,8 @@
 
                         <TextView
                             android:id="@+id/group_profile_name"
+                            android:textSize="25sp"
+                            android:textStyle="bold"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Nombre del grupo"
@@ -160,19 +162,28 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@color/white"
-                        android:orientation="vertical"
-                        android:padding="10dp">
-
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:orientation="horizontal">
                         <TextView
-                            android:id="@+id/group_profile_eventos"
+                            android:textStyle="bold"
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:text="Eventos"
+                            android:textSize="23sp"/>
+                        <Button
+                            android:id="@+id/allTodayEventsButton"
+                            android:textSize="13sp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Eventos del Grupo"
-                            android:textAppearance="?attr/textAppearanceHeadline6" />
+                            android:text="Ver todos"
+                            style="@style/Widget.MaterialComponents.Button.TextButton"
+                            />
 
                     </LinearLayout>
-
                     <HorizontalScrollView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -186,7 +197,7 @@
                             android:paddingRight="10dp"
                             android:orientation="horizontal">
                             <androidx.recyclerview.widget.RecyclerView
-                                android:id="@+id/rvGroupProfileEvents"
+                                android:id="@+id/rvGroupEvents"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"/>
                         </LinearLayout>

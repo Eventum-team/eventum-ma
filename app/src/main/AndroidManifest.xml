@@ -4,6 +4,7 @@
     package="com.eventum.ma">
 
     <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_eventum"
@@ -11,16 +12,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-
         android:usesCleartextTraffic="true"
         tools:ignore="RtlEnabled">
-
+        <activity android:name=".views.ui.activities.CreateGroupActivity"></activity>
+        <activity android:name=".views.ui.activities.CreateEventActivity" />
         <activity android:name=".views.ui.activities.GroupDetails" />
         <activity android:name=".views.ui.activities.EventDetails" />
         <activity android:name=".views.ui.activities.SignUpActivity" />
-        <activity android:name=".views.ui.activities.SignInActivity">
-
-        </activity>
+        <activity android:name=".views.ui.activities.SignInActivity" />
         <activity android:name=".views.ui.activities.StartActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,9 +27,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".views.ui.activities.MainActivity">
-
-        </activity>
+        <activity android:name=".views.ui.activities.MainActivity" />
     </application>
 
 </manifest>

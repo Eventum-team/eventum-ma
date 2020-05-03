@@ -38,7 +38,7 @@ class GroupDetails : AppCompatActivity(), EventListener {
             groupProfilePresenter.refresh(groupId)
             observeViewModel()
         }
-        rvGroupProfileEvents.apply {
+        rvGroupEvents.apply {
             layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
         }
     }
@@ -46,14 +46,12 @@ class GroupDetails : AppCompatActivity(), EventListener {
     private fun observeViewModel() {
         groupProfilePresenter.eventDetails.observe(this, Observer { group ->
             group.let {
+                eventAdapter.updateData(group.events)
                 group_profile_name.text = group.name
                 group_profile_description.text = group.description
                 group_profile_type.text = group.type
-
                 val eventImage: ImageView = findViewById(R.id.group_image)
-
                 group.image = "https://source.unsplash.com/random"
-
                 Glide.with(this)
                     .load(group.image)
                     .into(eventImage)

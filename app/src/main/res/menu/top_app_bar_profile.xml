@@ -8,4 +8,16 @@
         android:contentDescription="more more"
         app:showAsAction="" />
 
+    <item
+        android:id="@+id/createEventOption"
+        android:title="Crear Evento"
+        android:contentDescription="more more"
+        app:showAsAction="" />
+
+    <item
+        android:id="@+id/createGroupOption"
+        android:title="Crear Grupo"
+        android:contentDescription="more more"
+        app:showAsAction="" />
+
 </menu>

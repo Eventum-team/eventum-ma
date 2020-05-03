@@ -4,10 +4,6 @@
 
 
 
-    <item
-        android:id="@+id/more"
-        android:title="more"
-        android:contentDescription="more more"
-        app:showAsAction="never" />
+
 
 </menu>
