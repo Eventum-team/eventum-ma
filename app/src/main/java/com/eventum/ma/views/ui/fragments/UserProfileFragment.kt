@@ -97,8 +97,8 @@ class UserProfileFragment : Fragment(), EventListener,GroupListener, UserProfile
         //Ids in fragment XML
         profile_name.text = user.name
         profile_career.text = user.career
-        profile_event_count.text = "5"
-        profile_group_count.text = "4"
+        profile_phone.text = user.phone_number
+        profile_email.text = user.email
         Glide.with(view!!.context)
             .load(user.image)
             .into(profile_image)

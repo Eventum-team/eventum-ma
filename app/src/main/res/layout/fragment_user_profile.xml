@@ -100,57 +100,87 @@
 
 
 
-          <LinearLayout
-              android:layout_width="wrap_content"
+          <androidx.cardview.widget.CardView
+              android:id="@+id/cardView"
+              android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:paddingTop="10dp"
-              android:paddingBottom="10dp"
-              android:elevation="5dp"
-              android:layout_gravity="center"
+              android:layout_marginStart="8dp"
+              android:layout_marginLeft="8dp"
+              android:layout_marginTop="15dp"
+              android:layout_marginEnd="8dp"
+              android:layout_marginRight="8dp"
+>
 
-              android:orientation="horizontal">
-              <LinearLayout
+
+              <androidx.constraintlayout.widget.ConstraintLayout
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content"
-                  android:orientation="vertical"
-                  android:paddingBottom="13dp">
+                  android:layout_marginBottom="8dp"
+                  android:paddingBottom="15dp"
+                  app:layout_constraintBottom_toBottomOf="parent">
+
+
                   <TextView
-                      android:id="@+id/profile_event_count"
-                      android:paddingTop="13dp"
-                      android:layout_gravity="center"
+                      android:id="@+id/tvDescriptionDetail"
                       android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
-                      android:textSize="13sp"
-                      android:textColor="#3b3b3b"/>
+                      android:layout_marginStart="8dp"
+                      android:layout_marginLeft="8dp"
+
+                      android:layout_marginTop="20dp"
+                      android:text="Correo"
+                      android:textSize="18sp"
+                      app:layout_constraintStart_toStartOf="parent"
+                      app:layout_constraintTop_toBottomOf="@+id/tvHeadDetail" />
+
+
                   <TextView
+                      android:id="@+id/tvOffertDetail"
                       android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
-                      android:text="Eventos"
-                      android:textSize="13sp"
-                      android:textColor="#a9a9b0"/>
-              </LinearLayout>
-              <LinearLayout
-                  android:layout_marginStart="45dp"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  android:orientation="vertical"
-                  android:paddingBottom="13dp">
+                      android:layout_marginStart="8dp"
+                      android:layout_marginLeft="8dp"
+
+                      android:layout_marginTop="20dp"
+                      android:text="Telefono"
+                      android:textSize="18sp"
+                      app:layout_constraintStart_toStartOf="parent"
+                      app:layout_constraintTop_toBottomOf="@+id/tvDescriptionDetail" />
+
                   <TextView
-                      android:id="@+id/profile_group_count"
-                      android:paddingTop="13dp"
-                      android:layout_gravity="center"
+                      android:id="@+id/profile_email"
                       android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
-                      android:textSize="13sp"
-                      android:textColor="#3b3b3b"/>
+                      android:layout_marginStart="8dp"
+                      android:layout_marginTop="20dp"
+                      android:layout_marginEnd="16dp"
+                      android:text="TextView"
+                      android:textStyle="bold"
+                      app:layout_constraintEnd_toEndOf="parent"
+                      app:layout_constraintHorizontal_bias="0.297"
+                      app:layout_constraintStart_toEndOf="@+id/tvDescriptionDetail"
+                      app:layout_constraintTop_toBottomOf="@+id/tvHeadDetail"
+                      tools:ignore="UnknownId" />
+
                   <TextView
+                      android:id="@+id/profile_phone"
                       android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
-                      android:text="Grupos"
-                      android:textSize="12sp"
-                      android:textColor="#a9a9b0"/>
-              </LinearLayout>
-          </LinearLayout>
+                      android:layout_marginStart="8dp"
+                      android:layout_marginLeft="8dp"
+                      android:layout_marginTop="20dp"
+                      android:layout_marginEnd="8dp"
+                      android:layout_marginRight="8dp"
+                      android:text="TextView"
+                      android:textStyle="bold"
+                      app:layout_constraintEnd_toEndOf="parent"
+                      app:layout_constraintHorizontal_bias="0.253"
+                      app:layout_constraintStart_toEndOf="@+id/tvOffertDetail"
+                      app:layout_constraintTop_toBottomOf="@+id/profile_email" />
+
+              </androidx.constraintlayout.widget.ConstraintLayout>
+
+          </androidx.cardview.widget.CardView>
           <View
               android:layout_width="match_parent"
               android:layout_height="1dp"
@@ -180,24 +210,28 @@
                   android:text="View All"
                   android:textColor="@color/colorPrimary"/>
           </LinearLayout>
+
           <HorizontalScrollView
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:layout_marginTop="12dp"
               android:scrollbars="none">
+
               <LinearLayout
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
                   android:clipToPadding="false"
+                  android:orientation="horizontal"
                   android:paddingLeft="10dp"
-                  android:paddingRight="10dp"
-                  android:orientation="horizontal">
+                  android:paddingRight="10dp">
+
                   <androidx.recyclerview.widget.RecyclerView
                       android:id="@+id/rvAttendanceEvents"
                       android:layout_width="match_parent"
-                      android:layout_height="match_parent"/>
+                      android:layout_height="match_parent" />
               </LinearLayout>
           </HorizontalScrollView>
+
           <LinearLayout
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
