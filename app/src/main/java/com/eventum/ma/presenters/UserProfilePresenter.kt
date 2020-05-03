@@ -14,57 +14,44 @@ import com.eventum.ma.views.views.UserProfileEventInt
 
 class UserProfilePresenter(): UserProfileEventInt, ViewModel(){
 
-
     private val userProfileRepository: UserRepository = UserRepository()
+    var userModel : MutableLiveData<UserModel> = MutableLiveData()
+    var isLoading = MutableLiveData<Boolean>()
+    var userRepository = UserRepository()
 
     override fun getUserInfo(id: String) {
-//        userProfileRepository.getUserInfo(id)
     }
 
 
     override fun showUserInfo(user: UserModel){
-//        userProfileViewInt.showUserInfo(user)
     }
 
     override fun showEventsCreatedByUser(events: ArrayList<EventModel>) {
-//        userProfileViewInt.showEventsCreatedByUser(events)
     }
 
     override fun showGroupsFollowedByUser(groups: ArrayList<GroupModel>){
- //       userProfileViewInt.showGroupsFollowedByUser(groups)
     }
 
     override fun showEventsAttendedBuUser(events: ArrayList<EventModel>) {
- //       userProfileViewInt.showEventsAttendedBuUser(events)
     }
-
-
-    var userModel : MutableLiveData<UserModel> = MutableLiveData()
-    var isLoading = MutableLiveData<Boolean>()
-    var userRepo = UserRepository()
 
     fun refresh(iduser: String) {
         getUserProfile(iduser)
     }
 
-    fun getUserProfile(iduser: String)  {
-
-        userRepo.getUserProfile(iduser, object : CustomCallback<UserModel>{
+    private fun getUserProfile(iduser: String)  {
+        userRepository.getUserProfile(iduser, object : CustomCallback<UserModel>{
             override fun onSuccess(result: UserModel?) {
                 userModel.postValue(result)
             }
 
             override fun onFailed(exception: java.lang.Exception) {
-                processFinished()
             }
 
         })
 
     }
 
-    private fun processFinished() {
-        isLoading.value = true
-    }
 
 
 }

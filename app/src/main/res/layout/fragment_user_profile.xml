@@ -39,10 +39,8 @@
                       android:fitsSystemWindows="true"
                       android:contentDescription="description image"                    />
                   <com.google.android.material.appbar.MaterialToolbar
-                      android:id="@+id/topAppBar"
-
+                      android:id="@+id/topAppBarProfile"
                       android:layout_width="match_parent"
-
                       android:layout_height="?attr/actionBarSize"
                       android:elevation="0dp"
                       app:layout_collapseMode="pin"

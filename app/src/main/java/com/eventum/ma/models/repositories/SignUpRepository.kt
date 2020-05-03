@@ -7,14 +7,24 @@ import okio.IOException
 import org.json.JSONObject
 
 
-class SignUpRepository(var signUpPresenter: SignUpPresenterInt){
+class SignUpRepository(var signUpPresenter: SignUpPresenterInt) {
 
     var client = OkHttpClient()
 
-    fun register(username: String, password: String, name: String, phoneNumber: String, age: Int, career: String, status: String, callback: CustomCallback<Boolean>){
+    fun createAccount(
+        username: String,
+        password: String,
+        name: String,
+        phoneNumber: String,
+        age: Int,
+        career: String,
+        status: String,
+        callback: CustomCallback<Boolean>
+    ) {
 
         var url = "http://190.24.19.228:3000/graphql?query="
-        url=url+"mutation {userAuthcreate(input:{username:\"$username\",password:\"$password\",name:\"$name\",phone_number:\"$phoneNumber\",age:$age,career:\"$career\",status:\"$status\"}) {status,message}}";
+        url =
+            url + "mutation {userAuthcreate(input:{username:\"$username\",password:\"$password\",name:\"$name\",phone_number:\"$phoneNumber\",age:$age,career:\"$career\",status:\"$status\"}) {status,message}}";
         var request = Request.Builder()
             .url(url)
             .post(FormBody.Builder().build())
@@ -25,18 +35,18 @@ class SignUpRepository(var signUpPresenter: SignUpPresenterInt){
                 callback.onFailed(e);
 
             }
+
             override fun onResponse(call: Call, response: Response) {
                 response.use {
-                    if (!response.isSuccessful){
+                    if (!response.isSuccessful) {
                         //callback.onFailed(e);
                         throw IOException("Unexpected code $response")
-                    }
-                    else{
+                    } else {
                         var output = JSONObject(response.body!!.string())
                         println(output)
-                        if(output.has("errors")){
+                        if (output.has("errors")) {
                             callback.onSuccess(false);
-                        }else {
+                        } else {
                             callback.onSuccess(true);
                         }
                     }
@@ -64,7 +74,6 @@ class SignUpRepository(var signUpPresenter: SignUpPresenterInt){
 
     }
 */
-
 
 
 }

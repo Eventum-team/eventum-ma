@@ -8,7 +8,7 @@
     tools:context=".views.ui.activities.StartActivity">
 
     <ImageView
-        android:id="@+id/ivLogoPlatziConf"
+        android:id="@+id/ivEventumLogo"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/altoLogoEventum"
         android:src="@drawable/eventum_logo"

@@ -1,14 +1,14 @@
 package com.eventum.ma.views.ui.fragments
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -28,6 +28,8 @@ import com.eventum.ma.views.adapters.GroupsHorizontalItemsAdapter
 import com.eventum.ma.views.listeners.EventListener
 import com.eventum.ma.views.listeners.GroupListener
 import com.eventum.ma.views.ui.activities.EventDetails
+import com.eventum.ma.views.ui.activities.MainActivity
+import com.eventum.ma.views.ui.activities.SignInActivity
 import com.eventum.ma.views.views.UserProfileEventInt
 import kotlinx.android.synthetic.main.fragment_user_profile.*
 
@@ -38,6 +40,12 @@ class UserProfileFragment : Fragment(), EventListener,GroupListener, UserProfile
     private lateinit var myGroupsAdapter: GroupsHorizontalItemsAdapter
     private lateinit var myEventsAdapter: EventsHorizontalItemsAdapter
     private lateinit var attendanceEventsAdapter: EventsHorizontalItemsAdapter
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -47,6 +55,7 @@ class UserProfileFragment : Fragment(), EventListener,GroupListener, UserProfile
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (activity as AppCompatActivity?)!!.setSupportActionBar(topAppBarProfile)
         myGroupsAdapter = GroupsHorizontalItemsAdapter(this)
         myEventsAdapter = EventsHorizontalItemsAdapter(this)
         attendanceEventsAdapter = EventsHorizontalItemsAdapter(this)
@@ -64,19 +73,17 @@ class UserProfileFragment : Fragment(), EventListener,GroupListener, UserProfile
         rvMyGroups.apply {
             layoutManager = LinearLayoutManager(view.context, LinearLayoutManager.HORIZONTAL, false)
         }
-
-        getUserInfo(id)
-
     }
 
-    fun observeViewModel() {
-
-        userProfilePresenter.userModel.observe(this, Observer<UserModel> { usermMod ->
-            usermMod.let {
-                myEventsAdapter.updateEvents(usermMod.eventsCreated)
-                myGroupsAdapter.updateEvents(usermMod.groupsFollowing)
+    private fun observeViewModel() {
+        userProfilePresenter.userModel.observe(this, Observer<UserModel> { user ->
+            user.let {
+                showUserInfo(user)
+                showEventsCreatedByUser(user.eventsCreated)
+                showGroupsFollowedByUser(user.groupsFollowing)
+//                showEventsAttendedBuUser(user.assistanceEvents)
+                showEventsAttendedBuUser(user.eventsCreated)
             }
-
         })
 
 //        homePresenter.isLoading.observe(this, Observer<Boolean> {
@@ -85,10 +92,7 @@ class UserProfileFragment : Fragment(), EventListener,GroupListener, UserProfile
 //        })
     }
 
-
-
     override fun getUserInfo(id: String) {
-       userProfilePresenter?.getUserInfo(id)
     }
 
     override fun showUserInfo(user: UserModel) {
@@ -138,8 +142,28 @@ class UserProfileFragment : Fragment(), EventListener,GroupListener, UserProfile
         startActivity(intent)
     }
 
-    override fun onGroupClicked(group: GroupModel, position: Int) {
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.top_app_bar_profile,menu)
+        super.onCreateOptionsMenu(menu, inflater)
 
     }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val id = item.itemId
+        if (id == R.id.logout) {
+            val preferences =
+                this.activity?.getSharedPreferences("com.eventum.ma", Context.MODE_PRIVATE)
+            preferences?.edit()?.clear()?.apply()
+            val intent = Intent(activity, SignInActivity::class.java)
+            startActivity(intent)
+            activity?.finish();
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    override fun onGroupClicked(group: GroupModel, position: Int) {
+        TODO("Not yet implemented")
+    }
+
 
 }

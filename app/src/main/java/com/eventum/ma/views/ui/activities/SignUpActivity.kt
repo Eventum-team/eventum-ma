@@ -1,5 +1,6 @@
 package com.eventum.ma.views.ui.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -25,8 +26,8 @@ class SignUpActivity : AppCompatActivity(),SignUpInt {
         user.name = findViewById<EditText>(R.id.signUpName).text.toString()
         user.email = findViewById<EditText>(R.id.signUpEmail).text.toString()
         user.password = findViewById<EditText>(R.id.signUpPassword).text.toString()
-        user.status = findViewById<EditText>(R.id.signUpPhone).text.toString()
-        user.age = findViewById<EditText>(R.id.signUpAge).text.toString().toInt()
+        user.phone_number = findViewById<EditText>(R.id.signUpPhone).text.toString()
+        user.status = findViewById<EditText>(R.id.signUpAge).text.toString()
         user.career = findViewById<EditText>(R.id.signUpCareer).text.toString()
 
         //validar campos
@@ -37,21 +38,26 @@ class SignUpActivity : AppCompatActivity(),SignUpInt {
     }
 
     override fun createAccount(user: UserModel) {
+        user.age = 10
         signUpPresenter?.createAccount(user)
     }
 
     override fun onUserCreated() {
-        Toast.makeText(this, "user created", Toast.LENGTH_SHORT).show()
+        println("userCreated")
+        val intent = Intent(this, SignInActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 
     override fun onCreationFailed() {
-        Toast.makeText(this, "user NOT created", Toast.LENGTH_SHORT).show()
+        println("userNOTCreated")
     }
 
     override fun onBackPressed() {
         super.onBackPressed()
         finish()
     }
+
 
 
 }

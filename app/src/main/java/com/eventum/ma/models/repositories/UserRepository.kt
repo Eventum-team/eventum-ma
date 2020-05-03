@@ -15,7 +15,6 @@ class UserRepository() {
     var client = OkHttpClient()
 
     fun getUserProfile(idUser: String, callback: CustomCallback<UserModel>) {
-
         var url = "http://190.24.19.228:3000/graphql?query="
         url = url + "query {\n" +
                 "  userProfile(userId: $idUser){\n" +
@@ -56,7 +55,6 @@ class UserRepository() {
                 e.printStackTrace()
                 callback.onFailed(e);
             }
-
             override fun onResponse(call: Call, response: Response) {
                 response.use {
                     if (!response.isSuccessful) {
@@ -119,5 +117,45 @@ class UserRepository() {
             }
         })
     }
+
+    fun verifyAccount( token: String) {
+        val url = "http://190.24.19.228:3000/graphql?query=mutation {\n" +
+                "vrfTok(input:{token:\"$token\"})}";
+        val request = Request.Builder()
+            .url(url)
+            .post(FormBody.Builder().build())
+            .build()
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                e.printStackTrace()
+//                callback.onFailed(e);
+            }
+            override fun onResponse(call: Call, response: Response) {
+                response.use {
+                    if (!response.isSuccessful) {
+                        //callback(null);
+                        throw IOException("Unexpected code $response")
+                    } else {
+                        var output = JSONObject(response.body!!.string())
+                        println(output)
+                        if (output.has("errors")) {
+                            //callback(null);
+
+                        } else {
+                            output = output.get("data") as JSONObject;
+                            output = output.get("logUser") as JSONObject;
+                            val tokens = arrayOf(
+                                output.get("refresh").toString(),
+                                output.get("access").toString()
+                            );
+//                            callback.onSuccess(tokens);
+
+                        }
+                    }
+                }
+            }
+        })
+    }
+
 }
 
