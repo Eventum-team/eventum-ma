@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import com.eventum.ma.R
 import com.eventum.ma.presenters.SignInPresenter
 import com.eventum.ma.views.views.SignInInt
@@ -13,7 +14,7 @@ import com.eventum.ma.views.views.SignInInt
 
 class SignInActivity : AppCompatActivity(), SignInInt {
 
-    private var signInPresenter: SignInPresenter? = null
+    private lateinit var signInPresenter: SignInPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,7 +41,16 @@ class SignInActivity : AppCompatActivity(), SignInInt {
     }
 
     override fun verifyAccount(email: String, password: String) {
-        signInPresenter?.verifyAccount(email, password)
+        signInPresenter.verifyAccount(email, password)
+    }
+
+    override fun verifyToken(token: String?) {
+        signInPresenter.tokenAccess.observe(this, Observer { token ->
+            token.let {
+                val preferences = getSharedPreferences("com.eventum.ma", Context.MODE_PRIVATE)
+                preferences.edit().putString("accessToken", token).apply();
+            }
+        })
     }
 
     override fun allowAccess(accessToken:String,refreshToken:String) {
@@ -59,6 +69,9 @@ class SignInActivity : AppCompatActivity(), SignInInt {
     private fun verifySession() {
         val preferences = getSharedPreferences("com.eventum.ma", Context.MODE_PRIVATE)
         val access = preferences!!.getString("accessToken", "")
+
+        verifyToken(access)
+
         if (access != "") {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)

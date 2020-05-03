@@ -99,14 +99,7 @@ class HomeRepository(private var homePresenter: HomePresenterInt){
     }
 
 
-    private fun todayEventCallback(event: List<EventModel>?){
-        if(event == null){
-            println("-----------SOMETHING WRONG-----------------")
-        }else{
-//            homePresenter.showTodayEvents(event.toCollection(ArrayList()))
-            println("-----------Todo Good today events-----------------")
-        }
-    }
+
 
 
     fun getTodayEvents(){
