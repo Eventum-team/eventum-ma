@@ -5,19 +5,19 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class EventModel: Serializable {
-    lateinit var id_event: String
-    lateinit var id_owner: String
-    lateinit var owner_type: String
-    lateinit var name: String
-    lateinit var description: String
-    lateinit var event_type: String
-    lateinit var eventStartDate: Date
-    lateinit var eventFinishDate: Date
-    lateinit var status: String
-    lateinit var url: String
-    lateinit var latitude: String
-    lateinit var longitude: String
-    lateinit var image: String
+    var id_event: String = ""
+    var id_owner: String = ""
+    var owner_type: String = ""
+    var name: String = ""
+    var description: String = ""
+    var event_type: String = ""
+    var eventStartDate: String = ""
+    var eventFinishDate: String = ""
+    var status: String = ""
+    var url: String = ""
+    var latitude: String = ""
+    var longitude: String = ""
+    var image: String = ""
     lateinit var followers: ArrayList<UserModel>
     lateinit var assistant: ArrayList<UserModel>
     lateinit var interested: ArrayList<UserModel>

@@ -86,8 +86,8 @@ class EventProfileRepository(var eventProfilePresenter: EventProfilePresenterInt
                             eventModel.event_type = output.get("eventType").toString();
                             eventModel.id_owner = output.get("ownerId").toString();
                             eventModel.name = output.get("name").toString();
-                            //eventModel.eventStartDate = output.get("eventStartDate").toString();
-                            //eventModel.eventFinishDate = output.get("eventFinishDate").toString();
+                            eventModel.eventStartDate = output.get("eventStartDate").toString()
+                            eventModel.eventFinishDate = output.get("eventFinishDate").toString()
                             eventModel.description = output.get("description").toString();
                             eventModel.url = output.get("url").toString();
                             eventModel.latitude = output.get("latitude").toString();
