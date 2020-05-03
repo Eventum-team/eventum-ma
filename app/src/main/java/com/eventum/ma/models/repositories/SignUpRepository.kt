@@ -14,7 +14,7 @@ class SignUpRepository(var signUpPresenter: SignUpPresenterInt){
     fun register(username: String, password: String, name: String, phoneNumber: String, age: Int, career: String, status: String, callback: CustomCallback<Boolean>){
 
         var url = "http://190.24.19.228:3000/graphql?query="
-        url=url+"mutation {addUser(input:{username:\"$username\",password:\"$password\",name:\"$name\",phone_number:\"$phoneNumber\",age:$age,career:\"$career\",status:\"$status\"}){message,status}}";
+        url=url+"mutation {userAuthcreate(input:{username:\"$username\",password:\"$password\",name:\"$name\",phone_number:\"$phoneNumber\",age:$age,career:\"$career\",status:\"$status\"}) {status,message}}";
         var request = Request.Builder()
             .url(url)
             .post(FormBody.Builder().build())

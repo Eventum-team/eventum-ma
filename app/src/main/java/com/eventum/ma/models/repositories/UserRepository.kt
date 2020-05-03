@@ -11,10 +11,10 @@ import org.json.JSONArray
 import org.json.JSONObject
 
 
-class UserRepository(private val userProfilePresenter: UserProfilePresenterInt) {
+class UserRepository() {
     var client = OkHttpClient()
 
-    fun getUserProfile(idUser: Int, callback: CustomCallback<UserModel>) {
+    fun getUserProfile(idUser: String, callback: CustomCallback<UserModel>) {
 
         var url = "http://190.24.19.228:3000/graphql?query="
         url = url + "query {\n" +
@@ -121,83 +121,3 @@ class UserRepository(private val userProfilePresenter: UserProfilePresenterInt) 
     }
 }
 
-/*
-    fun ProfileCallback(userProfile: UserModel?){
-        if(userProfile == null){
-            println("-----------SOMETHING WRONG-----------------")
-        }else{
-            userProfilePresenter.showUserInfo(userProfile)
-
-            userProfilePresenter.showEventsCreatedByUser(userProfile.eventsCreated)
-            userProfilePresenter.showGroupsFollowedByUser(userProfile.groupsFollowing)
-            userProfilePresenter.showEventsAttendedBuUser(userProfile.assistanceEvents)
-
-
-            println("-----------Todo Goood-----------------")
-
-            // use colors as returned by API
-        }
-    }
-
-
-    //Logica de graphql para consumir la API
-    fun getGroupsGraphQL() {
-
-    }
-    fun getUserInfo(id: String){
-        getUserProfile(id.toInt(), this::ProfileCallback)
-
-
-    }
-
-    fun getEventsCreatedByUser(id: String){
-        val g1 = EventModel()
-        g1.name = "eventazo 1"
-        g1.description = "Gran descripcio 111111"
-        g1.id_owner = "typazo 1"
-        g1.image = "https://homepages.cae.wisc.edu/~ece533/images/airplane.png"
-        val g2 = EventModel()
-        g2.name = "eventazo 2"
-        g2.description = "Gran descripcio 2222222"
-        g2.id_owner = "typazo 2"
-        g2.image = "https://homepages.cae.wisc.edu/~ece533/images/barbara.png"
-        val events: ArrayList<EventModel> = ArrayList<EventModel>()
-        events.add(g1)
-        events.add(g2)
-        //userProfilePresenter.showEventsCreatedByUser(events)
-
-    }
-
-    fun getGroupsFollowedByUser(id: String){
-        val g1 = GroupModel()
-        g1.name = "grupazo 1"
-        g1.description = "Gran descripcio 111111"
-        g1.type = "typazo 1"
-        g1.image = "https://homepages.cae.wisc.edu/~ece533/images/airplane.png"
-        val g2 = GroupModel()
-        g2.name = "grupazo 2"
-        g2.description = "Gran descripcio 2222222"
-        g2.type = "typazo 2"
-        g2.image = "https://homepages.cae.wisc.edu/~ece533/images/barbara.png"
-        val groups: ArrayList<GroupModel> = ArrayList<GroupModel>()
-        groups.add(g1)
-        groups.add(g2)
-        //userProfilePresenter.showGroupsFollowedByUser(groups)
-    }
-
-    fun getEventsAttendedBuUser(id: String){
-        val g1 = EventModel()
-        g1.name = "eventazo 1"
-        g1.description = "Gran descripcio 111111"
-        g1.id_owner = "typazo 1"
-        g1.image = "https://homepages.cae.wisc.edu/~ece533/images/airplane.png"
-        val g2 = EventModel()
-        g2.name = "eventazo 2"
-        g2.description = "Gran descripcio 2222222"
-        g2.id_owner = "typazo 2"
-        g2.image = "https://homepages.cae.wisc.edu/~ece533/images/barbara.png"
-        val events: ArrayList<EventModel> = ArrayList<EventModel>()
-        events.add(g1)
-        events.add(g2)
-        //userProfilePresenter.showEventsAttendedBuUser(events)
-    }*/

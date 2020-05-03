@@ -10,6 +10,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.os.bundleOf
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
@@ -18,6 +20,7 @@ import com.eventum.ma.R
 import com.eventum.ma.models.models.EventModel
 import com.eventum.ma.models.models.GroupModel
 import com.eventum.ma.models.models.UserModel
+import com.eventum.ma.presenters.HomePresenter
 import com.eventum.ma.presenters.UserProfilePresenter
 import com.eventum.ma.presenters.presenters.UserProfilePresenterInt
 import com.eventum.ma.views.adapters.EventsHorizontalItemsAdapter
@@ -31,7 +34,7 @@ import kotlinx.android.synthetic.main.fragment_user_profile.*
 
 class UserProfileFragment : Fragment(), EventListener,GroupListener, UserProfileEventInt {
 
-    private val userProfilePresenter: UserProfilePresenterInt? = UserProfilePresenter(this)
+    private lateinit var userProfilePresenter: UserProfilePresenter
     private lateinit var myGroupsAdapter: GroupsHorizontalItemsAdapter
     private lateinit var myEventsAdapter: EventsHorizontalItemsAdapter
     private lateinit var attendanceEventsAdapter: EventsHorizontalItemsAdapter
@@ -47,8 +50,11 @@ class UserProfileFragment : Fragment(), EventListener,GroupListener, UserProfile
         myGroupsAdapter = GroupsHorizontalItemsAdapter(this)
         myEventsAdapter = EventsHorizontalItemsAdapter(this)
         attendanceEventsAdapter = EventsHorizontalItemsAdapter(this)
-        val id = "1"
+        val id = "4"
 
+        userProfilePresenter = ViewModelProviders.of(this).get(UserProfilePresenter::class.java)
+        userProfilePresenter.refresh(id)
+        observeViewModel()
         rvAttendanceEvents.apply {
             layoutManager = LinearLayoutManager(view.context, LinearLayoutManager.HORIZONTAL, false)
         }
@@ -60,27 +66,29 @@ class UserProfileFragment : Fragment(), EventListener,GroupListener, UserProfile
         }
 
         getUserInfo(id)
-        getEventsCreatedByUser(id)
-        getEventsAttendedBuUser(id)
-        getGroupsFollowedByUser(id)
 
     }
+
+    fun observeViewModel() {
+
+        userProfilePresenter.userModel.observe(this, Observer<UserModel> { usermMod ->
+            usermMod.let {
+                myEventsAdapter.updateEvents(usermMod.eventsCreated)
+                myGroupsAdapter.updateEvents(usermMod.groupsFollowing)
+            }
+
+        })
+
+//        homePresenter.isLoading.observe(this, Observer<Boolean> {
+//            if(it != null)
+//                rlBase.visibility = View.INVISIBLE
+//        })
+    }
+
 
 
     override fun getUserInfo(id: String) {
        userProfilePresenter?.getUserInfo(id)
-    }
-
-    override fun getEventsCreatedByUser(id: String) {
-        userProfilePresenter?.getEventsCreatedByUser(id)
-    }
-
-    override fun getGroupsFollowedByUser(id: String) {
-        userProfilePresenter?.getGroupsFollowedByUser(id)
-    }
-
-    override fun getEventsAttendedBuUser(id: String) {
-        userProfilePresenter?.getEventsAttendedBuUser(id)
     }
 
     override fun showUserInfo(user: UserModel) {

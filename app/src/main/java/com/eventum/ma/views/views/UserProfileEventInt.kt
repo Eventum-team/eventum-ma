@@ -7,12 +7,6 @@ import com.eventum.ma.models.models.UserModel
 interface UserProfileEventInt {
     fun getUserInfo(id: String)
 
-    fun getEventsCreatedByUser(id: String)
-
-    fun getGroupsFollowedByUser(id: String)
-
-    fun getEventsAttendedBuUser(id: String)
-
     fun showUserInfo(user: UserModel)
 
     fun showEventsCreatedByUser(events: ArrayList<EventModel>)
