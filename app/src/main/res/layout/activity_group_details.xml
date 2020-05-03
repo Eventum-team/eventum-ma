@@ -33,7 +33,7 @@
                     android:id="@+id/group_image"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@drawable/groups_list_block"
+                    android:src="@drawable/user_block"
                     android:scaleType="centerCrop"
                     android:fitsSystemWindows="true"
                     android:contentDescription="description image"                    />
@@ -46,7 +46,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
                     app:menu="@menu/top_app_bar"
-                    app:navigationIcon="@drawable/ic_search"
                     android:elevation="0dp"
                     style="@style/AppBar"                    />
             </com.google.android.material.appbar.CollapsingToolbarLayout>

@@ -10,12 +10,11 @@ class SignInPresenter (var signInView: SignInInt): SignInPresenterInt {
     private val signInRepository: SignInRepository = SignInRepository(this)
 
     override fun verifyAccount(email: String, password: String) {
-//        signInRepository.verifyAccount(email,password)
+        signInRepository.verifyAccount(email,password)
     }
 
     override fun allowAccess(accessToken:String,refreshToken:String) {
         signInView.allowAccess(accessToken,refreshToken)
-
     }
 
     override fun denyAccess() {

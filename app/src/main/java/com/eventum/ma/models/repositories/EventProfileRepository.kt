@@ -11,12 +11,11 @@ import org.json.JSONObject
 
 class EventProfileRepository(var eventProfilePresenter: EventProfilePresenterInt) {
 
-    var client = OkHttpClient()
+    private var client = OkHttpClient()
 
-    fun getEventProf(idEvent: Int, idUser: Int, callback: CustomCallback<EventModel>){
-
+    fun getEventProf(idEvent: String, idUser: String, callback: CustomCallback<EventModel>) {
         var url = "http://190.24.19.228:3000/graphql?query="
-        url=url+"query{\n" +
+        url = url + "query{\n" +
                 "  eventProfile(eventId:$idEvent,userId:$idUser){\n" +
                 "  \tid\n" +
                 "    ownerType\n" +
@@ -56,32 +55,31 @@ class EventProfileRepository(var eventProfilePresenter: EventProfilePresenterInt
                 "    photo\n" +
                 "  }\n" +
                 "}";
-        var request = Request.Builder()
+        val request = Request.Builder()
             .url(url)
-            //.post(FormBody.Builder().build())         ONLY FOR POST
             .build()
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
                 e.printStackTrace()
                 callback.onFailed(e);
             }
+
             override fun onResponse(call: Call, response: Response) {
                 response.use {
-                    if (!response.isSuccessful){
+                    if (!response.isSuccessful) {
                         //callback(null);
                         throw IOException("Unexpected code $response")
-                    }
-                    else{
+                    } else {
                         var output = JSONObject(response.body!!.string())
                         println(output)
-                        if(output.has("errors")){
-                          //  callback(null);
-                        }else {
+                        if (output.has("errors")) {
+                            //  callback(null);
+                        } else {
 
                             output = output.get("data") as JSONObject;
                             output = output.get("eventProfile") as JSONObject;
                             println(output);
-                            var eventModel: EventModel = EventModel()
+                            val eventModel = EventModel()
                             eventModel.id_event = output.get("id").toString();
                             eventModel.owner_type = output.get("ownerType").toString();
                             eventModel.status = output.get("status").toString();
@@ -96,14 +94,15 @@ class EventProfileRepository(var eventProfilePresenter: EventProfilePresenterInt
                             eventModel.longitude = output.get("longitude").toString();
                             eventModel.image = output.get("photo").toString()
 
-                            val listUserFollowers: MutableList<UserModel> = ArrayList()  //En graphql todavia nod evuelve unalista de usuarios
+                            val listUserFollowers: MutableList<UserModel> =
+                                ArrayList()  //En graphql todavia nod evuelve unalista de usuarios
                             val listUserAssistant: MutableList<UserModel> = ArrayList()
                             val listUserInterested: MutableList<UserModel> = ArrayList()
                             val listComments: MutableList<CommentModel> = ArrayList()
 
                             var arr = output.get("comments") as JSONArray;
                             var obj: JSONObject
-                            for (i in 0..arr.length()-1){
+                            for (i in 0..arr.length() - 1) {
                                 obj = arr[i] as JSONObject;
                                 var commentModel: CommentModel = CommentModel();
                                 /*
@@ -119,7 +118,7 @@ class EventProfileRepository(var eventProfilePresenter: EventProfilePresenterInt
                                 listComments.add(commentModel);*/
                             }
                             arr = output.get("assistant") as JSONArray;
-                            for (i in 0..arr.length()-1){
+                            for (i in 0..arr.length() - 1) {
                                 obj = arr[i] as JSONObject;
                                 var userModel: UserModel = UserModel();
                                 userModel.id_user = obj.get("id").toString()
@@ -129,7 +128,7 @@ class EventProfileRepository(var eventProfilePresenter: EventProfilePresenterInt
                                 listUserAssistant.add(userModel);
                             }
                             arr = output.get("interested") as JSONArray;
-                            for (i in 0..arr.length()-1){
+                            for (i in 0..arr.length() - 1) {
                                 obj = arr[i] as JSONObject;
                                 var userModel: UserModel = UserModel();
                                 userModel.id_user = obj.get("id").toString()
@@ -160,23 +159,4 @@ class EventProfileRepository(var eventProfilePresenter: EventProfilePresenterInt
             }
         })
     }
-/*
-    fun ProfileCallback(eventModel: EventModel?){
-        if(eventModel == null){
-            println("-----------SOMETHING WRONG-----------------")
-        }else{
-
-            eventProfilePresenter.showEventProfile(eventModel)
-
-            println("-----------Todo Goood-----------------")
-
-        }
-    }
-    //Logica de graphql para consumir la API
-
-    fun getEventProfile(id: String){
-       // getEventProf(idEvent.toInt(),idUser.toInt(), this::ProfileCallback); cambiar argumentos
-    }
-*/
-
 }

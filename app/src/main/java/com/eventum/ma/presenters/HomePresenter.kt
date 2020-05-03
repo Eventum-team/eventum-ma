@@ -10,56 +10,35 @@ import com.eventum.ma.views.views.HomeViewInt
 
 class HomePresenter(): HomePresenterInt, ViewModel(){
 
-    private var homeRepository: HomeRepository = HomeRepository(this)
+    var listTodayEvents : MutableLiveData<List<EventModel>> = MutableLiveData()
+    private var homeRepository = HomeRepository(this)
 
     override fun showTodayEvents(events: ArrayList<EventModel>?) {
-        println("*******************llega al presenter")
-//        homeView.showTodayEvents(events)
     }
 
     override fun showOfficialEvents(events: ArrayList<EventModel>?) {
-//        homeView.showOfficialEvents(events)
     }
 
     override fun getTodayEvents() {
-        homeRepository.getTodayEvents()
     }
 
     override fun getOfficialEvents() {
-        homeRepository.getOfficialEvents()
     }
-
-
-
-
-
-
-    var listTodayEvents : MutableLiveData<List<EventModel>> = MutableLiveData()
-    var isLoading = MutableLiveData<Boolean>()
-    var homeRepo = HomeRepository(this)
 
     fun refresh() {
         todayEvents()
     }
 
-    fun todayEvents()  {
-
-        homeRepo.todayEvent(object : CustomCallback<List<EventModel>>{
+    private fun todayEvents()  {
+        homeRepository.todayEvent(object : CustomCallback<List<EventModel>>{
             override fun onSuccess(result: List<EventModel>?) {
                 listTodayEvents.postValue(result)
             }
-
             override fun onFailed(exception: java.lang.Exception) {
-                processFinished()
             }
-
         })
-
     }
 
-    private fun processFinished() {
-        isLoading.value = true
-    }
 
 }
 

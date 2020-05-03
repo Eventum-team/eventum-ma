@@ -31,6 +31,7 @@ class EventsHorizontalItemsAdapter(private val eventListener: EventListener) :
         holder.groupItemName.text = event.name
         holder.groupItemOwner.text = event.id_owner
 
+        event.image = "https://source.unsplash.com/random/800x600"
         Glide.with(holder.itemView.context)
             .load(event.image)
             .into(holder.groupItemImage)

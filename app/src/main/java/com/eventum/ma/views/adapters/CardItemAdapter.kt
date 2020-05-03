@@ -28,6 +28,7 @@ class CardItemAdapter(private val groupListener: GroupListener) : RecyclerView.A
         holder.groupItemOwner.text = group.type
         holder.groupItemDescription.text = group.description
 
+        group.image = "https://source.unsplash.com/random"
         Glide.with(holder.itemView.context)
             .load(group.image)
             .into(holder.groupItemImage)

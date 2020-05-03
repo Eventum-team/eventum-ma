@@ -9,7 +9,7 @@ class SignInRepository(var signInPresenter: SignInPresenter) {
     private var client = OkHttpClient()
 
 
-    private fun logIn(correo: String, password: String, callback: CustomCallback<Array<String>>) {
+    fun verifyAccount(correo: String, password: String) {
         val url = "http://190.24.19.228:3000/graphql?query=mutation {\n" +
                 "  logUser(input:{username:\"$correo\",password:\"$password\"}){\n" +
                 "    refresh\n" +
@@ -23,8 +23,9 @@ class SignInRepository(var signInPresenter: SignInPresenter) {
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
                 e.printStackTrace()
-                callback.onFailed(e);
+//                callback.onFailed(e);
             }
+
             override fun onResponse(call: Call, response: Response) {
                 response.use {
                     if (!response.isSuccessful) {
@@ -35,33 +36,25 @@ class SignInRepository(var signInPresenter: SignInPresenter) {
                         println(output)
                         if (output.has("errors")) {
                             //callback(null);
+                            signInPresenter.denyAccess()
                         } else {
                             output = output.get("data") as JSONObject;
                             output = output.get("logUser") as JSONObject;
-                            val finalData = arrayOf(
+                            val tokens = arrayOf(
                                 output.get("refresh").toString(),
                                 output.get("access").toString()
                             );
-                            callback.onSuccess(finalData);
+//                            callback.onSuccess(tokens);
+                            signInPresenter.allowAccess(tokens[0], tokens[1])
                         }
                     }
                 }
             }
         })
     }
+
+
 /*
-    private fun logInCallback(salida: Array<String>?) {
-        if (salida == null) {
-            signInPresenter.denyAccess()
-        } else {
-            signInPresenter.allowAccess(salida[0],salida[1])
-            println(salida[0])
-            println(salida[1])
-            // use colors as returned by API
-        }
-    }
-
-
     fun verifyAccount(email: String, password: String) {
         logIn(email, password, this::logInCallback)
     }

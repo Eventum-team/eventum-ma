@@ -25,9 +25,8 @@ import kotlinx.android.synthetic.main.fragment_group_list.*
 
 
 class GroupListFragment : Fragment(),
-    GroupListener, GroupsViewInt {
+    GroupListener{
     private lateinit var groupPresenter: GroupsPresenter
-    private var groupsPresenter: GroupsPresenter? = null
     private lateinit var groupAdapter: CardItemAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,66 +47,32 @@ class GroupListFragment : Fragment(),
         super.onViewCreated(view, savedInstanceState)
         (activity as AppCompatActivity?)!!.setSupportActionBar(topAppBarGroup)
         groupAdapter = CardItemAdapter(this)
-//        groupsPresenter = GroupsPresenter(this)
-
         groupPresenter = ViewModelProviders.of(this).get(GroupsPresenter::class.java)
         groupPresenter.refresh()
 
         rvGroups.apply {
             layoutManager = LinearLayoutManager(view.context, LinearLayoutManager.VERTICAL, false)
         }
-
         observeViewModel()
-        getGroups()
-        dataLoaded()
-//        showGroups(groups)
     }
 
-    fun observeViewModel() {
-
+    private fun observeViewModel() {
         groupPresenter.listAllGroups.observe(this, Observer<List<GroupModel>> { groups ->
-
             groups.let {
                 groupAdapter.updateData(groups)
             }
             rvGroups!!.adapter = groupAdapter
         })
-
         groupPresenter.isLoading.observe(this, Observer<Boolean> {
             if(it != null)
                 dataLoaded()
         })
     }
 
-
     override fun onGroupClicked(group: GroupModel, position: Int) {
         val intent = Intent(view!!.context  , GroupDetails::class.java)
-         group.id_group="1"
         intent.putExtra("GROUP", group.id_group);
         startActivity(intent)
-    }
-
-    override fun showGroups(groups: ArrayList<GroupModel>?) {
-        groupAdapter.updateData(groups)
-        try {
-            rvGroups!!.adapter = groupAdapter
-
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-
-    }
-
-    override fun showGroupsByName(groups: ArrayList<GroupModel>?) {
-
-    }
-
-    override fun getGroups() {
-        groupsPresenter?.getGroups()
-    }
-
-    override fun getGroupsByName() {
-        groupsPresenter?.getGroupsByName()
     }
 
     private fun dataLoaded() {
@@ -126,16 +91,13 @@ class GroupListFragment : Fragment(),
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
                 Toast.makeText(view!!.context, query, Toast.LENGTH_LONG).show()
-                getGroupsByName()
+//                getGroupsByName()
                 return false
             }
-
             override fun onQueryTextChange(newText: String): Boolean {
                 return false
             }
         })
-
     }
-
 
 }

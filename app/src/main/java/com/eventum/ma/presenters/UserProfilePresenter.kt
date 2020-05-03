@@ -1,5 +1,6 @@
 package com.eventum.ma.presenters
 
+import androidx.lifecycle.ViewModel
 import com.eventum.ma.models.models.EventModel
 import com.eventum.ma.models.models.GroupModel
 import com.eventum.ma.models.models.UserModel
@@ -9,7 +10,7 @@ import com.eventum.ma.views.views.EventsViewInt
 import com.eventum.ma.views.views.UserProfileEventInt
 
 class UserProfilePresenter(private val userProfileViewInt: UserProfileEventInt):
-    UserProfilePresenterInt {
+    UserProfilePresenterInt, ViewModel() {
 
     private val userProfileRepository: UserRepository = UserRepository(this)
 
@@ -44,4 +45,6 @@ class UserProfilePresenter(private val userProfileViewInt: UserProfileEventInt):
     override fun showEventsAttendedBuUser(events: ArrayList<EventModel>) {
         userProfileViewInt.showEventsAttendedBuUser(events)
     }
+
+
 }

@@ -1,29 +1,43 @@
 package com.eventum.ma.presenters
 
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.eventum.ma.models.models.EventModel
 import com.eventum.ma.models.models.GroupModel
+import com.eventum.ma.models.repositories.CustomCallback
 import com.eventum.ma.models.repositories.GroupProfileRepository
 import com.eventum.ma.presenters.presenters.GroupProfilePresenterInt
 import com.eventum.ma.views.views.GroupProfileViewInt
 
-class GroupProfilePresenter(var groupProfileView: GroupProfileViewInt): GroupProfilePresenterInt {
+class GroupProfilePresenter(): ViewModel(), GroupProfilePresenterInt {
 
-    private var groupProfileRepository: GroupProfileRepository = GroupProfileRepository(this)
-
+    var eventDetails : MutableLiveData<GroupModel> = MutableLiveData()
+    var isLoading = MutableLiveData<Boolean>()
+    private var eventProfileRepository = GroupProfileRepository(this)
     override fun showGroupProfile(group: GroupModel?) {
-        groupProfileView.showGroupProfile(group)
     }
 
     override fun showEventsByGroup(groups: ArrayList<EventModel>?) {
-        groupProfileView.showEventsByGroup(groups)
     }
 
     override fun getGroupProfile(id: String) {
-//        groupProfileRepository.getGroupProfile(id)
     }
 
     override fun getEventsByGroup(id: String) {
-        groupProfileRepository.getEventsByGroup(id)
+    }
+
+    fun refresh(idGroup:String){
+        groupProfile(idGroup)
+    }
+
+    private fun groupProfile(idGroup:String)  {
+        eventProfileRepository.getGroupProf(idGroup,object : CustomCallback<GroupModel> {
+            override fun onSuccess(result: GroupModel?) {
+                eventDetails.postValue(result)
+            }
+            override fun onFailed(exception: java.lang.Exception) {
+            }
+        })
     }
 
 }
