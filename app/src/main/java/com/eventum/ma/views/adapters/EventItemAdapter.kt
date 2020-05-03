@@ -27,6 +27,9 @@ class EventItemAdapter(private val eventListener: EventListener) : RecyclerView.
         holder.groupItemName.text = event.name
         holder.groupItemOwner.text = event.id_owner
         holder.groupItemDescription.text = event.description
+//        if(event.image == ""){
+            event.image = "https://source.unsplash.com/random"
+//        }
 
         Glide.with(holder.itemView.context)
             .load(event.image)
@@ -39,7 +42,7 @@ class EventItemAdapter(private val eventListener: EventListener) : RecyclerView.
     }
 
     //el adaptador recibe los datos
-    fun updateData(data: ArrayList<EventModel>) {
+    fun updateData(data: List<EventModel>) {
         eventList.clear()
         if (data != null) {
             eventList.addAll(data)

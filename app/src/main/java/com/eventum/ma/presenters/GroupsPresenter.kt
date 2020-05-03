@@ -10,61 +10,35 @@ import com.eventum.ma.models.repositories.HomeRepository
 import com.eventum.ma.presenters.presenters.GroupsPresenterInt
 import com.eventum.ma.views.views.GroupsViewInt
 
-class GroupsPresenter(): ViewModel(), GroupsPresenterInt{
-
-    private var groupsRepository: GroupsRepository = GroupsRepository(this)
-
-    override fun showGroups(groups: ArrayList<GroupModel>?) {
-//        groupsView.showGroups(groups)
-    }
-
-    override fun showGroupsByGroup(groups: ArrayList<GroupModel>?) {
-//        groupsView.showGroupsByName(groups)
-    }
-
-    override fun getGroups() {
-        groupsRepository.getGroups()
-    }
-
-    override fun getGroupsByName() {
-        groupsRepository.getGroupsByName()
-    }
-
-
-
-
-
-
-
-
+class GroupsPresenter: ViewModel(), GroupsPresenterInt{
 
     var listAllGroups : MutableLiveData<List<GroupModel>> = MutableLiveData()
     var isLoading = MutableLiveData<Boolean>()
-    var groupRepo = GroupsRepository(this)
+    private var groupsRepository = GroupsRepository(this)
+
+    override fun showGroups(groups: ArrayList<GroupModel>?) {
+    }
+
+    override fun showGroupsByGroup(groups: ArrayList<GroupModel>?) {
+    }
+
+    override fun getGroups() {
+    }
+
+    override fun getGroupsByName() {
+    }
 
     fun refresh() {
         allGroups()
     }
 
-    fun allGroups()  {
-
-        groupRepo.allGroups(object : CustomCallback<List<GroupModel>> {
+    private fun allGroups()  {
+        groupsRepository.allGroups(object : CustomCallback<List<GroupModel>> {
             override fun onSuccess(result: List<GroupModel>?) {
                 listAllGroups.postValue(result)
             }
-
             override fun onFailed(exception: java.lang.Exception) {
-                processFinished()
             }
-
         })
-
     }
-
-    private fun processFinished() {
-        isLoading.value = true
-    }
-
-
-
 }

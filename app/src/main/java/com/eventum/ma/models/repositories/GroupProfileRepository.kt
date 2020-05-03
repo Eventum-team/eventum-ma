@@ -10,10 +10,9 @@ import org.json.JSONArray
 import org.json.JSONObject
 
 class GroupProfileRepository(var groupProfilePresenter: GroupProfilePresenterInt) {
-    var client = OkHttpClient()
+    private var client = OkHttpClient()
 
-    //Logica de graphql para consumir la API
-    fun getGroupProf(idGroup: Int, callback: CustomCallback<GroupModel>){
+    fun getGroupProf(idGroup: String, callback: CustomCallback<GroupModel>) {
 
         var url = "http://190.24.19.228:3000/graphql?query="
         url = url + "query {\n" +
@@ -49,7 +48,6 @@ class GroupProfileRepository(var groupProfilePresenter: GroupProfilePresenterInt
                 "}";
         var request = Request.Builder()
             .url(url)
-            //.post(FormBody.Builder().build())         ONLY FOR POST
             .build()
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
@@ -88,7 +86,7 @@ class GroupProfileRepository(var groupProfilePresenter: GroupProfilePresenterInt
 
                             var arr = output.get("events") as JSONArray;
                             var obj: JSONObject
-                            for (i in 0..arr.length()-1){
+                            for (i in 0..arr.length() - 1) {
                                 obj = arr[i] as JSONObject;
                                 var eventModel: EventModel = EventModel();
                                 eventModel.id_event = obj.get("id").toString()
@@ -103,7 +101,7 @@ class GroupProfileRepository(var groupProfilePresenter: GroupProfilePresenterInt
                                 listEvents.add(eventModel);
                             }
                             arr = output.get("admins") as JSONArray;
-                            for (i in 0..arr.length()-1){
+                            for (i in 0..arr.length() - 1) {
                                 obj = arr[i] as JSONObject;
                                 var userModel: UserModel = UserModel();
                                 userModel.id_user = obj.get("id").toString()
@@ -145,7 +143,7 @@ class GroupProfileRepository(var groupProfilePresenter: GroupProfilePresenterInt
         getGroupProf(id.toInt(), this::ProfileCallback)
     }*/
 
-    fun getEventsByGroup(id: String){
+    fun getEventsByGroup(id: String) {
         val g1 = EventModel()
         g1.name = "eventazo 1"
         g1.description = "Gran descripcio 111111"

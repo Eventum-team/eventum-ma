@@ -1,6 +1,7 @@
 package com.eventum.ma.presenters
 
 import androidx.lifecycle.MutableLiveData
+
 import androidx.lifecycle.ViewModel
 import com.eventum.ma.models.models.EventModel
 import com.eventum.ma.models.models.GroupModel
@@ -12,6 +13,7 @@ import com.eventum.ma.views.views.EventsViewInt
 import com.eventum.ma.views.views.UserProfileEventInt
 
 class UserProfilePresenter(): UserProfileEventInt, ViewModel(){
+
 
     private val userProfileRepository: UserRepository = UserRepository()
 
@@ -63,4 +65,6 @@ class UserProfilePresenter(): UserProfileEventInt, ViewModel(){
     private fun processFinished() {
         isLoading.value = true
     }
+
+
 }

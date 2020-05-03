@@ -33,6 +33,7 @@ class GroupsHorizontalItemsAdapter(private val groupsListener: GroupListener) :
         holder.groupItemName.text = group.name
         holder.groupItemOwner.text = group.type
 
+        group.image = "https://source.unsplash.com/random"
         Glide.with(holder.itemView.context)
             .load(group.image)
             .into(holder.groupItemImage)

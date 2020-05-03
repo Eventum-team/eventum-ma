@@ -5,15 +5,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.eventum.ma.R
-import com.eventum.ma.controllers.GraphqlConnection
-import com.eventum.ma.models.models.EventModel
-import com.eventum.ma.models.models.GroupModel
 import com.eventum.ma.presenters.SignInPresenter
 import com.eventum.ma.views.views.SignInInt
-import org.json.JSONObject
 
 
 class SignInActivity : AppCompatActivity(), SignInInt {
@@ -24,8 +19,8 @@ class SignInActivity : AppCompatActivity(), SignInInt {
         super.onCreate(savedInstanceState)
         verifySession()
         setContentView(R.layout.activity_sign_in)
-        val et_email = findViewById<EditText>(R.id.signInEmail)
-        val et_password = findViewById<EditText>(R.id.signInPassword)
+        val etEmail = findViewById<EditText>(R.id.signInEmail)
+        val etPassword = findViewById<EditText>(R.id.signInPassword)
         val signInButton = findViewById<Button>(R.id.signInButton)
         val signUpButton = findViewById<Button>(R.id.signUpButton)
 
@@ -37,8 +32,8 @@ class SignInActivity : AppCompatActivity(), SignInInt {
         }
 
         signInButton.setOnClickListener {
-            val email = et_email.text.toString()
-            val password = et_password.text.toString()
+            val email = etEmail.text.toString()
+            val password = etPassword.text.toString()
             verifyAccount(email, password)
         }
 
@@ -58,7 +53,7 @@ class SignInActivity : AppCompatActivity(), SignInInt {
     }
 
     override fun denyAccess() {
-        //Toast.makeText(this, "denied", Toast.LENGTH_SHORT).show()
+
     }
 
     private fun verifySession() {
