@@ -57,10 +57,17 @@ class UserProfileFragment : Fragment(), EventListener,GroupListener, UserProfile
         myGroupsAdapter = GroupsHorizontalItemsAdapter(this)
         myEventsAdapter = EventsHorizontalItemsAdapter(this)
         attendanceEventsAdapter = EventsHorizontalItemsAdapter(this)
-        val id = "4"
+        val preferences = this.activity?.getSharedPreferences("com.eventum.ma", Context.MODE_PRIVATE)
+        val id = preferences!!.getString("userID", "")
+
+
 
         userProfilePresenter = ViewModelProviders.of(this).get(UserProfilePresenter::class.java)
-        userProfilePresenter.refresh(id)
+        if (id != null) {
+            userProfilePresenter.refresh(id)
+        }else{
+            userProfilePresenter.refresh("4")
+        }
         observeViewModel()
         rvAttendanceEvents.apply {
             layoutManager = LinearLayoutManager(view.context, LinearLayoutManager.HORIZONTAL, false)
@@ -99,9 +106,13 @@ class UserProfileFragment : Fragment(), EventListener,GroupListener, UserProfile
         profile_career.text = user.career
         profile_phone.text = user.phone_number
         profile_email.text = user.email
-        Glide.with(view!!.context)
-            .load(user.image)
-            .into(profile_image)
+
+        if (user.image != "null"){
+            Glide.with(view!!.context)
+                .load(user.image)
+                .into(profile_image)
+        }
+
 
     }
 

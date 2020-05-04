@@ -18,6 +18,7 @@ class SignInActivity : AppCompatActivity(), SignInInt {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        signInPresenter = SignInPresenter(this)
         verifySession()
         setContentView(R.layout.activity_sign_in)
         val etEmail = findViewById<EditText>(R.id.signInEmail)
@@ -25,7 +26,7 @@ class SignInActivity : AppCompatActivity(), SignInInt {
         val signInButton = findViewById<Button>(R.id.signInButton)
         val signUpButton = findViewById<Button>(R.id.signUpButton)
 
-        signInPresenter = SignInPresenter(this)
+
 
         signUpButton.setOnClickListener {
             val intent = Intent(this, SignUpActivity::class.java)
@@ -44,13 +45,10 @@ class SignInActivity : AppCompatActivity(), SignInInt {
         signInPresenter.verifyAccount(email, password)
     }
 
+
+
     override fun verifyToken(token: String?) {
-        signInPresenter.tokenAccess.observe(this, Observer { token ->
-            token.let {
-                val preferences = getSharedPreferences("com.eventum.ma", Context.MODE_PRIVATE)
-                preferences.edit().putString("accessToken", token).apply();
-            }
-        })
+
     }
 
     override fun allowAccess(accessToken:String,refreshToken:String) {
@@ -67,11 +65,9 @@ class SignInActivity : AppCompatActivity(), SignInInt {
     }
 
     private fun verifySession() {
+
         val preferences = getSharedPreferences("com.eventum.ma", Context.MODE_PRIVATE)
         val access = preferences!!.getString("accessToken", "")
-
-        verifyToken(access)
-
         if (access != "") {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)

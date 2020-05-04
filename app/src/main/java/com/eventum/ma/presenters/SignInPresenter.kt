@@ -16,8 +16,7 @@ class SignInPresenter (var signInView: SignInInt): SignInPresenterInt {
     }
 
     override fun allowAccess(accessToken:String,refreshToken:String) {
-        signInView.allowAccess(accessToken,refreshToken)
-    }
+        signInView.allowAccess(refreshToken,accessToken) }
     override fun verifyToken(token:String) {
         signInRepository.verifyToken(token,object : CustomCallback<String> {
             override fun onSuccess(token: String?) {

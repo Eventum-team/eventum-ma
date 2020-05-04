@@ -54,6 +54,7 @@ class SignInRepository(var signInPresenter: SignInPresenter) {
     }
 
     fun verifyToken(token: String, callback: CustomCallback<String>) {
+
         val url = "http://190.24.19.228:3000/graphql?query=mutation {\n" +
                 "  vrfTok(input:{token:\"$token\"}) \n" +
                 "}";
@@ -66,11 +67,9 @@ class SignInRepository(var signInPresenter: SignInPresenter) {
                 e.printStackTrace()
 //                callback.onFailed(e);
             }
-
             override fun onResponse(call: Call, response: Response) {
                 response.use {
                     if (!response.isSuccessful) {
-                        //callback(null);
                         throw IOException("Unexpected code $response")
                     } else {
                         var output = JSONObject(response.body!!.string())
