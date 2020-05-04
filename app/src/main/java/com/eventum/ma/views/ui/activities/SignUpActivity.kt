@@ -23,16 +23,17 @@ class SignUpActivity : AppCompatActivity(),SignUpInt {
         signUpPresenter = SignUpPresenter(this)
         val user = UserModel()
         val registerButton = findViewById<Button>(R.id.registerButton)
-        user.name = findViewById<EditText>(R.id.signUpName).text.toString()
-        user.email = findViewById<EditText>(R.id.signUpEmail).text.toString()
-        user.password = findViewById<EditText>(R.id.signUpPassword).text.toString()
-        user.phone_number = findViewById<EditText>(R.id.signUpPhone).text.toString()
-        user.status = findViewById<EditText>(R.id.signUpAge).text.toString()
-        user.career = findViewById<EditText>(R.id.signUpCareer).text.toString()
+
 
         //validar campos
 
         registerButton.setOnClickListener {
+            user.name = findViewById<EditText>(R.id.signUpName).text.toString()
+            user.email = findViewById<EditText>(R.id.signUpEmail).text.toString()
+            user.password = findViewById<EditText>(R.id.signUpPassword).text.toString()
+            user.phone_number = findViewById<EditText>(R.id.signUpPhone).text.toString()
+            user.status = findViewById<EditText>(R.id.signUpAge).text.toString()
+            user.career = findViewById<EditText>(R.id.signUpCareer).text.toString()
             createAccount(user)
         }
     }

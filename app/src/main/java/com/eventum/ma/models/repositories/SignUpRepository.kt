@@ -29,6 +29,8 @@ class SignUpRepository(var signUpPresenter: SignUpPresenterInt) {
             .url(url)
             .post(FormBody.Builder().build())
             .build()
+        println("REQUEST:--------------")
+        print(url)
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
                 e.printStackTrace()
