@@ -83,7 +83,7 @@ class HomeRepository(private var homePresenter: HomePresenterInt){
                                 em.name = obj.get("name").toString()
                                 em.image = obj.get("url").toString()
                                 em.status = obj.get("status").toString()
-//                                em.eventStartDate = fromISO8601UTC(obj.get("eventStartDate").toString())
+                                em.eventStartDate = obj.get("eventStartDate").toString()
 //                                em.eventFinishDate = fromISO8601UTC(obj.get("eventFinishDate").toString())
                                 list.add(em);
 //                                homePresenter.showTodayEvents(list)

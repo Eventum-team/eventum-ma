@@ -25,7 +25,12 @@ class EventItemAdapter(private val eventListener: EventListener) : RecyclerView.
         val event = eventList[position]
 
         holder.groupItemName.text = event.name
-        holder.groupItemOwner.text = event.id_owner
+        holder.groupItemOwner.text = event.eventStartDate
+        if(event.description.length > 150){
+            val description = event.description.substring(0,250)+"..."
+            event.description = description
+        }
+
         holder.groupItemDescription.text = event.description
 //        if(event.image == ""){
             event.image = "https://source.unsplash.com/random"

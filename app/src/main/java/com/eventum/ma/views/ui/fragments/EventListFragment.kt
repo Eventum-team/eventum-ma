@@ -56,6 +56,7 @@ class EventListFragment : Fragment(),EventListener,EventsViewInt {
                 eventAdapter.updateData(events)
             }
             rvEvents!!.adapter = eventAdapter
+            dataLoaded()
         })
         eventsPresenter.isLoading.observe(this, Observer<Boolean> {
             if(it != null)
@@ -64,15 +65,6 @@ class EventListFragment : Fragment(),EventListener,EventsViewInt {
     }
 
     override fun showEvents(events: ArrayList<EventModel>?) {
-        if (events != null) {
-            eventAdapter.updateData(events)
-        }
-        try {
-            rvEvents!!.adapter = eventAdapter
-            dataLoaded()
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
     }
 
     override fun showEventsByName(groups: ArrayList<EventModel>?) {
@@ -80,16 +72,13 @@ class EventListFragment : Fragment(),EventListener,EventsViewInt {
     }
 
     override fun getEvents() {
-        eventsPresenter?.getEvents()
     }
 
     override fun getEventsByName() {
-        eventsPresenter?.getEventsByName()
     }
 
     override fun onEventClicked(event: EventModel, position: Int) {
         val intent = Intent(view!!.context  , EventDetails::class.java)
-        event.id_event="1"
         intent.putExtra("EVENT", event.id_event);
         startActivity(intent)
     }

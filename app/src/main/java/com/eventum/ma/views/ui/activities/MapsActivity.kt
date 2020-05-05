@@ -19,8 +19,8 @@ import com.google.android.gms.maps.model.MarkerOptions
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
-    val latitude =5.718310
-    val longitude = -72.930977
+    val latitude =4.635990452289505
+    val longitude = -74.08326288598688
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

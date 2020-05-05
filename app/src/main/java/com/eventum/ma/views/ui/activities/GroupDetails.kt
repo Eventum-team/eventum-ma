@@ -1,5 +1,6 @@
 package com.eventum.ma.views.ui.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
@@ -15,6 +16,7 @@ import com.eventum.ma.models.models.GroupModel
 import com.eventum.ma.presenters.GroupProfilePresenter
 import com.eventum.ma.views.adapters.EventItemAdapter
 import com.eventum.ma.views.listeners.EventListener
+import kotlinx.android.synthetic.main.activity_event_details.*
 import kotlinx.android.synthetic.main.activity_group_details.*
 
 class GroupDetails : AppCompatActivity(), EventListener {
@@ -33,8 +35,9 @@ class GroupDetails : AppCompatActivity(), EventListener {
         super.onStart()
         val groupId = intent.getStringExtra("GROUP")
         eventAdapter = EventItemAdapter(this)
-        if(groupId != null){
-            groupProfilePresenter = ViewModelProviders.of(this).get(GroupProfilePresenter::class.java)
+        if (groupId != null) {
+            groupProfilePresenter =
+                ViewModelProviders.of(this).get(GroupProfilePresenter::class.java)
             groupProfilePresenter.refresh(groupId)
             observeViewModel()
         }
@@ -58,24 +61,24 @@ class GroupDetails : AppCompatActivity(), EventListener {
                 dataLoaded()
             }
         })
-
-        groupProfilePresenter .isLoading.observe(this, Observer<Boolean> {
-            if (it != null) {
-                val a = true
-            }
-//                rlBase.visibility = View.INVISIBLE
-        })
     }
 
     override fun onBackPressed() {
         super.onBackPressed()
         finish()
     }
+
     override fun onEventClicked(event: EventModel, position: Int) {
+        val intent = Intent(this, EventDetails::class.java)
+        intent.putExtra("EVENT", event.id_event);
+        startActivity(intent)
     }
 
+
     private fun dataLoaded() {
-        rlBaseGroupProfile.visibility = View.INVISIBLE
+        loadingGroupDetails.visibility = View.VISIBLE
+        loadingGroupDetails2.visibility = View.INVISIBLE
+        eventsByGroupLoading.visibility = View.INVISIBLE
     }
 
 }

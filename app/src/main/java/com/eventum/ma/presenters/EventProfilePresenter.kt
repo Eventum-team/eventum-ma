@@ -11,6 +11,7 @@ import com.eventum.ma.views.views.EventProfileViewInt
 class EventProfilePresenter(): ViewModel(),EventProfilePresenterInt {
 
     var eventDetails : MutableLiveData<EventModel> = MutableLiveData()
+    var  isFollowing = MutableLiveData<Boolean>()
     var isLoading = MutableLiveData<Boolean>()
     private var eventProfileRepository = EventProfileRepository(this)
 
@@ -28,6 +29,20 @@ class EventProfilePresenter(): ViewModel(),EventProfilePresenterInt {
         eventProfileRepository.getEventProf(idEvent,idUser,object : CustomCallback<EventModel> {
             override fun onSuccess(result: EventModel?) {
                 eventDetails.postValue(result)
+            }
+            override fun onFailed(exception: java.lang.Exception) {
+            }
+        })
+    }
+
+    fun refreshFollow(id:String,idEvent:String){
+        eventFollow(id,idEvent)
+    }
+
+    private fun eventFollow(idEvent:String, idUser:String)  {
+        eventProfileRepository.eventFollow(idEvent,idUser,object : CustomCallback<Boolean> {
+            override fun onSuccess(result: Boolean?) {
+                isFollowing.postValue(result)
             }
             override fun onFailed(exception: java.lang.Exception) {
             }

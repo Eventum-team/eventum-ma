@@ -18,6 +18,7 @@ class EventsRepository(var groupsPresenter: EventsPresenterInt ){
                 "  allEvents{\n" +
                 "    id\n" +
                 "    ownerType\n" +
+                "    eventStartDate\n"+
                 "    status\n" +
                 "    eventType\n" +
                 "    ownerId\n" +
@@ -59,6 +60,7 @@ class EventsRepository(var groupsPresenter: EventsPresenterInt ){
                                 em.id_event = obj.get("id").toString()
                                 em.owner_type = obj.get("ownerType").toString()
                                 em.event_type = obj.get("eventType").toString()
+                                em.eventStartDate = obj.get("eventStartDate").toString()
                                 em.id_owner = obj.get("ownerId").toString()
                                 em.description = obj.get("description").toString()
                                 em.name = obj.get("name").toString()

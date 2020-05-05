@@ -14,6 +14,9 @@ class EventProfileRepository(var eventProfilePresenter: EventProfilePresenterInt
     private var client = OkHttpClient()
 
     fun getEventProf(idEvent: String, idUser: String, callback: CustomCallback<EventModel>) {
+        println("event****************")
+        println(idEvent)
+        println(idUser)
         var url = "http://190.24.19.228:3000/graphql?query="
         url = url + "query{\n" +
                 "  eventProfile(eventId:$idEvent,userId:$idUser){\n" +
@@ -45,6 +48,7 @@ class EventProfileRepository(var eventProfilePresenter: EventProfilePresenterInt
                 "    assistant{\n" +
                 "      id\n" +
                 "      name\n" +
+                "      career\n" +
                 "     \tphoto\n" +
                 "    }\n" +
                 "    interested{\n" +
@@ -105,7 +109,7 @@ class EventProfileRepository(var eventProfilePresenter: EventProfilePresenterInt
                             for (i in 0..arr.length() - 1) {
                                 obj = arr[i] as JSONObject;
                                 var commentModel: CommentModel = CommentModel();
-                                /*
+
                                 commentModel.id = obj.get("id").toString()
                                 commentModel.idEvent = obj.get("idEvent").toString()
                                 commentModel.idUser = obj.get("idUser").toString()
@@ -115,7 +119,7 @@ class EventProfileRepository(var eventProfilePresenter: EventProfilePresenterInt
                                 commentModel.likes = obj.get("likes").toString()
                                 commentModel.dislikes = obj.get("dislikes").toString()
                                 commentModel.reacted = obj.get("reacted").toString()
-                                listComments.add(commentModel);*/
+                                listComments.add(commentModel);
                             }
                             arr = output.get("assistant") as JSONArray;
                             for (i in 0..arr.length() - 1) {
@@ -124,9 +128,10 @@ class EventProfileRepository(var eventProfilePresenter: EventProfilePresenterInt
                                 userModel.id_user = obj.get("id").toString()
                                 userModel.name = obj.get("name").toString()
                                 userModel.image = obj.get("photo").toString()
-
+                                userModel.career = obj.get("career").toString()
                                 listUserAssistant.add(userModel);
                             }
+
                             arr = output.get("interested") as JSONArray;
                             for (i in 0..arr.length() - 1) {
                                 obj = arr[i] as JSONObject;
@@ -149,7 +154,7 @@ class EventProfileRepository(var eventProfilePresenter: EventProfilePresenterInt
                             }*/
                             eventModel.assistant = ArrayList(listUserAssistant)
                             eventModel.interested = ArrayList(listUserInterested)
-                            //eventModel.comments = ArrayList(listComments)
+                            eventModel.comments = ArrayList(listComments)
                             //eventModel.followers = ArrayList(listUserFollowers)
 
                             callback.onSuccess(eventModel);
@@ -158,5 +163,9 @@ class EventProfileRepository(var eventProfilePresenter: EventProfilePresenterInt
                 }
             }
         })
+    }
+
+    fun eventFollow(idEvent: String,idUser:String,callback : CustomCallback<Boolean>){
+
     }
 }

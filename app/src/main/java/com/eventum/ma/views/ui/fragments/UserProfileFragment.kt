@@ -29,6 +29,7 @@ import com.eventum.ma.views.listeners.EventListener
 import com.eventum.ma.views.listeners.GroupListener
 import com.eventum.ma.views.ui.activities.*
 import com.eventum.ma.views.views.UserProfileEventInt
+import kotlinx.android.synthetic.main.activity_event_details.*
 import kotlinx.android.synthetic.main.fragment_user_profile.*
 
 
@@ -88,6 +89,7 @@ class UserProfileFragment : Fragment(), EventListener,GroupListener, UserProfile
                 showGroupsFollowedByUser(user.groupsFollowing)
 //                showEventsAttendedBuUser(user.assistanceEvents)
                 showEventsAttendedBuUser(user.eventsCreated)
+                dataLoaded()
             }
         })
 
@@ -182,5 +184,10 @@ class UserProfileFragment : Fragment(), EventListener,GroupListener, UserProfile
         TODO("Not yet implemented")
     }
 
+
+    private fun dataLoaded() {
+        loadingUserDetails.visibility = View.VISIBLE
+        loadingUserDetails2.visibility = View.INVISIBLE
+    }
 
 }

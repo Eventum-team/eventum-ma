@@ -1,82 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".views.ui.fragments.EventListFragment"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    tools:context=".views.ui.fragments.EventListFragment">
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".view.ui.fragments.SpeakersFragment">
+
         <androidx.coordinatorlayout.widget.CoordinatorLayout
-            android:fitsSystemWindows="true"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true">
+
             <com.google.android.material.appbar.AppBarLayout
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
                 android:fitsSystemWindows="true"
                 app:liftOnScroll="true">
+
                 <com.google.android.material.appbar.CollapsingToolbarLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    app:expandedTitleMarginStart="72dp"
-                    app:expandedTitleMarginBottom="28dp"
-                    app:expandedTitleTextAppearance="@style/TextAppearance.App.CollapsingToolbar.Expanded"
-                    app:collapsedTitleTextAppearance="@style/TextAppearance.App.CollapsingToolbar.Collapsed"
                     android:fitsSystemWindows="true"
-                    app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
+                    app:collapsedTitleTextAppearance="@style/TextAppearance.App.CollapsingToolbar.Collapsed"
                     app:contentScrim="?attr/colorPrimary"
+                    app:expandedTitleMarginBottom="28dp"
+                    app:expandedTitleMarginStart="72dp"
+                    app:expandedTitleTextAppearance="@style/TextAppearance.App.CollapsingToolbar.Expanded"
+                    app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
                     app:statusBarScrim="?attr/colorPrimaryVariant">
+
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:src="@drawable/event_block"
-                        android:scaleType="centerCrop"
+                        android:contentDescription="description image"
                         android:fitsSystemWindows="true"
-                        android:contentDescription="description image"                    />
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/event_block" />
+
                     <com.google.android.material.appbar.MaterialToolbar
                         android:id="@+id/topAppBar"
-                        app:layout_collapseMode="pin"
-                        android:background="@android:color/transparent"
-                        app:layout_scrollFlags="scroll|enterAlways|snap"
+                        style="@style/AppBar"
                         android:layout_width="match_parent"
                         android:layout_height="?attr/actionBarSize"
-                        app:title="Eventos"
+                        android:background="@android:color/transparent"
+                        android:elevation="0dp"
+                        app:layout_collapseMode="pin"
+                        app:layout_scrollFlags="scroll|enterAlways|snap"
                         app:menu="@menu/top_app_bar"
                         app:navigationIcon="@drawable/ic_search"
-                        android:elevation="0dp"
-                        style="@style/AppBar"                    />
+                        app:title="Eventos" />
                 </com.google.android.material.appbar.CollapsingToolbarLayout>
             </com.google.android.material.appbar.AppBarLayout>
+
             <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/gray2"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
                 <ScrollView
-                    android:scrollbars="none"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:scrollbars="none">
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
+
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/rvEvents"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"/>
+                            android:layout_height="match_parent" />
+
                         <RelativeLayout
                             android:id="@+id/rlBaseEvents"
                             android:layout_width="match_parent"
                             android:layout_height="300sp">
+
                             <ProgressBar
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_centerInParent="true"/>
+                                android:layout_centerInParent="true" />
                         </RelativeLayout>
                     </LinearLayout>
                 </ScrollView>

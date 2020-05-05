@@ -18,5 +18,6 @@ class UserModel: Serializable {
     lateinit var eventsCreated: ArrayList<EventModel>
     lateinit var assistanceEvents: ArrayList<EventModel>
 
+
 }
 

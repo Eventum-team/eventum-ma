@@ -1,405 +1,483 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray2"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-   >
-   <FrameLayout
-       android:layout_width="match_parent"
-       android:layout_height="match_parent"
-       tools:context=".views.ui.fragments.HomeFragment">
-       <androidx.coordinatorlayout.widget.CoordinatorLayout
-           android:fitsSystemWindows="true"
-           android:layout_width="match_parent"
-           android:layout_height="match_parent">
-           <com.google.android.material.appbar.AppBarLayout
-               android:layout_width="match_parent"
-               android:layout_height="200dp"
-               android:fitsSystemWindows="true"
-               app:liftOnScroll="true">
-               <com.google.android.material.appbar.CollapsingToolbarLayout
-                   android:layout_width="match_parent"
-                   android:layout_height="match_parent"
-                   app:expandedTitleMarginStart="72dp"
-                   app:expandedTitleMarginBottom="28dp"
-                   app:expandedTitleTextAppearance="@style/TextAppearance.App.CollapsingToolbar.Expanded"
-                   app:collapsedTitleTextAppearance="@style/TextAppearance.App.CollapsingToolbar.Collapsed"
-                   android:fitsSystemWindows="true"
-                   app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
-                   >
-                   <ImageView
-                       android:layout_width="match_parent"
-                       android:layout_height="match_parent"
-                       android:src="@drawable/user_block"
-                       android:scaleType="centerCrop"
-                       android:fitsSystemWindows="true"
-                       android:contentDescription="description image"                    />
-                   <com.google.android.material.appbar.MaterialToolbar
-                       android:id="@+id/topAppBar"
-                       app:layout_collapseMode="pin"
-                       android:background="@android:color/transparent"
-                       app:layout_scrollFlags="scroll|enterAlways|snap"
-                       android:layout_width="match_parent"
-                       android:layout_height="?attr/actionBarSize"
-                       app:title="Inicio"
-                       app:menu="@menu/top_app_bar"
+    android:background="@color/gray2">
 
-                       android:elevation="0dp"
-                       style="@style/AppBar"                    />
-               </com.google.android.material.appbar.CollapsingToolbarLayout>
-           </com.google.android.material.appbar.AppBarLayout>
-           <androidx.core.widget.NestedScrollView
-               android:layout_width="match_parent"
-               android:layout_height="match_parent"
-               android:background="@color/gray2"
-               app:layout_behavior="@string/appbar_scrolling_view_behavior">
-               <ScrollView
-                   android:layout_width="match_parent"
-                   android:layout_height="match_parent"
-                   android:background="@color/gray2"
-                   android:scrollbars="none">
-                   <LinearLayout
-                       android:layout_width="match_parent"
-                       android:layout_height="wrap_content"
-                       android:paddingBottom="25dp"
-                       android:orientation="vertical">
+    <RelativeLayout
+        android:id="@+id/loadingHome2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-                       <LinearLayout
-                           android:layout_width="match_parent"
-                           android:layout_height="wrap_content"
-                           android:layout_marginTop="10dp"
-                           android:layout_marginLeft="10dp"
-                           android:layout_marginRight="10dp"
-                           android:orientation="horizontal">
-                           <TextView
-                               android:textStyle="bold"
-                               android:layout_weight="1"
-                               android:layout_width="0dp"
-                               android:layout_height="wrap_content"
-                               android:textColor="@color/colorPrimaryDark"
-                               android:text="Eventos del dia"
-                               android:textSize="25sp"/>
-                           <Button
-                               android:id="@+id/allTodayEventsButton"
-                               android:textSize="13sp"
-                               android:layout_width="wrap_content"
-                               android:layout_height="wrap_content"
-                               android:text="Ver todos"
-                               style="@style/Widget.MaterialComponents.Button.TextButton"
-                               />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0.2"
+            android:background="@color/colorPrimary" />
 
-                       </LinearLayout>
-                       <HorizontalScrollView
-                           android:layout_width="match_parent"
-                           android:layout_height="wrap_content"
-                           android:layout_marginTop="12dp"
-                           android:scrollbars="none">
-                           <LinearLayout
-                               android:layout_width="match_parent"
-                               android:layout_height="wrap_content"
-                               android:clipToPadding="false"
-                               android:paddingLeft="10dp"
-                               android:paddingRight="10dp"
-                               android:orientation="horizontal">
-                               <androidx.recyclerview.widget.RecyclerView
-                                   android:id="@+id/rvTodayEvents"
-                                   android:layout_width="match_parent"
-                                   android:layout_height="match_parent"/>
-                           </LinearLayout>
-                       </HorizontalScrollView>
-                       <LinearLayout
-                           android:layout_width="match_parent"
-                           android:layout_height="wrap_content"
-                           android:layout_marginTop="10dp"
-                           android:layout_marginLeft="10dp"
-                           android:layout_marginRight="10dp"
-                           android:orientation="horizontal">
-                           <TextView
-                               android:textStyle="bold"
-                               android:layout_weight="1"
-                               android:layout_width="0dp"
-                               android:layout_height="wrap_content"
-                               android:textColor="@color/colorPrimaryDark"
-                               android:text="Eventos Oficiales"
-                               android:textSize="25sp"/>
-                           <Button
-                               android:id="@+id/allOfficialEventsButton"
-                               android:textSize="13sp"
-                               android:layout_width="wrap_content"
-                               android:layout_height="wrap_content"
-                               android:text="Ver todos"
-                               style="@style/Widget.MaterialComponents.Button.TextButton"
-                               />
-                       </LinearLayout>
-                       <HorizontalScrollView
-                           android:layout_width="match_parent"
-                           android:layout_height="wrap_content"
-                           android:layout_marginTop="12dp"
-                           android:scrollbars="none">
-                           <LinearLayout
-                               android:layout_width="match_parent"
-                               android:layout_height="wrap_content"
-                               android:clipToPadding="false"
-                               android:paddingLeft="10dp"
-                               android:paddingRight="10dp"
-                               android:orientation="horizontal">
-                               <androidx.recyclerview.widget.RecyclerView
-                                   android:id="@+id/rvOfficialEvents"
-                                   android:layout_width="match_parent"
-                                   android:layout_height="match_parent"/>
-                           </LinearLayout>
-                       </HorizontalScrollView>
-                       <LinearLayout
-                           android:layout_width="match_parent"
-                           android:layout_height="wrap_content"
-                           android:layout_marginTop="10dp"
-                           android:layout_marginLeft="10dp"
-                           android:layout_marginRight="10dp"
-                           android:orientation="horizontal">
-                           <TextView
-                               android:textStyle="bold"
-                               android:layout_weight="1"
-                               android:layout_width="0dp"
-                               android:layout_marginVertical="15sp"
-                               android:layout_height="wrap_content"
-                               android:textColor="@color/colorPrimaryDark"
-                               android:textAlignment="center"
-                               android:text="Conoce la universidad y sus grupos"
-                               android:textSize="30sp"/>
-                       </LinearLayout>
-                       <LinearLayout
-                           android:orientation="vertical"
-                           android:layout_width="match_parent"
-                           android:layout_height="wrap_content"
-                           android:background="?selectableItemBackground">
-                           <LinearLayout
-                               android:layout_width="match_parent"
-                               android:layout_height="125sp"
-                               android:background="@drawable/layout_bg"
-                               android:orientation="horizontal"
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true" />
+    </RelativeLayout>
 
-                               android:layout_margin="10dp"
-                               android:baselineAligned="false">
-                               <LinearLayout
-                                   android:layout_width="0dp"
-                                   android:layout_height="match_parent"
-                                   android:layout_weight="4"
-                                   android:gravity="center_vertical"
-                                   android:orientation="vertical">
-                                   <ImageView
-                                       android:layout_width="match_parent"
-                                       android:layout_height="match_parent"
-                                       android:adjustViewBounds="true"
-                                       android:src="@drawable/sports"
-                                       tools:ignore="MissingConstraints"
-                                       android:contentDescription="SportImage" />
-                               </LinearLayout>
-                               <LinearLayout
-                                   android:layout_width="0dp"
-                                   android:layout_height="match_parent"
-                                   android:layout_weight="4"
-                                   android:gravity="center"
-                                   android:orientation="vertical"
-                                   android:layout_marginStart="10dp">
-                                   <TextView
-                                       android:layout_width="match_parent"
-                                       android:layout_height="wrap_content"
-                                       android:ellipsize="end"
-                                       android:gravity="center"
-                                       android:text="Deportes"
-                                       android:textColor="@color/blue"
-                                       android:textSize="20sp"
-                                       android:textStyle="bold" />
-                               </LinearLayout>
-                           </LinearLayout>
-                       </LinearLayout>
-                       <LinearLayout
-                           android:orientation="vertical"
-                           android:layout_width="match_parent"
-                           android:layout_height="wrap_content"
-                           android:background="?selectableItemBackground">
-                           <LinearLayout
-                               android:layout_width="match_parent"
-                               android:layout_height="125sp"
-                               android:orientation="horizontal"
-                               android:background="@drawable/layout_bg"
-                               android:layout_margin="10dp"
-                               android:baselineAligned="false">
-                               <LinearLayout
-                                   android:layout_width="0dp"
-                                   android:layout_height="match_parent"
-                                   android:layout_weight="4"
-                                   android:gravity="center_vertical"
-                                   android:orientation="vertical">
-                                   <ImageView
-                                       android:layout_width="match_parent"
-                                       android:layout_height="match_parent"
-                                       android:adjustViewBounds="true"
-                                       android:src="@drawable/science"
-                                       tools:ignore="MissingConstraints"
-                                       android:contentDescription="researchImage" />
-                               </LinearLayout>
-                               <LinearLayout
-                                   android:layout_width="0dp"
-                                   android:layout_height="match_parent"
-                                   android:layout_weight="4"
-                                   android:gravity="center"
-                                   android:orientation="vertical"
-                                   android:layout_marginStart="10dp">
-                                   <TextView
-                                       android:layout_width="match_parent"
-                                       android:layout_height="wrap_content"
-                                       android:ellipsize="end"
-                                       android:gravity="center"
-                                       android:text="Investigacion"
-                                       android:textColor="@color/blue"
-                                       android:textSize="20sp"
-                                       android:textStyle="bold" />
-                               </LinearLayout>
-                           </LinearLayout>
-                       </LinearLayout>
-                       <LinearLayout
-                           android:orientation="vertical"
-                           android:layout_width="match_parent"
-                           android:layout_height="wrap_content"
-                           android:background="?selectableItemBackground">
-                           <LinearLayout
-                               android:layout_width="match_parent"
-                               android:layout_height="125sp"
-                               android:orientation="horizontal"
-                               android:background="@drawable/layout_bg"
-                               android:layout_margin="10dp"
-                               android:baselineAligned="false">
-                               <LinearLayout
-                                   android:layout_width="0dp"
-                                   android:layout_height="match_parent"
-                                   android:layout_weight="4"
-                                   android:gravity="center_vertical"
-                                   android:orientation="vertical">
-                                   <ImageView
-                                       android:layout_width="match_parent"
-                                       android:layout_height="match_parent"
-                                       android:adjustViewBounds="true"
-                                       android:src="@drawable/music"
-                                       tools:ignore="MissingConstraints"
-                                       android:contentDescription="musicImage" />
-                               </LinearLayout>
-                               <LinearLayout
-                                   android:layout_width="0dp"
-                                   android:layout_height="match_parent"
-                                   android:layout_weight="4"
-                                   android:gravity="center"
-                                   android:orientation="vertical"
-                                   android:layout_marginStart="10dp">
-                                   <TextView
-                                       android:layout_width="match_parent"
-                                       android:layout_height="wrap_content"
-                                       android:ellipsize="end"
-                                       android:gravity="center"
-                                       android:text="Cultura"
-                                       android:textColor="@color/blue"
-                                       android:textSize="20sp"
-                                       android:textStyle="bold" />
-                               </LinearLayout>
-                           </LinearLayout>
-                       </LinearLayout>
-                       <LinearLayout
-                           android:orientation="vertical"
-                           android:layout_width="match_parent"
-                           android:layout_height="wrap_content"
-                           android:background="?selectableItemBackground">
-                           <LinearLayout
-                               android:layout_width="match_parent"
-                               android:layout_height="125sp"
-                               android:orientation="horizontal"
-                               android:background="@drawable/layout_bg"
-                               android:layout_margin="10dp"
-                               android:baselineAligned="false">
-                               <LinearLayout
-                                   android:layout_width="0dp"
-                                   android:layout_height="match_parent"
-                                   android:layout_weight="4"
-                                   android:gravity="center_vertical"
-                                   android:orientation="vertical">
-                                   <ImageView
-                                       android:layout_width="match_parent"
-                                       android:layout_height="match_parent"
-                                       android:adjustViewBounds="true"
-                                       android:src="@drawable/study"
-                                       tools:ignore="MissingConstraints"
-                                       android:contentDescription="studyImage" />
-                               </LinearLayout>
-                               <LinearLayout
-                                   android:layout_width="0dp"
-                                   android:layout_height="match_parent"
-                                   android:layout_weight="4"
-                                   android:gravity="center"
-                                   android:orientation="vertical"
-                                   android:layout_marginStart="10dp">
-                                   <TextView
-                                       android:layout_width="match_parent"
-                                       android:layout_height="wrap_content"
-                                       android:ellipsize="end"
-                                       android:gravity="center"
-                                       android:text="Estudio"
-                                       android:textColor="@color/blue"
-                                       android:textSize="20sp"
-                                       android:textStyle="bold" />
-                               </LinearLayout>
-                           </LinearLayout>
-                       </LinearLayout>
-                       <LinearLayout
-                           android:orientation="vertical"
-                           android:layout_width="match_parent"
-                           android:layout_height="wrap_content"
-                           android:background="?selectableItemBackground">
-                           <LinearLayout
-                               android:layout_width="match_parent"
-                               android:layout_height="125sp"
-                               android:orientation="horizontal"
-                               android:background="@drawable/layout_bg"
-                               android:layout_margin="10dp"
-                               android:baselineAligned="false">
-                               <LinearLayout
-                                   android:layout_width="0dp"
-                                   android:layout_height="match_parent"
-                                   android:layout_weight="4"
-                                   android:gravity="center_vertical"
-                                   android:orientation="vertical">
-                                   <ImageView
-                                       android:layout_width="match_parent"
-                                       android:layout_height="match_parent"
-                                       android:adjustViewBounds="true"
-                                       android:src="@drawable/others"
-                                       tools:ignore="MissingConstraints"
-                                       android:contentDescription="othersImage" />
-                               </LinearLayout>
-                               <LinearLayout
-                                   android:layout_width="0dp"
-                                   android:layout_height="match_parent"
-                                   android:layout_weight="4"
-                                   android:gravity="center"
-                                   android:orientation="vertical"
-                                   android:layout_marginStart="10dp">
-                                   <TextView
-                                       android:layout_width="match_parent"
-                                       android:layout_height="wrap_content"
-                                       android:ellipsize="end"
-                                       android:gravity="center"
-                                       android:text="Otros"
-                                       android:textColor="@color/blue"
-                                       android:textSize="20sp"
-                                       android:textStyle="bold" />
+    <FrameLayout
+        android:id="@+id/loadingHome"
 
-                               </LinearLayout>
-                           </LinearLayout>
-                       </LinearLayout>
-                   </LinearLayout>
-               </ScrollView>
-           </androidx.core.widget.NestedScrollView>
-       </androidx.coordinatorlayout.widget.CoordinatorLayout>
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".views.ui.fragments.HomeFragment">
 
-   </FrameLayout>
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true">
+
+            <com.google.android.material.appbar.AppBarLayout
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:fitsSystemWindows="true"
+                app:liftOnScroll="true">
+
+                <com.google.android.material.appbar.CollapsingToolbarLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fitsSystemWindows="true"
+                    app:collapsedTitleTextAppearance="@style/TextAppearance.App.CollapsingToolbar.Collapsed"
+                    app:expandedTitleMarginBottom="28dp"
+                    app:expandedTitleMarginStart="72dp"
+                    app:expandedTitleTextAppearance="@style/TextAppearance.App.CollapsingToolbar.Expanded"
+                    app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:contentDescription="description image"
+                        android:fitsSystemWindows="true"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/user_block" />
+
+                    <com.google.android.material.appbar.MaterialToolbar
+                        android:id="@+id/topAppBar"
+                        style="@style/AppBar"
+                        android:layout_width="match_parent"
+                        android:layout_height="?attr/actionBarSize"
+                        android:background="@android:color/transparent"
+                        android:elevation="0dp"
+                        app:layout_collapseMode="pin"
+                        app:layout_scrollFlags="scroll|enterAlways|snap"
+
+                        app:menu="@menu/top_app_bar"
+                        app:title="Inicio" />
+                </com.google.android.material.appbar.CollapsingToolbarLayout>
+            </com.google.android.material.appbar.AppBarLayout>
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/gray2"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/gray2"
+                    android:scrollbars="none">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingBottom="25dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginRight="10dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Eventos del dia"
+                                android:textColor="@color/colorPrimaryDark"
+                                android:textSize="25sp"
+                                android:textStyle="bold" />
+
+                            <Button
+                                android:id="@+id/allTodayEventsButton"
+                                style="@style/Widget.MaterialComponents.Button.TextButton"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Ver todos"
+                                android:textSize="13sp" />
+
+                        </LinearLayout>
+
+                        <HorizontalScrollView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:scrollbars="none">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:clipToPadding="false"
+                                android:orientation="horizontal"
+                                android:paddingLeft="10dp"
+                                android:paddingRight="10dp">
+
+                                <androidx.recyclerview.widget.RecyclerView
+                                    android:id="@+id/rvTodayEvents"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent" />
+                            </LinearLayout>
+                        </HorizontalScrollView>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginRight="10dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Eventos Oficiales"
+                                android:textColor="@color/colorPrimaryDark"
+                                android:textSize="25sp"
+                                android:textStyle="bold" />
+
+                            <Button
+                                android:id="@+id/allOfficialEventsButton"
+                                style="@style/Widget.MaterialComponents.Button.TextButton"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Ver todos"
+                                android:textSize="13sp" />
+                        </LinearLayout>
+
+                        <HorizontalScrollView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:scrollbars="none">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:clipToPadding="false"
+                                android:orientation="horizontal"
+                                android:paddingLeft="10dp"
+                                android:paddingRight="10dp">
+
+                                <androidx.recyclerview.widget.RecyclerView
+                                    android:id="@+id/rvOfficialEvents"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent" />
+                            </LinearLayout>
+                        </HorizontalScrollView>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginRight="10dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginVertical="15sp"
+                                android:layout_weight="1"
+                                android:text="Conoce la universidad y sus grupos"
+                                android:textAlignment="center"
+                                android:textColor="@color/colorPrimaryDark"
+                                android:textSize="30sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="?selectableItemBackground"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="125sp"
+                                android:layout_marginVertical="10dp"
+                                android:layout_marginHorizontal="15sp"
+                                android:background="@drawable/layout_bg"
+
+                                android:baselineAligned="false"
+                                android:orientation="horizontal">
+
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="4"
+                                    android:gravity="center_vertical"
+                                    android:orientation="vertical">
+
+                                    <ImageView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:adjustViewBounds="true"
+                                        android:contentDescription="SportImage"
+                                        android:src="@drawable/sports"
+                                        tools:ignore="MissingConstraints" />
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginStart="10dp"
+                                    android:layout_weight="4"
+                                    android:gravity="center"
+                                    android:orientation="vertical">
+
+                                    <Button
+                                        android:id="@+id/home_sports"
+                                        style="@style/Widget.MaterialComponents.Button.TextButton"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Deportes"
+                                        android:textAllCaps="false"
+                                        android:textColor="@color/blue"
+                                        android:textSize="20sp"
+                                        android:textStyle="bold" />
+
+                                </LinearLayout>
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="?selectableItemBackground"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="125sp"
+                                android:layout_marginVertical="10dp"
+                                android:layout_marginHorizontal="15sp"
+                                android:background="@drawable/layout_bg"
+                                android:baselineAligned="false"
+                                android:orientation="horizontal">
+
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="4"
+                                    android:gravity="center_vertical"
+                                    android:orientation="vertical">
+
+                                    <ImageView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:adjustViewBounds="true"
+                                        android:contentDescription="researchImage"
+                                        android:src="@drawable/science"
+                                        tools:ignore="MissingConstraints" />
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginStart="10dp"
+                                    android:layout_weight="4"
+                                    android:gravity="center"
+                                    android:orientation="vertical">
+
+                                    <Button
+                                        android:id="@+id/home_research"
+                                        style="@style/Widget.MaterialComponents.Button.TextButton"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Investigacion"
+                                        android:textAllCaps="false"
+                                        android:textColor="@color/blue"
+                                        android:textSize="20sp"
+                                        android:textStyle="bold" />
+                                </LinearLayout>
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="?selectableItemBackground"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="125sp"
+                                android:layout_marginVertical="10dp"
+                                android:layout_marginHorizontal="15sp"
+                                android:background="@drawable/layout_bg"
+                                android:baselineAligned="false"
+                                android:orientation="horizontal">
+
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="4"
+                                    android:gravity="center_vertical"
+                                    android:orientation="vertical">
+
+                                    <ImageView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:adjustViewBounds="true"
+                                        android:contentDescription="musicImage"
+                                        android:src="@drawable/music"
+                                        tools:ignore="MissingConstraints" />
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginStart="10dp"
+                                    android:layout_weight="4"
+                                    android:gravity="center"
+                                    android:orientation="vertical">
+
+                                    <Button
+                                        android:id="@+id/home_culture"
+                                        style="@style/Widget.MaterialComponents.Button.TextButton"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Cultura"
+                                        android:textAllCaps="false"
+                                        android:textColor="@color/blue"
+                                        android:textSize="20sp"
+                                        android:textStyle="bold" />
+                                </LinearLayout>
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="?selectableItemBackground"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="125sp"
+                                android:layout_marginVertical="10dp"
+                                android:layout_marginHorizontal="15sp"
+                                android:background="@drawable/layout_bg"
+                                android:baselineAligned="false"
+                                android:orientation="horizontal">
+
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="4"
+                                    android:gravity="center_vertical"
+                                    android:orientation="vertical">
+
+                                    <ImageView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:adjustViewBounds="true"
+                                        android:contentDescription="studyImage"
+                                        android:src="@drawable/study"
+                                        tools:ignore="MissingConstraints" />
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginStart="10dp"
+                                    android:layout_weight="4"
+                                    android:gravity="center"
+                                    android:orientation="vertical">
+
+                                    <Button
+                                        android:id="@+id/home_study"
+                                        style="@style/Widget.MaterialComponents.Button.TextButton"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Estudio"
+                                        android:textAllCaps="false"
+                                        android:textColor="@color/blue"
+                                        android:textSize="20sp"
+                                        android:textStyle="bold" />
+                                </LinearLayout>
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="?selectableItemBackground"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="125sp"
+                                android:layout_marginVertical="10dp"
+                                android:layout_marginHorizontal="15sp"
+                                android:background="@drawable/layout_bg"
+                                android:baselineAligned="false"
+                                android:orientation="horizontal">
+
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="4"
+                                    android:gravity="center_vertical"
+                                    android:orientation="vertical">
+
+                                    <ImageView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:adjustViewBounds="true"
+                                        android:contentDescription="othersImage"
+                                        android:src="@drawable/others"
+                                        tools:ignore="MissingConstraints" />
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginStart="10dp"
+                                    android:layout_weight="4"
+                                    android:gravity="center"
+                                    android:orientation="vertical">
+
+                                    <Button
+                                        android:id="@+id/home_others"
+                                        style="@style/Widget.MaterialComponents.Button.TextButton"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Otros"
+                                        android:textAllCaps="false"
+                                        android:textColor="@color/blue"
+                                        android:textSize="20sp"
+                                        android:textStyle="bold" />
+
+                                </LinearLayout>
+                            </LinearLayout>
+                        </LinearLayout>
+                    </LinearLayout>
+                </ScrollView>
+            </androidx.core.widget.NestedScrollView>
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    </FrameLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

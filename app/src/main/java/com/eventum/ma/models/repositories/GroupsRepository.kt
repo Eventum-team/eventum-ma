@@ -61,44 +61,14 @@ class GroupsRepository(var groupsPresenter: GroupsPresenterInt){
 
     }
 
-    fun allGroupsCallback(group: Array<GroupModel>?) {
-        if (group == null) {
-            println("-----------SOMETHING WRONG-----------------")
-        } else {
-            /*for (elem in group){
-                println("Grupo: ")
-                println(elem.id_group)
-                println(elem.name)
-                println(elem.description)
-                println(elem.type)
-                println(elem.image)
-            }*/
-            groupsPresenter.showGroups(group.toCollection(ArrayList()))
-            println("-----------Todo Goood all groups-----------------")
+    fun groupsByName(name:String,callback: CustomCallback<List<GroupModel>>){
 
-            // use colors as returned by API
-        }
-    }
-    //Logica de graphql para consumir la API
-    fun getGroups(){
-        //allGroups(this::allGroupsCallback)
     }
 
-    fun getGroupsByName(){
-        val g1 = GroupModel()
-        g1.name = "prueba con busqueda"
-        g1.description = "Gran descripcio 111111"
-        g1.type = "typazo 1"
-        g1.image = "https://images.unsplash.com/photo-1531297484001-80022131f5a1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2014&q=80"
-        val g2 = GroupModel()
-        g2.name = "grupazo 2"
-        g2.description = "Gran descripcio 2222222"
-        g2.type = "typazo 2"
-        g2.image = "https://images.unsplash.com/photo-1588349779545-79444e3f673d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80"
-        val groups: ArrayList<GroupModel> = ArrayList<GroupModel>()
-        groups.add(g1)
+    fun groupsByType(idType:Int,callback: CustomCallback<List<GroupModel>>){
 
-        groupsPresenter.showGroups(groups)
     }
+
+
 
 }

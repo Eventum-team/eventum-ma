@@ -5,10 +5,27 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".views.ui.activities.GroupDetails">
+    <RelativeLayout
+        android:id="@+id/loadingGroupDetails2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0.2"
+            android:background="@color/colorPrimary" />
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true" />
+    </RelativeLayout>
     <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/loadingGroupDetails"
         android:fitsSystemWindows="true"
         android:layout_width="match_parent"
+        android:visibility="invisible"
         android:layout_height="match_parent">
 
         <com.google.android.material.appbar.AppBarLayout
@@ -45,7 +62,8 @@
                     app:layout_scrollFlags="scroll|enterAlways|snap"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
-                    app:menu="@menu/top_app_bar"
+                    app:menu="@menu/details_app_bar"
+
                     android:elevation="0dp"
                     style="@style/AppBar"                    />
             </com.google.android.material.appbar.CollapsingToolbarLayout>
@@ -98,8 +116,10 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
                             android:text="tipo de grupo"
+                            android:textStyle="bold"
                             android:textAppearance="?attr/textAppearanceBody2"
-                            android:textColor="?android:attr/textColorSecondary" />
+                            android:textColor="@color/blue"
+ />
 
                         <LinearLayout
                             android:layout_width="387dp"
@@ -204,7 +224,7 @@
                     </HorizontalScrollView>
 
                     <RelativeLayout
-                        android:id="@+id/rlBaseGroupProfile"
+                        android:id="@+id/eventsByGroupLoading"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
                         <View

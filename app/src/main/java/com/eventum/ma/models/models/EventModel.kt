@@ -21,4 +21,5 @@ class EventModel: Serializable {
     lateinit var followers: ArrayList<UserModel>
     lateinit var assistant: ArrayList<UserModel>
     lateinit var interested: ArrayList<UserModel>
+    lateinit var comments: ArrayList<CommentModel>
 }

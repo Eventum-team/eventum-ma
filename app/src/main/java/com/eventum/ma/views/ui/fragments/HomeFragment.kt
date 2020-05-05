@@ -6,8 +6,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.eventum.ma.R
 import com.eventum.ma.models.models.EventModel
@@ -30,10 +33,39 @@ class HomeFragment : Fragment(), EventListener {
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_home, container, false)
+
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val sportsCategoryButton = view.findViewById<Button>(R.id.home_sports)
+        val cultureCategoryButton = view.findViewById<Button>(R.id.home_culture)
+        val othersCategoryButton = view.findViewById<Button>(R.id.home_others)
+        val researchCategoryButton = view.findViewById<Button>(R.id.home_research)
+        val studyCategoryButton = view.findViewById<Button>(R.id.home_study)
+
+        sportsCategoryButton.setOnClickListener {
+            val bundle = bundleOf("type" to "SPORTS")
+                    findNavController().navigate(R.id.groupCategoryFragment,bundle)
+        }
+        cultureCategoryButton.setOnClickListener {
+            val bundle = bundleOf("type" to "CULTURE")
+            findNavController().navigate(R.id.groupCategoryFragment ,bundle)
+        }
+        othersCategoryButton.setOnClickListener {
+            val bundle = bundleOf("type" to "OTHERS")
+            findNavController().navigate(R.id.groupCategoryFragment ,bundle)
+        }
+        researchCategoryButton.setOnClickListener {
+            val bundle = bundleOf("type" to "RESEARCH")
+            findNavController().navigate(R.id.groupCategoryFragment ,bundle)
+        }
+        studyCategoryButton.setOnClickListener {
+            val bundle = bundleOf("type" to "OTHERS")
+            findNavController().navigate(R.id.groupCategoryFragment ,bundle)
+        }
+
 
         todayEventsAdapter = EventsHorizontalItemsAdapter(this)
         homePresenter = ViewModelProviders.of(this).get(HomePresenter::class.java)
@@ -56,11 +88,9 @@ class HomeFragment : Fragment(), EventListener {
             rvTodayEvents!!.adapter = todayEventsAdapter
             //temporal assignment
             rvOfficialEvents!!.adapter = todayEventsAdapter
+            dataLoaded()
         })
-//        homePresenter.isLoading.observe(this, Observer<Boolean> {
-//            if(it != null)
-//                rlBase.visibility = View.INVISIBLE
-//        })
+
     }
 
     override fun onEventClicked(event: EventModel, position: Int) {
@@ -71,7 +101,8 @@ class HomeFragment : Fragment(), EventListener {
 
 
     private fun dataLoaded() {
-//        rlBaseEv.visibility = View.INVISIBLE
+        loadingHome.visibility = View.VISIBLE
+        loadingHome2.visibility = View.INVISIBLE
     }
 
 

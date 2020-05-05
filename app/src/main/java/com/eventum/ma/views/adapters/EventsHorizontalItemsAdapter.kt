@@ -29,7 +29,7 @@ class EventsHorizontalItemsAdapter(private val eventListener: EventListener) :
         val event = todayEventList[position]
 
         holder.groupItemName.text = event.name
-        holder.groupItemOwner.text = event.id_owner
+        holder.groupItemOwner.text = event.eventStartDate
 
         event.image = "https://source.unsplash.com/random/800x600"
         Glide.with(holder.itemView.context)
