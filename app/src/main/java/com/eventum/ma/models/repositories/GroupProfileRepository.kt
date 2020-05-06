@@ -14,8 +14,8 @@ class GroupProfileRepository(var groupProfilePresenter: GroupProfilePresenterInt
 
     fun getGroupProf(idGroup: String, callback: CustomCallback<GroupModel>) {
 
-        var url = "http://190.24.19.228:3000/graphql?query="
-        url = url + "query {\n" +
+        var url = Constants.url
+        url+= "query {\n" +
                 "  groupProfile(id:$idGroup){\n" +
                 "    id_group\n" +
                 "    id_type\n" +

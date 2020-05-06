@@ -15,8 +15,8 @@ class UserRepository() {
     var client = OkHttpClient()
 
     fun getUserProfile(idUser: String, callback: CustomCallback<UserModel>) {
-        var url = "http://190.24.19.228:3000/graphql?query="
-        url = url + "query {\n" +
+        var url = Constants.url
+        url += "query {\n" +
                 "  userProfile(userId: $idUser){\n" +
                 "    id\n" +
                 "    name\n" +

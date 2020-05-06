@@ -17,8 +17,9 @@ class EventProfileRepository(var eventProfilePresenter: EventProfilePresenterInt
         println("event****************")
         println(idEvent)
         println(idUser)
-        var url = "http://190.24.19.228:3000/graphql?query="
-        url = url + "query{\n" +
+        Constants.url
+        var url = Constants.url
+        url+= "query{\n" +
                 "  eventProfile(eventId:$idEvent,userId:$idUser){\n" +
                 "  \tid\n" +
                 "    ownerType\n" +
@@ -166,6 +167,78 @@ class EventProfileRepository(var eventProfilePresenter: EventProfilePresenterInt
     }
 
     fun eventFollow(idEvent: String,idUser:String,callback : CustomCallback<Boolean>){
+
+        var url = Constants.url
+        url+="mutation {\n" +
+                "  addUserEvent(input:{user_id:$idUser,event_id:$idEvent,assistance:true,interested:true}){\n" +
+                "    message\n" +
+                "    status\n" +
+                "  }\n" +
+                "}";
+        val request = Request.Builder()
+            .url(url)
+            .post(FormBody.Builder().build())         //ONLY FOR POST
+            .build()
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                e.printStackTrace()
+                callback.onFailed(e);
+            }
+            override fun onResponse(call: Call, response: Response) {
+                response.use {
+                    if (!response.isSuccessful){
+                        //callback(null);
+                        throw IOException("Unexpected code $response")
+                    }
+                    else{
+                        var output = JSONObject(response.body!!.string())
+                        println(output)
+                        if(output.has("errors")){
+                            callback.onSuccess(false);
+                        }else {
+                            callback.onSuccess(true);
+                        }
+                    }
+                }
+            }
+        })
+    }
+    fun eventUnfollow(idEvent: String,idUser:String,callback : CustomCallback<Boolean>){
+
+        var url = Constants.url
+        url+="mutation {\n" +
+                "  deleteUserEvent(userId:$idUser,eventId:$idEvent){\n" +
+                "    message\n" +
+                "    status\n" +
+                "  }\n" +
+                "}";
+        val request = Request.Builder()
+            .url(url)
+            .post(FormBody.Builder().build())         //ONLY FOR POST
+            .build()
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                e.printStackTrace()
+                callback.onFailed(e);
+            }
+            override fun onResponse(call: Call, response: Response) {
+                response.use {
+                    if (!response.isSuccessful){
+                        //callback(null);
+                        throw IOException("Unexpected code $response")
+                    }
+                    else{
+                        var output = JSONObject(response.body!!.string())
+                        println(output)
+                        if(output.has("errors")){
+                            callback.onSuccess(false);
+                        }else {
+                            callback.onSuccess(true);
+                        }
+                    }
+                }
+            }
+        })
 
     }
 }

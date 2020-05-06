@@ -22,9 +22,8 @@ class SignUpRepository(var signUpPresenter: SignUpPresenterInt) {
         callback: CustomCallback<Boolean>
     ) {
 
-        var url = "http://190.24.19.228:3000/graphql?query="
-        url =
-            url + "mutation {userAuthcreate(input:{username:\"$username\",password:\"$password\",name:\"$name\",phone_number:\"$phoneNumber\",age:$age,career:\"$career\",status:\"$status\"}) {status,message}}";
+        var url = Constants.url
+        url += "mutation {userAuthcreate(input:{username:\"$username\",password:\"$password\",name:\"$name\",phone_number:\"$phoneNumber\",age:$age,career:\"$career\",status:\"$status\"}) {status,message}}";
         var request = Request.Builder()
             .url(url)
             .post(FormBody.Builder().build())

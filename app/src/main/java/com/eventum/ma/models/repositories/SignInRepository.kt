@@ -55,7 +55,7 @@ class SignInRepository(var signInPresenter: SignInPresenter) {
 
     fun verifyToken(token: String, callback: CustomCallback<String>) {
 
-        val url = "http://190.24.19.228:3000/graphql?query=mutation {\n" +
+        val url = Constants.url + "mutation {\n" +
                 "  vrfTok(input:{token:\"$token\"}) \n" +
                 "}";
         val request = Request.Builder()

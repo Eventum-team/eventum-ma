@@ -31,8 +31,8 @@ class HomeRepository(private var homePresenter: HomePresenterInt){
     }
 
      fun todayEvent(callback: CustomCallback<List<EventModel>>){
-        var url = "http://190.24.19.228:3000/graphql?query="
-        url=url+"query {\n" +
+        var url = Constants.url
+        url+="query {\n" +
                 "  todayEvents{\n" +
                 "    id\n" +
                 "    ownerType\n" +

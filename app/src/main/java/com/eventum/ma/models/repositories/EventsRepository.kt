@@ -13,8 +13,8 @@ class EventsRepository(var groupsPresenter: EventsPresenterInt ){
     var client = OkHttpClient()
     fun allEvents(callback: CustomCallback<List<EventModel>>){
 
-        var url = "http://190.24.19.228:3000/graphql?query="
-        url=url+"query {\n" +
+        var url = Constants.url
+        url+="query {\n" +
                 "  allEvents{\n" +
                 "    id\n" +
                 "    ownerType\n" +
@@ -80,6 +80,46 @@ class EventsRepository(var groupsPresenter: EventsPresenterInt ){
 
     }
 
+    fun createEvent(eventModel: EventModel,callback: CustomCallback<Boolean>) {
+
+        var url = Constants.url
+        url += "mutation {\n" +
+                "  createEvent(input:{ownerType:\"${eventModel.owner_type}\",ownerId:${eventModel.id_owner},status:\"${eventModel.status}\",eventType:\"${eventModel.event_type}\",name:\"${eventModel.name}\",eventStartDate:\"${eventModel.eventStartDate}\",eventFinishDate:\"${eventModel.eventFinishDate}\",description:\"${eventModel.description}\",url:\"$eventModel.url\",latitude:\"${eventModel.latitude}\",longitude:\"${eventModel.longitude}\"}){\n" +
+                "    message\n" +
+                "    status\n" +
+                "  }\n" +
+                "}";
+        var request = Request.Builder()
+            .url(url)
+            .post(FormBody.Builder().build())
+            .build()
+
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                e.printStackTrace()
+                callback.onFailed(e);
+
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                response.use {
+                    if (!response.isSuccessful) {
+                        //callback.onFailed(e);
+                        throw IOException("Unexpected code $response")
+                    } else {
+                        var output = JSONObject(response.body!!.string())
+                        println(output)
+                        if (output.has("errors")) {
+                            callback.onSuccess(false);
+                        } else {
+                            callback.onSuccess(true);
+                        }
+                    }
+                }
+            }
+        })
+
+    }
 
 /*
     fun allEventsCallback(event: Array<EventModel>?){
