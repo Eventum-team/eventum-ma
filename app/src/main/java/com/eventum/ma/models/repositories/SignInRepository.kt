@@ -10,7 +10,8 @@ class SignInRepository(var signInPresenter: SignInPresenter) {
 
 
     fun verifyAccount(correo: String, password: String) {
-        val url = "http://190.24.19.228:3000/graphql?query=mutation {\n" +
+        var url = Constants.url
+        url +="mutation {\n" +
                 "  logUser(input:{username:\"$correo\",password:\"$password\"}){\n" +
                 "    refresh\n" +
                 "    access\n" +
